@@ -1,0 +1,15 @@
+<serve>
+  <smarten_symbols>
+    <hyphenate>
+      <check_spelling fatal="false" wordlists="content/wordlist,content/latin_wordlist">
+        <check_grammar fatal="false">
+          <fs>
+            <dir name="blog">
+              <file name="0-this-is-a-post.html" />
+            </dir>
+          </fs>
+        </check_grammar>
+      </check_spelling>
+    </hyphenate>
+  </smarten_symbols>
+</serve>

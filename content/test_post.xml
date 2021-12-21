@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<blog_post>
+  <title>This is a post</title>
+  <author>Samuel Grayson</author>
+  <date>2021-12-19</date>
+  <related_links>
+	<a href="google.com">Google.com</a>
+  </related_links>
+  <image>https://upload.wikimedia.org/wikipedia/commons/a/a8/Nighthawks_by_Edward_Hopper_1942.jpg</image>
+  <teaser>
+	<p>
+	  Teaser for the real content. Phasellus sit amet lectus dignissim, sagittis mi eu, pellentesque nulla. Nam eget nisi non ipsum pellentesque laoreet eget ac massa.
+	</p>
+  </teaser>
+  <content>
+	<p>
+	  <strong>Semantic HTML</strong> is the use of <a href="https://google.com/">HTML</a> markup to reinforce the <a>semantics</a>, or meaning, of the information in webpages and <em>web applications</em> rather than merely to define its presentation or look---Semantic HTML is processed by "traditional web browsers" as well as by many other user agents. CSS is used to suggest its presentation to human users. 
+	</p>
+	
+	<check_spelling wordlists="content/latin_wordlist">
+	  <p>
+		Phasellus sit amet lectus dignissim,---sagittis mi eu, pellentesque nulla. Nam eget nisi non ipsum pellentesque laoreet eget ac massa. Curabitur non sem laoreet, vestibulum nisl a, tincidunt elit. Phasellus bibendum mi non congue mollis. Suspendisse fringilla, nibh sed feugiat, nunc odio fringilla nulla, id interdum risus nulla et felis. Quisque bibendum dui nisi, quis faucibus justo semper vel. Phasellus fermentum justo in nibh pellentesque ullamcorper. Mauris magna nunc, hendrerit laoreet lacus quis, interdum fermentum magna.
+	  </p>
+	  <p>
+		Donec vehicula at mi nec viverra... Vivamus posuere vehicula sapien eget ornare. Phasellus sagittis faucibus odio, vitae condimentum nisi placerat in. Etiam dictum lacus nisi, cursus tincidunt leo tristique non. Pellentesque imperdiet hendrerit laoreet. Vestibulum viverra tellus lacinia lacus imperdiet, et consequat lacus luctus. Nam porttitor tempor dui gravida euismod. Phasellus sit amet felis varius arcu suscipit eleifend scelerisque sed sapien.
+	  </p>
+	</check_spelling>
+  </content>
+</blog_post>

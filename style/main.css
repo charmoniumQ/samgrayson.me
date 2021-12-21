@@ -1,0 +1,49 @@
+@import url('https://fonts.googleapis.com/css2?family=Fira+Sans:wght@300&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Source+Serif+4&display=swap');
+
+body {
+	/* font-family: concourse; */
+	/* color: #303030; */
+}
+#doc {
+	margin-top: 6rem;
+	margin-bottom: 6rem;
+	/* TODO: What does this mean? */
+	margin-left: auto;
+	margin-right: auto;
+	/* TODO: Is this responsive? */
+	max-width: 1000px;
+	/* TODO: What does this mean? */
+	position: relative;
+	line-height: 1.43;
+}
+h1 {
+	font-family: 'Fira Sans', sans-serif;
+	/* font-size:  */
+	/* text-color:  */
+	/* margin-top:  */
+	/* margin-bottom:  */
+}
+h2 {
+	font-family: 'Fira Sans', sans-serif;
+	/* font-size:  */
+	/* text-color:  */
+	/* margin-top:  */
+	/* margin-bottom:  */
+}
+p {
+	font-family: 'Source Serif 4', sans-serif;
+	/* font-size:  */
+	/* text-color:  */
+	/* margin-top:  */
+	/* margin-bottom:  */
+}
+a {
+	color: #07a;
+}
+a:visited {
+	color: #67a;
+}
+a:hover {
+	background: #f2f8fa;
+}

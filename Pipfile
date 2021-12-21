@@ -1,0 +1,17 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+proselint = "*"
+mypy = "*"
+pyphen = "*"
+jinja2 = "*"
+python-slugify = "*"
+termcolor = "*"
+
+[dev-packages]
+
+[requires]
+python_version = "3.9"
