@@ -1,16 +1,16 @@
 from __future__ import annotations
 from typing import TypeVar, Callable, Union, List, Mapping, Optional, Dict
 import functools
-import xml.etree.ElementTree as ET
+import lxml.etree as ET
 
 def make_element(
         tag: str,
         attrib: Dict[str, str] = {},
         text: Optional[str] = None,
         tail: Optional[str] = None,
-        children: List[ET.Element] = [],
-) -> ET.Element:
-    """Constructs an ET.Element."""
+        children: List[ET._Element] = [],
+) -> ET._Element:
+    """Constructs an ET._Element."""
     elem = ET.Element(tag, attrib)
     elem.text = text
     elem.tail = tail
@@ -18,7 +18,7 @@ def make_element(
         elem.append(child)
     return elem
 
-def append_string(elem: ET.Element, string: Optional[str]) -> ET.Element:
+def append_string(elem: ET._Element, string: Optional[str]) -> ET._Element:
     if string is None:
         return elem
     children = list(elem)
@@ -35,7 +35,7 @@ def append_string(elem: ET.Element, string: Optional[str]) -> ET.Element:
     return elem
 
 class TagBuilder:
-    """Syntactic sugar for constructing an ET.Element.
+    """Syntactic sugar for constructing an ET._Element.
 
     Use getattr to name a tag (e.g. `TagBuilder.p`), pass attributes
     as kwargs (optional), and pass children and text as args.
@@ -52,7 +52,7 @@ class TagBuilder:
     def __getattr__(self, tag: str) -> TagBuilder:
         return functools.partial(self, tag)  # type: ignore
 
-    def __call__(self, tag: str, *children: Union[None, str, ET.Element], **attrib: str) -> Union[TagBuilder, ET.Element]: # type: ignore
+    def __call__(self, tag: str, *children: Union[None, str, ET._Element], **attrib: str) -> Union[TagBuilder, ET._Element]: # type: ignore
 
         if children:
             ret = make_element(
@@ -67,13 +67,13 @@ class TagBuilder:
                     pass
                 elif isinstance(child, str):
                     append_string(ret, child)
-                elif isinstance(child, ET.Element):
+                elif isinstance(child, ET._Element):
                     ret.append(child)
             return ret
         else:
             return functools.partial(self, tag, **attrib)  # type: ignore
 
-def apply_to_text(func: Callable[[str], str], elem: ET.Element) -> ET.Element:
+def apply_to_text(func: Callable[[str], str], elem: ET._Element) -> ET._Element:
     """Maps `func` over all the text in `elem`."""
     return make_element(
         tag=elem.tag,
@@ -83,29 +83,40 @@ def apply_to_text(func: Callable[[str], str], elem: ET.Element) -> ET.Element:
         children=[apply_to_text(func, child) for child in elem],
     )
 
-def apply_to_tag(
-        tag: str,
-        func: Callable[[ET.Element], Union[ET.Element, List[Union[str, ET.Element]]]],
-        elem: ET.Element,
-) -> ET.Element:
+def apply_to_tags(
+        tag_funcs: Mapping[str, Callable[[Mapping[str, Any], ET._Element], Union[ET._Element, List[Union[str, ET._Element]]]]],
+        elem: ET._Element,
+        context_funcs: Mapping[str, Callable[[Mapping[str, Any], ET._Element], Mapping[str, Any]]] = {},
+        context: Mapping[str, Any] = {},
+) -> ET._Element:
     """Maps `func` over every occurence of `tag` in `elem`.
 
     If `func` returns a list, those elements are spliced into the parent.
 
     If `func` returns a tag, that element replaces the parent."""
-    new_elem = _apply_to_tag(tag, func, elem)
-    if isinstance(new_elem, ET.Element):
+    new_elem = _apply_to_tags(tag_funcs, context_funcs, context, elem)
+    if isinstance(new_elem, ET._Element):
         return new_elem
     elif isinstance(new_elem, list):
         raise ValueError("Root element cannot be splatted into parent.")
     else:
         raise TypeError()
 
-def _apply_to_tag(
-        tag: str,
-        func: Callable[[ET.Element], Union[ET.Element, List[Union[str, ET.Element]]]],
-        elem: ET.Element,
-) -> Union[ET.Element, List[Union[str, ET.Element]]]:
+def noop_tag_func(_ctx: Mapping[str, Any], elem: ET._Element) -> ET.Elem:
+    return elem
+
+def noop_context_func(ctx: Mapping[str, Any], _elem: ET._Element) -> Mapping[str, Any]:
+    return ctx
+
+def _apply_to_tags(
+        tag_funcs: Mapping[str, Callable[[Mapping[str, Any], ET._Element], Union[ET._Element, List[Union[str, ET._Element]]]]],
+        context_funcs: Mapping[str, Callable[[Mapping[str, Any], ET._Element], Mapping[str, Any]]],
+        context: Mapping[str, Any],
+        elem: ET._Element,
+) -> Union[ET._Element, List[Union[str, ET._Element]]]:
+    tag_func = tag_funcs.get(elem.tag, noop_tag_func)
+    context_func = context_funcs.get(elem.tag, noop_context_func)
+    context = context_func(context, elem)
     new_elem = make_element(
         tag=elem.tag,
         attrib=elem.attrib,
@@ -114,27 +125,24 @@ def _apply_to_tag(
         children=[],
     )
     for child in elem:
-        new_child = _apply_to_tag(tag, func, child)
+        new_child = _apply_to_tags(tag_funcs, context_funcs, context, child)
         if isinstance(new_child, list):
             # Splat new_child
             # Append children of new_child into parent
             for new_child2 in new_child:
-                if isinstance(new_child2, ET.Element):
+                if isinstance(new_child2, ET._Element):
                     new_elem.append(new_child2)
                 elif isinstance(new_child2, str):
                     append_string(new_elem, new_child2)
                 else:
                     raise TypeError()
-        elif isinstance(new_child, ET.Element):
+        elif isinstance(new_child, ET._Element):
             new_elem.append(new_child)
         else:
-            raise TypeError()
-    if elem.tag == tag:
-        return func(new_elem)
-    else:
-        return new_elem
+            raise TypeError(f"Func returned {new_child} {type(new_child)}")
+    return tag_func(context, new_elem)
 
-def expand_splat(elem: ET.Element) -> ET.Element:
+def expand_splat(elem: ET._Element) -> ET._Element:
     """Expands elements whose tag is `splat_tag` into their parent.
 
     >>> ET.tostring(expand_splat(ET.fromstring('''
@@ -169,7 +177,7 @@ def expand_splat(elem: ET.Element) -> ET.Element:
             ret.append(expand_splat(child))
     return ret
 
-def inner_to_string(elem: ET.Element, **kwargs: Any) -> str:
+def inner_to_string(elem: ET._Element, **kwargs: Any) -> str:
     """
     >>> inner_text(ET.fromstring("<a>abc<b>def</b>ghi</a>")) == "abc<b>def</b>ghi"
     """
@@ -180,7 +188,7 @@ def inner_to_string(elem: ET.Element, **kwargs: Any) -> str:
             ibuffer += child.tail
     return ibuffer
 
-def inner_text(elem: ET.Element) -> str:
+def inner_text(elem: ET._Element) -> str:
     """
     >>> inner_text(ET.fromstring("<a>abc<b>def</b>ghi</a>")) == "abcdefghi"
     """

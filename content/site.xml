@@ -1,18 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<serve xmlns:xi="http://www.w3.org/2001/XInclude">
-  <smarten_symbols>
-	<hyphenate>
-	  <check_spelling fatal="false" wordlists="content/wordlist,content/latin_wordlist">
-		<check_grammar fatal="false">
-		  <fs>
-			<dir name="blog">
-			  <blog>
-				<xi:include href="content/test_post.xml" parse="xml" />
-			  </blog>
-			</dir>
-		  </fs>
-		</check_grammar>
-	  </check_spelling>
-	</hyphenate>
-  </smarten_symbols>
-</serve>
+<site xmlns:xi="http://www.w3.org/2001/XInclude">
+  <sitename>Samuel Grayson</sitename>
+  <path>/</path>
+  <blog>
+	<xi:include href="test_post.xml" parse="xml" />
+  </blog>
+  <license>
+	<a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by/4.0/80x15.png" /></a><br />
+	This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.
+  </license>
+</site>

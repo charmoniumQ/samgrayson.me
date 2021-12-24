@@ -10,6 +10,8 @@ pyphen = "*"
 jinja2 = "*"
 python-slugify = "*"
 termcolor = "*"
+lxml = "*"
+minify-html = "*"
 
 [dev-packages]
 
