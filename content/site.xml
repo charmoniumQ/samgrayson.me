@@ -2,8 +2,11 @@
 <site
 	xmlns:xi="http://www.w3.org/2001/XInclude"
 	xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
-	path="">
+	path=""
+	host="https://samgrayson.me"
+	>
   <sitename>Samuel Grayson’s site</sitename>
+  <twitter>@charmonium</twitter>
   <!-- TODO: Eliminate this repetition of sitename and path -->
   <nav>
 	<a class="stretch" href="/">
@@ -15,8 +18,4 @@
   <blog>
 	<xi:include href="test_post.xml" parse="xml" />
   </blog>
-  <license>
-	<a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by/4.0/80x15.png" /></a><br />
-	This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.
-  </license>
 </site>

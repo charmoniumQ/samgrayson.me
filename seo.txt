@@ -1,0 +1,9 @@
+- Google Webmaster
+- Yahoo tools
+- https://search.google.com/test/rich-results?utm_source=support.google.com/webmasters/
+- https://support.google.com/webmasters/answer/7552505
+- https://rdfa.info/tools
+- https://cards-dev.twitter.com/validator
+- https://www.opengraphcheck.com/
+- https://validator.w3.org/
+- https://www.greengeeks.com/blog/13-awesome-backlink-tools-that-will-benefit-your-seo/

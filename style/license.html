@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<div
+  xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+  xmlns:xi="http://www.w3.org/2001/XInclude"
+  >
+  <xsl:choose>
+	<xsl:when test="./license = 'CC-BY'">
+	  <xi:include href="cc-by.html" parse="xml" />
+	</xsl:when>
+	<xsl:otherwise>
+	  <img class="{py:error()}" />
+	</xsl:otherwise>
+  </xsl:choose>
+</div>

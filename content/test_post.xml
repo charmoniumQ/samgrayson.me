@@ -1,23 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <blog_post>
   <lang>en-US</lang>
+  <license>CC-BY</license>
+  <author>
+	<name>Samuel Grayson</name>
+	<twitter>@charmonium</twitter>
+	<url>https://samgrayson.me/</url>
+  </author>
   <title>This is a post</title>
-  <author>Samuel Grayson</author>
   <date>2021-12-19</date>
   <related_links>
 	<a href="google.com">Google.com</a>
   </related_links>
-  <header_image>
-	<url>
-	  https://upload.wikimedia.org/wikipedia/commons/a/a8/Nighthawks_by_Edward_Hopper_1942.jpg
-	</url>
-	<alt>
-	  Nighthawks by Edward Hopper
-	</alt>
+  <header_image
+	  src="https://upload.wikimedia.org/wikipedia/commons/a/a8/Nighthawks_by_Edward_Hopper_1942.jpg"
+	  alt="Nighthawks by Edward Hopper"
+	  >
+	<attrib
+		title="Nighthawks"
+		title_link="https://en.wikipedia.org/wiki/File:Nighthawks_by_Edward_Hopper_1942.jpg"
+		name="Edward Hopper"
+		license="Public Domain"
+		/>
+  </header_image>
 	<source>
 	  <a href="https://www.artic.edu/artworks/111628/nighthawks">Nighthawks by Edward Hopper</a> (Public Domain)
 	</source>
-  </header_image>
   <teaser>
 	<p>
 	  <strong>Semantic HTML</strong> is the use of <a href="https://google.com/">HTML</a> markup to reinforce the <a href="/">semantics</a>.

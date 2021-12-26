@@ -46,7 +46,6 @@ nav a:hover {
 	margin-left: auto;
 	margin-right: auto;
 	max-width: 600px;
-	line-height: 1.43;
 }
 h1 {
 	font-family: 'Fira Sans', sans-serif;
@@ -63,6 +62,7 @@ h2 {
 	/* margin-bottom:  */
 }
 p {
+	line-height: 1.4;
 	font-family: 'Source Serif 4', sans-serif;
 	/* font-size:  */
 	/* text-color:  */
@@ -78,4 +78,7 @@ main a:visited {
 }
 main a:hover {
 	background: #f2f8fa;
+}
+footer {
+	margin-top: 4vw;
 }

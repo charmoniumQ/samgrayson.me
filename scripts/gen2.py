@@ -16,6 +16,9 @@ site = Path("content/site.xml")
 style = Path("style/style.xslt")
 output = Path("site")
 
+def raise_(exc: Exception) -> None:
+    raise exc
+
 if output.exists():
     shutil.rmtree(output)
 output.mkdir()
@@ -26,6 +29,10 @@ style_fn = lxml.etree.XSLT(
     extensions={
         ("py", "slugify"): lambda _ctx, args: slugify(" ".join(args)),
         ("py", "replace"): lambda _ctx, string, find, replace: "".join(map(str, string)).replace(find, replace),
+        ("py", "error"): lambda _ctx: raise_(RuntimeError()),
+        ("py", "join"): lambda _ctx, *args: "/".join(
+            "".join(arg) for arg in args
+        ),
     },
 )
 site = lxml.etree.parse(str(site))
@@ -91,7 +98,7 @@ def fixtext(
         if this_elem.text is not None:
             this_elem.text = smarten_symbols(this_elem.text)
         queue.extend(this_elem)
-    return elem
+    return list(elem)
 
 tag_functions = {
     "{py}minify": lambda _, elem: [minify_str(elem.text)],
