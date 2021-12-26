@@ -2,3 +2,4 @@
 - https://beautifulracket.com/bf/intro.html
 - http://proselint.com/
 - https://beautifuljekyll.com/2020-02-26-flake-it-till-you-make-it/
+- https://www.w3schools.com/w3css/default.asp

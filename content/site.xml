@@ -1,7 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<site xmlns:xi="http://www.w3.org/2001/XInclude">
-  <sitename>Samuel Grayson</sitename>
-  <path>/</path>
+<site
+	xmlns:xi="http://www.w3.org/2001/XInclude"
+	xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+	path="">
+  <sitename>Samuel Grayson’s site</sitename>
+  <!-- TODO: Eliminate this repetition of sitename and path -->
+  <nav>
+	<a class="stretch" href="/">
+	  Samuel Grayson’s site
+	</a>
+	<a class="fixed" href="blog.html">Blog</a>
+	<a class="fixed" href="contact.html">Contact</a>
+  </nav>
   <blog>
 	<xi:include href="test_post.xml" parse="xml" />
   </blog>

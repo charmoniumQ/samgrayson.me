@@ -28,10 +28,11 @@ style_fn = lxml.etree.XSLT(
         ("py", "replace"): lambda _ctx, string, find, replace: "".join(map(str, string)).replace(find, replace),
     },
 )
-doc = lxml.etree.parse(str(site))
-doc.xinclude()
+site = lxml.etree.parse(str(site))
+site.xinclude()
+site_path = site.getroot().attrib["path"]
 
-doc = style_fn(doc).getroot()
+site = style_fn(site).getroot()
 def fixtext(
         _context: Mapping[str, Any],
         elem: lxml.etree.Element,
@@ -91,8 +92,6 @@ def fixtext(
             this_elem.text = smarten_symbols(this_elem.text)
         queue.extend(this_elem)
     return elem
-        
-
 
 tag_functions = {
     "{py}minify": lambda _, elem: [minify_str(elem.text)],
@@ -105,11 +104,11 @@ tag_functions = {
 context_functions = {
     "{py}directory": lambda context, elem: {**context, "path": context["path"] / elem.attrib["path"]},
 }
-doc = apply_to_tags(tag_functions, doc, context_functions, {"path": output})
+site = apply_to_tags(tag_functions, site, context_functions, {"path": output / site_path})
 
 def is_empty(elem: lxml.etree._Element) -> bool:
     return not elem.tail and not elem.text and not len(elem)
 
-if not is_empty(doc):
-    print(lxml.etree.tostring(doc))
-    raise ValueError("doc is not empty")
+if not is_empty(site):
+    print(lxml.etree.tostring(site))
+    raise ValueError("site is not empty")

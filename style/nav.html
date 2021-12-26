@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<nav>
-  <ul>
-	<li><a href="/">Home</a></li>
-	<li><a href="blog.html">Blog</a></li>
-  </ul>
+<nav
+  xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+  <xsl:for-each select="../../nav/*">
+	<a href="{@href}" class="{@class}">
+	  <xsl:value-of select="." />
+	</a>
+  </xsl:for-each>
 </nav>

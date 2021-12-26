@@ -15,14 +15,16 @@
 			  <py:serialize encoding="unicode" method="html" doctype="&lt;!doctype html&gt;">
 				<html lang="{./lang/text()}">
 				  <head>
+					<meta charset="UTF-8" />
 					<!-- https://ahrefs.com/blog/seo-meta-tags/ -->
 					<title>
 					  <xsl:value-of select="./title/text()"/> - <xsl:value-of select="/sitename"/>
 					</title>
-					<meta charset="UTF-8" />
 					<meta name="description" content="{normalize-space(./teaser/text())}" />
+					<!-- TOOD: more metadata -->
 					<meta name="robots" content="index, follow" />
 					<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+					<!-- TOOD: favicons -->
 					<script>
 					  <py:minify type="js">
 						<xi:include href="main.js" parse="text" />
@@ -47,6 +49,7 @@
 							  by <xsl:value-of select="./author" /> on <xsl:value-of select="./date" />
 							</p>
 							<figure>
+							  <!-- https://www.w3schools.com/howto/howto_css_image_transparent.asp -->
 							  <img src="{./header_image/url}" alt="{normalize-space(./header_image/alt)}"/>
 							  <figcaption>
 								<xsl:value-of select="./header_image/source" />
