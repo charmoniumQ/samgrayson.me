@@ -1,5 +1,6 @@
 from typing import Mapping, Any, List, Union
 import copy
+import datetime
 import shutil
 from pathlib import Path
 import warnings
@@ -14,7 +15,7 @@ from slugify import slugify  # type: ignore
 
 site = Path("content/site.xml")
 style = Path("style/style.xslt")
-output = Path("site")
+output = Path("docs/")
 
 def raise_(exc: Exception) -> None:
     raise exc
@@ -23,6 +24,7 @@ if output.exists():
     shutil.rmtree(output)
 output.mkdir()
 style_xml = lxml.etree.parse(str(style))
+style_xml.xinclude()
 style_xml.xinclude()
 style_fn = lxml.etree.XSLT(
     style_xml,
@@ -37,9 +39,36 @@ style_fn = lxml.etree.XSLT(
 )
 site = lxml.etree.parse(str(site))
 site.xinclude()
-site_path = site.getroot().attrib["path"]
+site = site.getroot()
+def set_vocabulary(ctx, elem):
+    for child in elem:
+        ctx["vocabulary"][child.attrib["id"]] = child
+    return []
+def ref_vocabulary(ctx, elem):
+    ref = ctx["vocabulary"][elem.attrib["ref"]]
+    if elem.attrib.get("splat", False):
+        return list(ref)
+    else:
+        return ref
 
-site = style_fn(site).getroot()
+site = apply_to_tags(
+    tag_funcs={
+        "set-vocabulary": lambda _ctx, _elem: [],
+        "ref-vocabulary": ref_vocabulary,
+    },
+    elem=site,
+    context_funcs={
+        "set-vocabulary": set_vocabulary,
+    },
+    context={
+        "vocabulary": {}
+    },
+)
+site_path = site.attrib["path"]
+
+site = style_fn(site)
+site = site.getroot()
+
 def fixtext(
         _context: Mapping[str, Any],
         elem: lxml.etree.Element,
@@ -80,7 +109,7 @@ def fixtext(
         context: Mapping[str, Any],
         elem: lxml.etree.Element,
 ) -> List[Union[str, lxml.etree.Element]]:
-    lang = elem.attrib["lang"]
+    lang = elem.attrib["lang"].replace("-", "_")
     dic = pyphen.Pyphen(lang=lang)
     def smarten_symbols(text: str) -> str:
         text = text.replace("---", "—")
@@ -100,13 +129,28 @@ def fixtext(
         queue.extend(this_elem)
     return list(elem)
 
+minify_config = {
+    "do_not_minify_doctype": True,
+    "ensure_spec_compliant_unquoted_attribute_values": True,
+    "keep_closing_tags": True,
+    "keep_html_and_head_opening_tags": True,
+    "keep_spaces_between_attributes": True,
+    "keep_comments": False,
+    "minify_css": True,
+    "minify_js": True,
+    "remove_bangs": True,
+    "remove_processing_instructions": True,
+}
+
 tag_functions = {
-    "{py}minify": lambda _, elem: [minify_str(elem.text)],
+    "{py}minify": lambda _, elem: [minify_str(elem.text, **minify_config)],
     "{py}serialize": serialize,
     "{py}fixtext": fixtext,
     "{py}fs": lambda _, elem: elem,
     "{py}directory": lambda context, elem: [context["path"].mkdir(exist_ok=True), list(elem)][-1],
     "{py}file": file_tag,
+    "{py}warn": lambda _, elem: [warnings.warn(elem.text), []][-1],
+    "{py}date": lambda _, datestr: [datetime.datetime.fromisoformat(datestr.text).strftime("%B %d, %Y")],
 }
 context_functions = {
     "{py}directory": lambda context, elem: {**context, "path": context["path"] / elem.attrib["path"]},

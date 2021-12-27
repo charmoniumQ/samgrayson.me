@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<person
+	vocab="http://schema.org/"
+	typeof="Person"
+	>
+  <givenName>Samuel</givenName>
+  <familyName>Grayson</familyName>
+  <url>https://samgrayson.me/</url>
+  <extra>
+	<twitter>@charmonium</twitter>
+  </extra>
+</person>

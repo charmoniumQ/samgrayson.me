@@ -1,10 +1,12 @@
 /* TODO: copy these locally */
-@import url('https://fonts.googleapis.com/css2?family=Fira+Sans:wght@300&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Source+Serif+4&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Fira+Sans&family=Source+Serif+4&display=swap');
 
 body {
 	background-color: #d1c59e;
-	margin: 0;
+	margin-top: 0;
+	marign-left: 0;
+	margin-right: 0;
+	margin-bottom: 2vw;
 	padding: 0;
 	--nav-padding: max(0.8vw, 10px);
 	--nav-font-size: max(1.2vw, 15px);
@@ -41,44 +43,56 @@ nav a {
 nav a:hover {
 	background-color: #555;
 }
-#column {
-	margin-top: calc(var(--nav-padding) * 2 + var(--nav-font-size) + 2vw);
+main {
+	margin-top: calc(var(--nav-padding) * 2 + var(--nav-font-size) + max(2vw, 20px));
 	margin-left: auto;
 	margin-right: auto;
-	max-width: 600px;
+	width: min(95vw, 700px);
+	padding-left: 2vw;
+	padding-right: 2vw;
+}
+main img {
+	max-width: 100%;
 }
 h1 {
 	font-family: 'Fira Sans', sans-serif;
-	/* font-size:  */
-	/* text-color:  */
-	/* margin-top:  */
-	/* margin-bottom:  */
+	font-size: 18pt;
+	font-weight: bold;
 }
 h2 {
 	font-family: 'Fira Sans', sans-serif;
-	/* font-size:  */
-	/* text-color:  */
-	/* margin-top:  */
-	/* margin-bottom:  */
+	font-size: 16pt;
+	font-weight: bold;
 }
 p {
-	line-height: 1.4;
+	line-height: 1.44;
 	font-family: 'Source Serif 4', sans-serif;
-	/* font-size:  */
-	/* text-color:  */
-	/* margin-top:  */
-	/* margin-bottom:  */
+	font-size: min(14pt, 3.9vw);
+}
+p.byline {
+	font-family: 'Fira Sans', sans-serif;
+}
+p.caption {
+	margin: 0;
+}
+p.attribution, p.license, p.cite-as {
+	margin: 0;
+	color: #444;
+	font-size: min(12pt, 3.4vw);
+}
+figure {
+	margin-left: 3vw;
+	margin-right: 3vw;
+	margin-bottom: 0;
+	margin-top: 0;
 }
 main a {
-	color: #07a;
+	color: #048;
 	text-decoration: none;
 }
 main a:visited {
-	color: #67a;
+	color: #448;
 }
 main a:hover {
-	background: #f2f8fa;
-}
-footer {
-	margin-top: 4vw;
+	background: #acf;
 }

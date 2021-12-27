@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <site
 	xmlns:xi="http://www.w3.org/2001/XInclude"
-	xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
 	path=""
 	host="https://samgrayson.me"
+	vocab="http://schema.org/"
 	>
   <sitename>Samuel Grayson’s site</sitename>
   <twitter>@charmonium</twitter>
-  <!-- TODO: Eliminate this repetition of sitename and path -->
   <nav>
 	<a class="stretch" href="/">
 	  Samuel Grayson’s site
@@ -15,7 +14,11 @@
 	<a class="fixed" href="blog.html">Blog</a>
 	<a class="fixed" href="contact.html">Contact</a>
   </nav>
-  <blog>
+  <blog typeof="Blog">
+	<abstract>Thoughts on software, law, and history. I hope you find this blog as interesting as I do.</abstract>
+	<editor>
+	  <xi:include href="sam.xml" parse="xml" />
+	</editor>
 	<xi:include href="test_post.xml" parse="xml" />
   </blog>
 </site>
