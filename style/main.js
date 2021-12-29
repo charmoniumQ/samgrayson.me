@@ -1,2 +1,1 @@
-// Anchorized titles
-// Popout notes
+// TODO: Popout notes

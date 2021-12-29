@@ -110,7 +110,7 @@ def fixtext(
         elem: lxml.etree.Element,
 ) -> List[Union[str, lxml.etree.Element]]:
     lang = elem.attrib["lang"].replace("-", "_")
-    dic = pyphen.Pyphen(lang=lang)
+    hyphen_dict = pyphen.Pyphen(lang=lang)
     def smarten_symbols(text: str) -> str:
         text = text.replace("---", "—")
         text = text.replace("--", "–")
@@ -119,7 +119,7 @@ def fixtext(
         text = text.replace("''", "”")
         text = text.replace("`", "‘")
         text = text.replace("'", "’")
-        text = dic.inserted(text, hyphen="­")
+        text = hyphen_dict.inserted(text, hyphen="­")
         return text
     queue = [elem]
     while queue:
@@ -127,6 +127,8 @@ def fixtext(
         if this_elem.text is not None:
             this_elem.text = smarten_symbols(this_elem.text)
         queue.extend(this_elem)
+    # TODO: spellcheck
+    # TODO: grammar check
     return list(elem)
 
 minify_config = {

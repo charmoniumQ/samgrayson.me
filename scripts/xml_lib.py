@@ -98,7 +98,7 @@ def apply_to_tags(
     if isinstance(new_elem, ET._Element):
         return new_elem
     elif isinstance(new_elem, list):
-        raise ValueError("Root element cannot be splatted into parent.")
+        raise ValueError(f"Root element {elem.tag} cannot be splatted into parent.")
     else:
         raise TypeError()
 

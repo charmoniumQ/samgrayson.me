@@ -8,8 +8,32 @@
 
   <xsl:template match="/site">
 	<py:filesystem>
-	  <xsl:for-each select="./blog/blogPost">
-		<py:directory path="blog">
+	  <py:file path="index.html" type="text">
+		<py:minify type="html">
+		  <py:serialize encoding="unicode" method="html" doctype="&lt;!doctype html&gt;">
+			<!-- TODO: site index -->
+			<html lang="">
+			  <head>
+				<meta charset="UTF-8" />
+			  </head>
+			</html>
+		  </py:serialize>
+		</py:minify>
+	  </py:file>
+	  <py:directory path="blog">
+		<py:file path="index.html" type="text">
+		  <py:minify type="html">
+			<py:serialize encoding="unicode" method="html" doctype="&lt;!doctype html&gt;">
+			  <!-- TODO: blog index -->
+			  <html lang="">
+				<head>
+				  <meta charset="UTF-8" />
+				</head>
+			  </html>
+			</py:serialize>
+		  </py:minify>
+		</py:file>
+		<xsl:for-each select="./blog/blogPost">
 		  <xsl:variable name="slug">
 			<xsl:value-of select="concat(py:slugify(./title/text()), '.html')" />
 		  </xsl:variable>
@@ -19,13 +43,13 @@
 		  <py:file path="{$slug}" type="text">
 			<py:minify type="html">
 			  <py:serialize encoding="unicode" method="html" doctype="&lt;!doctype html&gt;">
-				<html lang="{./inLanguage/text()}">
+				<html lang="{./inLanguage}">
 				  <head>
 					<meta charset="UTF-8" />
 
 					<!-- Tags for search engines -->
 					<title>
-					  <xsl:value-of select="./title/text()"/> - <xsl:value-of select="../../sitename"/>
+					  <xsl:value-of select="./title"/> - <xsl:value-of select="../../sitename"/>
 					</title>
 					<meta name="description" content="{normalize-space(./teaser)}" />
 					<link rel="canonical" href="{../../@host}" />
@@ -38,8 +62,8 @@
 					<meta property="og:url" content="{$self-url}" />
 					<meta property="og:image" content="{./image/url}" />
 					<meta property="og:description" content="{normalize-space(./teaser)}" />
-					<meta property="og:locale" content="{py:replace(./inLanguage/text(), '-', '_')}" />
-					<meta property="og:sitename" content="{../../sitename/text()}" />
+					<meta property="og:locale" content="{py:replace(./inLanguage, '-', '_')}" />
+					<meta property="og:sitename" content="{../../sitename}" />
 
 					<!-- Twitter card -->
 					<meta property="twitter:card" content="summary" />
@@ -64,8 +88,10 @@
 					<main id="column">
 					  <article typeof="BlogPosting">
 						<header>
-						  <h1 property="name">
-							<xsl:value-of select="./title" />
+						  <h1 property="name" id="{py:slugify(./title/text())}">
+							<a href="#{py:slugify(./title/text())}">
+							  <xsl:value-of select="./title" />
+							</a>
 						  </h1>
 						  <p class="byline">
 							by
@@ -88,11 +114,28 @@
 							<py:warn>Teaser of "<xsl:value-of select="./title"/>" is too long for Twitter.</py:warn>
 						  </xsl:if>
 						</header>
-						<div property="text">
-						  <py:fixtext lang="{./inLanguage/text()}">
-							<xsl:copy-of select="./articleBody/*" />
-						  </py:fixtext>
-						</div>
+						<py:fixtext lang="{./inLanguage}">
+						  <xsl:for-each select="./articleBody/*">
+							<xsl:choose>
+							  <xsl:when test="name(.) = 'p'">
+								<xsl:copy-of select="." />
+							  </xsl:when>
+							  <xsl:when test="name(.) = 'h2'">
+								<h2 id="{py:slugify(.)}">
+								  <a href="#{py:slugify(.)}">
+									<xsl:value-of select="." />
+								  </a>
+								</h2>
+							  </xsl:when>
+							  <xsl:when test="name(.) = 'image'">
+								<xsl:apply-templates select="." />
+							  </xsl:when>
+							  <xsl:otherwise>
+								<py:warn>Unknown element `<xsl:value-of select="name(.)"/>` in "<xsl:value-of select="./title"/>"</py:warn>
+							  </xsl:otherwise>
+							</xsl:choose>
+						  </xsl:for-each>
+						</py:fixtext>
 						<footer>
 						  <xi:include href="license.html" parse="xml" />
 						  <p class="cite-as">
@@ -113,8 +156,8 @@
 			  </py:serialize>
 			</py:minify>
 		  </py:file>
-		</py:directory>
-	  </xsl:for-each>
+		</xsl:for-each>
+	  </py:directory>
 	</py:filesystem>
   </xsl:template>
 
@@ -152,7 +195,7 @@
 			  <span property="name">
 				<xsl:value-of select="./license/name" />
 			  </span>
-			</a>.
+			  </a>.
 		  </span>
 		</p>
 	  </figcaption>
