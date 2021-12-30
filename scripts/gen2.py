@@ -29,7 +29,7 @@ style_xml.xinclude()
 style_fn = lxml.etree.XSLT(
     style_xml,
     extensions={
-        ("py", "slugify"): lambda _ctx, args: slugify(" ".join(args)),
+        ("py", "slugify"): lambda _ctx, args: slugify(" ".join(map(str, args))),
         ("py", "replace"): lambda _ctx, string, find, replace: "".join(map(str, string)).replace(find, replace),
         ("py", "error"): lambda _ctx: raise_(RuntimeError()),
         ("py", "join"): lambda _ctx, *args: "/".join(
@@ -152,7 +152,7 @@ tag_functions = {
     "{py}directory": lambda context, elem: [context["path"].mkdir(exist_ok=True), list(elem)][-1],
     "{py}file": file_tag,
     "{py}warn": lambda _, elem: [warnings.warn(elem.text), []][-1],
-    "{py}date": lambda _, datestr: [datetime.datetime.fromisoformat(datestr.text).strftime("%B %d, %Y")],
+    "{py}date": lambda _, datestr: [datetime.datetime.fromisoformat(datestr.text).strftime("%b %d, %Y")],
 }
 context_functions = {
     "{py}directory": lambda context, elem: {**context, "path": context["path"] / elem.attrib["path"]},

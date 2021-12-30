@@ -11,7 +11,10 @@ def make_element(
         children: List[ET._Element] = [],
 ) -> ET._Element:
     """Constructs an ET._Element."""
-    elem = ET.Element(tag, attrib)
+    try:
+        elem = ET.Element(tag, attrib)
+    except ValueError as e:
+        raise TypeError(f"make_element({tag!r}, {attrib!r}) is wrong") from e
     elem.text = text
     elem.tail = tail
     for child in children:
@@ -117,13 +120,16 @@ def _apply_to_tags(
     tag_func = tag_funcs.get(elem.tag, noop_tag_func)
     context_func = context_funcs.get(elem.tag, noop_context_func)
     context = context_func(context, elem)
-    new_elem = make_element(
-        tag=elem.tag,
-        attrib=elem.attrib,
-        text=elem.text,
-        tail=elem.tail,
-        children=[],
-    )
+    try:
+        new_elem = make_element(
+            tag=elem.tag,
+            attrib=elem.attrib,
+            text=elem.text,
+            tail=elem.tail,
+            children=[],
+        )
+    except TypeError as e:
+        raise RuntimeError(f"Applying {tag_func} to {ET.tostring(elem)} failed") from e
     for child in elem:
         new_child = _apply_to_tags(tag_funcs, context_funcs, context, child)
         if isinstance(new_child, list):

@@ -97,3 +97,16 @@ main a:hover {
 }
 /* TODO: style anchorized titles */
 h1 a, h2 a {}
+.blog-teaser {
+	display: inline-block;
+}
+.blog-teaser h1 {
+	display: inline;
+}
+.blog-teaser img {
+	margin: 5px;
+}
+.blog-teaser img {
+	float: right;
+	max-width: 50%;
+}

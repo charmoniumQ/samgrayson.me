@@ -9,7 +9,7 @@
   <author>
 	<xi:include href="sam.xml" parse="xml" />
   </author>
-  <title>This is a post</title>
+  <name>This is a post</name>
   <datePublished>2021-12-19</datePublished>
   <image>
 	<caption>A cool painting</caption>

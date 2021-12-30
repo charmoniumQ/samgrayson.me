@@ -15,10 +15,13 @@
 	<a class="fixed" href="contact.html">Contact</a>
   </nav>
   <blog typeof="Blog">
+	<inLanguage>en-US</inLanguage>
+	<name>Blog</name>
 	<abstract>Thoughts on software, law, and history. I hope you find this blog as interesting as I do.</abstract>
 	<editor>
 	  <xi:include href="sam.xml" parse="xml" />
 	</editor>
+	<xi:include href="test_post.xml" parse="xml" />
 	<xi:include href="test_post.xml" parse="xml" />
   </blog>
 </site>

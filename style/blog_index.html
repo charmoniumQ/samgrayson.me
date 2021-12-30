@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html
+  lang="{./inLanguage}"
+  xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+  xmlns:xi="http://www.w3.org/2001/XInclude"
+  xmlns:py="py"
+  >
+  <head>
+	<meta charset="UTF-8" />
+	<title>
+	  <xsl:value-of select="./name"/> - <xsl:value-of select="../sitename" />
+	</title>
+	<meta name="description" content="{normalize-space(./abstract)}" />
+	<link rel="canonical" href="{$self-url}" />
+	<meta name="robots" content="index, follow" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+	<!-- Opengraph tags for Facebook and others -->
+	<meta property="og:title" content="{./name}" />
+	<meta property="og:type" content="website" />
+	<meta property="og:url" content="{$self-url}" />
+	<meta property="og:image" content="{../logo/url}" />
+	<meta property="og:description" content="{normalize-space(./abstract)}" />
+	<meta property="og:locale" content="{./inLanguage}" />
+	<meta property="og:sitename" content="{../sitename}" />
+
+	<!-- Twitter card -->
+	<meta property="twitter:card" content="summary" />
+	<meta property="twitter:site" content="{../twitter}" />
+	<meta property="twitter:creator" content="{./editor/person/extra/twitter}" />
+	<meta property="twitter:description" content="{normalize-space(./abstract)}" />
+	<meta property="twitter:title" content="{./name}" />
+	<meta property="twitter:image" content="{../logo/url}" />
+	<meta property="twitter:image:alt" content="{../logo/caption}" />
+	<script>
+	<xi:include href="main.js" parse="text" />
+	</script>
+	<style>
+	  <xi:include href="main.css" parse="text" />
+	</style>
+  </head>
+  <body vocab="http://schema.org/">
+	<main id="column">
+	  <xsl:for-each select="./blogPost">
+		<xsl:variable name="slug">
+		  <xsl:value-of select="concat(py:slugify(./name/text()), '.html')" />
+		</xsl:variable>
+		<xsl:variable name="url">
+		  <xsl:value-of select="py:replace(py:join(../../@path, 'blog', $slug), '//', '/')" />
+		</xsl:variable>
+		<article typeof="BlogPosting" class="blog-teaser">
+		  <h1 property="name">
+			<a href="{$url}">
+			  <xsl:value-of select="./name" />
+			</a>
+		  </h1>
+		  <img property="contentUrl" src="{./image/url}" alt="{normalize-space(./image/caption)}" />
+		  <p class="byline">
+			by
+			<span property="author">
+			  <xsl:apply-templates select="./author" />
+			</span>
+			on
+			<meta property="datePublished" content="{./datePublished}" />
+			<py:date>
+			  <xsl:value-of select="./datePublished" />
+			</py:date>
+		  </p>
+		  <py:fixtext lang="{./inLanguage}">
+			<xsl:copy-of select="./teaser/*" />
+		  </py:fixtext>
+		</article>
+		<hr />
+	  </xsl:for-each>
+	</main>
+  </body>
+</html>
