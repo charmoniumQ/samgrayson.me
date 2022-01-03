@@ -5,12 +5,13 @@ import shutil
 from pathlib import Path
 import warnings
 
-from .xml_lib import apply_to_tags, apply_to_text, make_element, inner_to_string, inner_text
+from .xml_lib import apply_to_tags, inner_to_string, ignore_tag_func, make_element
+from .vocabulary import apply_vocabulary
+from .fixtext import fix_phrase, fix_para
 
 from minify_html import minify as minify_str
-import lxml.etree
+import lxml.etree as ET
 import lxml.html
-import pyphen
 from slugify import slugify  # type: ignore
 
 site = Path("content/site.xml")
@@ -23,10 +24,10 @@ def raise_(exc: Exception) -> None:
 if output.exists():
     shutil.rmtree(output)
 output.mkdir()
-style_xml = lxml.etree.parse(str(style))
+
+style_xml = ET.parse(str(style))
 style_xml.xinclude()
-style_xml.xinclude()
-style_fn = lxml.etree.XSLT(
+style_fn = ET.XSLT(
     style_xml,
     extensions={
         ("py", "slugify"): lambda _ctx, args: slugify(" ".join(map(str, args))),
@@ -37,49 +38,18 @@ style_fn = lxml.etree.XSLT(
         ),
     },
 )
-site = lxml.etree.parse(str(site))
+site = ET.parse(str(site))
 site.xinclude()
 site = site.getroot()
-def set_vocabulary(ctx, elem):
-    for child in elem:
-        ctx["vocabulary"][child.attrib["id"]] = child
-    return []
-def ref_vocabulary(ctx, elem):
-    ref = ctx["vocabulary"][elem.attrib["ref"]]
-    if elem.attrib.get("splat", False):
-        return list(ref)
-    else:
-        return ref
-
-site = apply_to_tags(
-    tag_funcs={
-        "set-vocabulary": lambda _ctx, _elem: [],
-        "ref-vocabulary": ref_vocabulary,
-    },
-    elem=site,
-    context_funcs={
-        "set-vocabulary": set_vocabulary,
-    },
-    context={
-        "vocabulary": {}
-    },
-)
-site_path = site.attrib["path"]
+site = apply_vocabulary(site)
 
 site = style_fn(site)
 site = site.getroot()
 
-def fixtext(
-        _context: Mapping[str, Any],
-        elem: lxml.etree.Element,
-) -> List[Union[str, lxml.etree.Element]]:
-    warnings.warn("fixtext is not complete yet")
-    return list(elem)
-
 def file_tag(
         context: Mapping[str, Any],
-        elem: lxml.etree.Element,
-) -> List[Union[str, lxml.etree.Element]]:
+        elem: ET._Element,
+) -> List[Union[str, ET._Element]]:
     path = context["path"] / elem.attrib["path"]
     path.parent.mkdir(parents=True, exist_ok=True)
     if elem.attrib["type"] == "text":
@@ -92,44 +62,18 @@ def file_tag(
 
 def serialize(
         context: Mapping[str, Any],
-        elem: lxml.etree.Element,
-) -> List[Union[str, lxml.etree.Element]]:
+        elem: ET._Element,
+) -> List[Union[str, ET._Element]]:
     pieces = []
     if elem.text is not None:
         pieces.append(elem)
     for child in elem:
         child = copy.deepcopy(child)
-        lxml.etree.cleanup_namespaces(child)
+        ET.cleanup_namespaces(child)
         pieces.append(lxml.html.tostring(child, **elem.attrib))
         if child.tail is not None:
             pieces.append(child.tail)
     return pieces
-
-def fixtext(
-        context: Mapping[str, Any],
-        elem: lxml.etree.Element,
-) -> List[Union[str, lxml.etree.Element]]:
-    lang = elem.attrib["lang"].replace("-", "_")
-    hyphen_dict = pyphen.Pyphen(lang=lang)
-    def smarten_symbols(text: str) -> str:
-        text = text.replace("---", "—")
-        text = text.replace("--", "–")
-        text = text.replace("...", "…")
-        text = text.replace("``", "“")
-        text = text.replace("''", "”")
-        text = text.replace("`", "‘")
-        text = text.replace("'", "’")
-        text = hyphen_dict.inserted(text, hyphen="­")
-        return text
-    queue = [elem]
-    while queue:
-        this_elem = queue.pop()
-        if this_elem.text is not None:
-            this_elem.text = smarten_symbols(this_elem.text)
-        queue.extend(this_elem)
-    # TODO: spellcheck
-    # TODO: grammar check
-    return list(elem)
 
 minify_config = {
     "do_not_minify_doctype": True,
@@ -144,24 +88,40 @@ minify_config = {
     "remove_processing_instructions": True,
 }
 
+now = datetime.datetime.now()
 tag_functions = {
     "{py}minify": lambda _, elem: [minify_str(elem.text, **minify_config)],
     "{py}serialize": serialize,
-    "{py}fixtext": fixtext,
+    "{py}fix_phrase": fix_phrase,
+    "{py}fix_para": fix_para,
     "{py}fs": lambda _, elem: elem,
     "{py}directory": lambda context, elem: [context["path"].mkdir(exist_ok=True), list(elem)][-1],
     "{py}file": file_tag,
     "{py}warn": lambda _, elem: [warnings.warn(elem.text), []][-1],
-    "{py}date": lambda _, datestr: [datetime.datetime.fromisoformat(datestr.text).strftime("%b %d, %Y")],
+    "{py}date": lambda _, datestr: make_element(
+        tag="time",
+        attrib=dict(
+            datetime=datestr.text,
+        ),
+        text=datetime.datetime.fromisoformat(datestr.text).strftime("%b %d, %Y"),
+    ),
+    "{py}url": lambda _: [str(context["path"])],
+    "{py}ignore": ignore_tag_func,
+    "{py}now": lambda _ctx, _args: [now.isoformat()],
 }
 context_functions = {
     "{py}directory": lambda context, elem: {**context, "path": context["path"] / elem.attrib["path"]},
 }
-site = apply_to_tags(tag_functions, site, context_functions, {"path": output / site_path})
+site = apply_to_tags(tag_functions, site, context_functions, {"path": output})
 
-def is_empty(elem: lxml.etree._Element) -> bool:
+def is_empty(elem: ET._Element) -> bool:
     return not elem.tail and not elem.text and not len(elem)
 
 if not is_empty(site):
-    print(lxml.etree.tostring(site))
+    print(ET.tostring(site))
     raise ValueError("site is not empty")
+
+# TODO[3]: Watchman + Simple HTTP server + trigger refresh
+# TODO[3]: https://www.sitemaps.org/protocol.html#informing
+# TODO[2]: push to github pages
+# TODO[1]: make local images work

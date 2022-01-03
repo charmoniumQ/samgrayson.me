@@ -89,13 +89,16 @@ main a {
 	color: #048;
 	text-decoration: none;
 }
+/* anchorized titles */
+main h1 > a, main h2 > a, main h3 > a {
+	color: black;
+}
 main a:visited {
 	color: #648;
 }
 main a:hover {
 	background: #acf;
 }
-/* TODO: style anchorized titles */
 h1 a, h2 a {}
 .blog-teaser {
 	display: inline-block;
@@ -110,3 +113,4 @@ h1 a, h2 a {}
 	float: right;
 	max-width: 50%;
 }
+/* TODO[1]: code tag */

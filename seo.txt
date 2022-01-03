@@ -1,6 +1,7 @@
 - Google Webmaster
 - Yahoo tools
 - https://sindice.com/developers/inspector.html
+- https://developers.google.com/web/tools/lighthouse/
 - https://developers.facebook.com/tools/debug/
 - https://developers.google.com/search/docs/advanced/structured-data/search-gallery
 - https://search.google.com/test/rich-results?utm_source=support.google.com/webmasters/

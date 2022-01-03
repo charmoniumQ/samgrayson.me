@@ -1,12 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <site
 	xmlns:xi="http://www.w3.org/2001/XInclude"
-	path=""
 	host="https://samgrayson.me"
 	vocab="http://schema.org/"
 	>
   <sitename>Samuel Grayson’s site</sitename>
   <twitter>@charmonium</twitter>
+  <!-- TODO[2]: Decide on a logo.
+Books: https://publicdomainvectors.org/en/free-clipart/Home-library/84338.html
+Letter: Capital lambda, lowercase gamma
+Open source icon (Bootstrap icons, Google Fonts icons, Font Awesome, Flaticon?) (conversation, comments, talk, discuss)
+Mathematical figure: Trefoil, mandelbrot
+
+https://fontawesome.com/v5.15/icons/comments?style=solid
+
+Implementation:
+https://medium.com/swlh/are-you-using-svg-favicons-yet-a-guide-for-modern-browsers-836a6aace3df
+https://lookout.dev/rules/use-svg-favicon
+
+-->
   <nav>
 	<a class="stretch" href="/">
 	  Samuel Grayson’s site
@@ -21,7 +33,10 @@
 	<editor>
 	  <xi:include href="sam.xml" parse="xml" />
 	</editor>
-	<xi:include href="test_post.xml" parse="xml" />
-	<xi:include href="test_post.xml" parse="xml" />
+	<xi:include href="illixr.xml" parse="xml" />
   </blog>
+  <redirects>
+	<redirect source="2021-01-01-shell/index.html" dest="blog/stop-writing-shell-scripts" />
+  </redirects>
+  <!-- TODO[3]: Family tree -->
 </site>

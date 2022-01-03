@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <html
-  lang="{./inLanguage}"
+  lang="{./blog/inLanguage}"
   xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
   xmlns:xi="http://www.w3.org/2001/XInclude"
   xmlns:py="py"
@@ -8,30 +8,30 @@
   <head>
 	<meta charset="UTF-8" />
 	<title>
-	  <xsl:value-of select="./name"/> - <xsl:value-of select="../sitename" />
+	  <xsl:value-of select="./blog/name"/> - <xsl:value-of select="./sitename" />
 	</title>
-	<meta name="description" content="{normalize-space(./abstract)}" />
+	<meta name="description" content="{normalize-space(./blog/abstract)}" />
 	<link rel="canonical" href="{$self-url}" />
 	<meta name="robots" content="index, follow" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
 	<!-- Opengraph tags for Facebook and others -->
-	<meta property="og:title" content="{./name}" />
+	<meta property="og:title" content="{./blog/name}" />
 	<meta property="og:type" content="website" />
 	<meta property="og:url" content="{$self-url}" />
-	<meta property="og:image" content="{../logo/url}" />
-	<meta property="og:description" content="{normalize-space(./abstract)}" />
-	<meta property="og:locale" content="{./inLanguage}" />
-	<meta property="og:sitename" content="{../sitename}" />
+	<meta property="og:image" content="{./logo/url}" />
+	<meta property="og:description" content="{normalize-space(./blog/abstract)}" />
+	<meta property="og:locale" content="{./blog/inLanguage}" />
+	<meta property="og:sitename" content="{./sitename}" />
 
 	<!-- Twitter card -->
 	<meta property="twitter:card" content="summary" />
-	<meta property="twitter:site" content="{../twitter}" />
-	<meta property="twitter:creator" content="{./editor/person/extra/twitter}" />
-	<meta property="twitter:description" content="{normalize-space(./abstract)}" />
-	<meta property="twitter:title" content="{./name}" />
-	<meta property="twitter:image" content="{../logo/url}" />
-	<meta property="twitter:image:alt" content="{../logo/caption}" />
+	<meta property="twitter:site" content="{./twitter}" />
+	<meta property="twitter:creator" content="{./blog/editor/person/extra/twitter}" />
+	<meta property="twitter:description" content="{normalize-space(./blog/abstract)}" />
+	<meta property="twitter:title" content="{./blog/name}" />
+	<meta property="twitter:image" content="{./blog/logo/url}" />
+	<meta property="twitter:image:alt" content="{./logo/caption}" />
 	<script>
 	<xi:include href="main.js" parse="text" />
 	</script>
@@ -40,17 +40,15 @@
 	</style>
   </head>
   <body vocab="http://schema.org/">
+	<xi:include href="nav.html" parse="xml" />
 	<main id="column">
-	  <xsl:for-each select="./blogPost">
-		<xsl:variable name="slug">
-		  <xsl:value-of select="concat(py:slugify(./name/text()), '.html')" />
-		</xsl:variable>
-		<xsl:variable name="url">
-		  <xsl:value-of select="py:replace(py:join(../../@path, 'blog', $slug), '//', '/')" />
+	  <xsl:for-each select="./blog/blogPost">
+		<xsl:variable name="post-url">
+		  <xsl:value-of select="py:join('blog', concat(py:slugify(./name/text()), '.html'))" />
 		</xsl:variable>
 		<article typeof="BlogPosting" class="blog-teaser">
 		  <h1 property="name">
-			<a href="{$url}">
+			<a href="{$post-url}">
 			  <xsl:value-of select="./name" />
 			</a>
 		  </h1>
@@ -66,9 +64,11 @@
 			  <xsl:value-of select="./datePublished" />
 			</py:date>
 		  </p>
-		  <py:fixtext lang="{./inLanguage}">
-			<xsl:copy-of select="./teaser/*" />
-		  </py:fixtext>
+		  <p>
+			<py:fixtext lang="{./inLanguage}">
+			  <xsl:value-of select="./teaser" />
+			</py:fixtext>
+		  </p>
 		</article>
 		<hr />
 	  </xsl:for-each>

@@ -49,9 +49,11 @@
 	<main id="column">
 	  <article typeof="BlogPosting">
 		<header>
-		  <h1 property="name" id="{py:slugify(./name/text())}">
-			<a href="#{py:slugify(./name/text())}">
-			  <xsl:value-of select="./name" />
+		  <h1 property="name">
+			<a href="{$self-url}">
+			  <py:fix_phrase lang="{./inLanguage}">
+				<xsl:value-of select="./name" />
+			  </py:fix_phrase>
 			</a>
 		  </h1>
 		  <p class="byline">
@@ -60,7 +62,6 @@
 			  <xsl:apply-templates select="./author" />
 			</span>
 			on
-			<meta property="datePublished" content="{./datePublished}" />
 			<py:date>
 			  <xsl:value-of select="./datePublished" />
 			</py:date>
@@ -74,17 +75,25 @@
 		  <xsl:if test="string-length(normalize-space(./teaser)) &gt; 200">
 			<py:warn>Teaser of "<xsl:value-of select="./name"/>" is too long for Twitter.</py:warn>
 		  </xsl:if>
+		  <py:ignore>
+			<py:fix_para lang="{./inLanguage}">
+			  <xsl:value-of select="./teaser" />
+			</py:fix_para>
+		  </py:ignore>
 		</header>
-		<py:fixtext lang="{./inLanguage}">
 		  <xsl:for-each select="./articleBody/*">
 			<xsl:choose>
 			  <xsl:when test="name(.) = 'p'">
-				<xsl:copy-of select="." />
+				<py:fix_para lang="{./inLanguage}">
+				  <xsl:copy-of select="." />
+				</py:fix_para>
 			  </xsl:when>
 			  <xsl:when test="name(.) = 'h2'">
 				<h2 id="{py:slugify(.)}">
 				  <a href="#{py:slugify(.)}">
-					<xsl:value-of select="." />
+					<py:fix_phrase lang="{./inLanguage}">
+					  <xsl:value-of select="." />
+					</py:fix_phrase>
 				  </a>
 				</h2>
 			  </xsl:when>
@@ -96,7 +105,6 @@
 			  </xsl:otherwise>
 			</xsl:choose>
 		  </xsl:for-each>
-		</py:fixtext>
 		<footer>
 		  <xi:include href="license.html" parse="xml" />
 		  <p class="cite-as">

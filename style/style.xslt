@@ -5,17 +5,61 @@
 	xmlns:xi="http://www.w3.org/2001/XInclude"
 	xmlns:py="py"
 	>
-
   <xsl:template match="site">
 	<py:filesystem>
 	  <py:file path="index.html" type="text">
+		<xsl:variable name="self-url">
+		  <xsl:value-of select="../../@host" />
+		</xsl:variable>
 		<py:minify type="html">
 		  <py:serialize encoding="unicode" method="html" doctype="&lt;!doctype html&gt;">
-			<xi:include href="site_index.html" />
+			<xi:include href="blog_index.html" />
 		  </py:serialize>
 		</py:minify>
 	  </py:file>
-	  <xsl:apply-templates select="./blog" />
+	  <py:directory path="blog">
+		<xsl:for-each select="./blog/blogPost">
+		  <xsl:variable name="slug">
+			<xsl:value-of select="py:slugify(./name/text())" />
+		  </xsl:variable>
+		  <xsl:variable name="self-url">
+			<xsl:value-of select="py:join(../../@host, 'blog', $slug)" />
+		  </xsl:variable>
+		  <py:file path="{$slug}" type="text">
+			<py:minify type="html">
+			  <py:serialize encoding="unicode" method="html" doctype="&lt;!doctype html&gt;">
+				<xi:include href="blog_post.html" parse="xml" />
+			  </py:serialize>
+			</py:minify>
+		  </py:file>
+		</xsl:for-each>
+	  </py:directory>
+	  <xsl:for-each select="./redirects/redirect"
+					xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+					xmlns:xi="http://www.w3.org/2001/XInclude"
+					xmlns:py="py"
+					>
+		<py:file path="{./@source}" type="text">
+		  <py:minify type="html">
+			<py:serialize encoding="unicode" method="html" doctype="&lt;!doctype html&gt;">
+			  <xi:include href="moved.html" parse="xml" />
+			</py:serialize>
+		  </py:minify>
+		</py:file>
+	  </xsl:for-each>
+	  <py:file path="404.html" type="text">
+		<py:minify type="html">
+		  <py:serialize encoding="unicode" method="html" doctype="&lt;!doctype html&gt;">
+			<xi:include href="404.html" parse="xml" />
+		  </py:serialize>
+		</py:minify>
+	  </py:file>
+	  <py:file path="robots.txt" type="text">
+		Sitemap: <xsl:value-of select="./@host" />/sitemap.xml
+	  </py:file>
+	  <py:file path="sitemap.xml" type="xml">
+		<xi:include href="sitemap.xml" type="xml" />
+	  </py:file>
 	</py:filesystem>
   </xsl:template>
 
@@ -25,7 +69,7 @@
 		<span property="givenName">
 		  <xsl:value-of select="./givenName" />
 		</span>
-		<!-- TODO: insert space -->
+		<xsl:text> </xsl:text>
 		<span property="familyName">
 		  <xsl:value-of select="./familyName" />
 		</span>
@@ -60,38 +104,7 @@
 	</figure>
   </xsl:template>
 
-  <xsl:template match="blogPost">
-	<xsl:variable name="slug">
-	  <xsl:value-of select="concat(py:slugify(./name/text()), '.html')" />
-	</xsl:variable>
-	<xsl:variable name="self-url">
-	  <xsl:value-of select="py:replace(py:join(../../@host, ../../@path, 'blog', $slug), '//', '/')" />
-	</xsl:variable>
-	<py:file path="{$slug}" type="text">
-	  <py:minify type="html">
-		<py:serialize encoding="unicode" method="html" doctype="&lt;!doctype html&gt;">
-		  <xi:include href="blog_post.html" parse="xml" />
-		</py:serialize>
-	  </py:minify>
-	</py:file>
-  </xsl:template>
-
-  <xsl:template match="blog">
-	<py:directory path="blog">
-	  <py:file path="index.html" type="text">
-		<xsl:variable name="self-url">
-		  <xsl:value-of select="py:replace(py:join(../@host, ../@path, 'blog/index.html'), '//', '/')" />
-		</xsl:variable>
-		<py:minify type="html">
-		  <py:serialize encoding="unicode" method="html" doctype="&lt;!doctype html&gt;">
-			<xi:include href="blog_index.html" parse="xml" />
-		  </py:serialize>
-		</py:minify>
-	  </py:file>
-	  <xsl:for-each select="./blogPost">
-		<xsl:apply-templates select="." />
-	  </xsl:for-each>
-	</py:directory>
-  </xsl:template>
+  <!-- TODO[2]: at a "last updated" watermark -->
+  <!-- TODO[2]: sitemap -->
 
 </xsl:stylesheet>

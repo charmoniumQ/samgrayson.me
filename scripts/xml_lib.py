@@ -86,6 +86,17 @@ def apply_to_text(func: Callable[[str], str], elem: ET._Element) -> ET._Element:
         children=[apply_to_text(func, child) for child in elem],
     )
 
+def get_all_text(elem: ET._Element) -> List[str]:
+    """
+    >>> get_all_text(ET.fromstring("<a>abc<b>def</b>ghi</a>")) == ["abc", "def", "ghi"]
+    """
+    text: List[str] = []
+    text.append(elem.text)
+    for child in elem:
+        text.extend(get_all_text(child))
+        text.append(child.tail)
+    return text
+
 def apply_to_tags(
         tag_funcs: Mapping[str, Callable[[Mapping[str, Any], ET._Element], Union[ET._Element, List[Union[str, ET._Element]]]]],
         elem: ET._Element,
@@ -105,6 +116,9 @@ def apply_to_tags(
     else:
         raise TypeError()
 
+def ignore_tag_func(_ctx: Mapping[str, Any], elem: ET._Element) -> List[Union[str, ET._Element]]:
+    return []
+
 def noop_tag_func(_ctx: Mapping[str, Any], elem: ET._Element) -> ET.Elem:
     return elem
 
@@ -117,6 +131,8 @@ def _apply_to_tags(
         context: Mapping[str, Any],
         elem: ET._Element,
 ) -> Union[ET._Element, List[Union[str, ET._Element]]]:
+    if isinstance(elem, ET._Comment):
+        return elem
     tag_func = tag_funcs.get(elem.tag, noop_tag_func)
     context_func = context_funcs.get(elem.tag, noop_context_func)
     context = context_func(context, elem)
@@ -185,7 +201,7 @@ def expand_splat(elem: ET._Element) -> ET._Element:
 
 def inner_to_string(elem: ET._Element, **kwargs: Any) -> str:
     """
-    >>> inner_text(ET.fromstring("<a>abc<b>def</b>ghi</a>")) == "abc<b>def</b>ghi"
+    >>> inner_to_string(ET.fromstring("<a>abc<b>def</b>ghi</a>")) == "abc<b>def</b>ghi"
     """
     ibuffer = elem.text if elem.text else ""
     for child in elem:
