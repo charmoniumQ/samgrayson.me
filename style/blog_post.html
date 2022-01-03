@@ -51,7 +51,7 @@
 		<header>
 		  <h1 property="name">
 			<a href="{$self-url}">
-			  <py:fix_phrase lang="{./inLanguage}">
+			  <py:fix_phrase lang="{./inLanguage}" allow_words="{./fix_text/@allow_words}">
 				<xsl:value-of select="./name" />
 			  </py:fix_phrase>
 			</a>
@@ -76,7 +76,7 @@
 			<py:warn>Teaser of "<xsl:value-of select="./name"/>" is too long for Twitter.</py:warn>
 		  </xsl:if>
 		  <py:ignore>
-			<py:fix_para lang="{./inLanguage}">
+			<py:fix_para lang="{./inLanguage}" allow_words="{./fix_text/@allow_words}">
 			  <xsl:value-of select="./teaser" />
 			</py:fix_para>
 		  </py:ignore>
@@ -84,14 +84,14 @@
 		  <xsl:for-each select="./articleBody/*">
 			<xsl:choose>
 			  <xsl:when test="name(.) = 'p'">
-				<py:fix_para lang="{./inLanguage}">
+				<py:fix_para lang="{../../inLanguage}" allow_words="{../../fix_text/@allow_words}">
 				  <xsl:copy-of select="." />
 				</py:fix_para>
 			  </xsl:when>
 			  <xsl:when test="name(.) = 'h2'">
 				<h2 id="{py:slugify(.)}">
 				  <a href="#{py:slugify(.)}">
-					<py:fix_phrase lang="{./inLanguage}">
+					<py:fix_phrase lang="{../../inLanguage}" allow_words="{../../fix_text/@allow_words}">
 					  <xsl:value-of select="." />
 					</py:fix_phrase>
 				  </a>

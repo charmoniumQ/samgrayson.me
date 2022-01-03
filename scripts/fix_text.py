@@ -1,10 +1,11 @@
 from typing import Any, Mapping, List, Union
 import copy
+from pathlib import Path
 import subprocess
+import tempfile
 import lxml.etree as ET
 import proselint.config
 import proselint.tools
-import pyphen
 from .xml_lib import get_all_text
 
 def check_grammar(config: Any, text: str) -> None:
@@ -24,14 +25,20 @@ def check_grammar(config: Any, text: str) -> None:
 
 def check_spelling(config: Mapping[str, str], text: str) -> str:
     errors = []
-    # TODO[2]: incorporate post-specific dictionary
-    for line in subprocess.run(
-        ["aspell", "pipe", "--dont-suggest", *config["args"]],
-        input=text,
-        capture_output=True,
-        text=True,
-        check=True,
-    ).stdout.split("\n"):
+    with tempfile.TemporaryDirectory() as tmpdir:
+        personal = (Path("/home/sam/Downloads") / "personal")
+        personal.write_text("\n".join([
+            " ".join(["personal_ws-1.1", config["shortlang"], str(len(config["allow_words"]))]),
+            *config["allow_words"],
+        ]))
+        proc = subprocess.run(
+            ["aspell", "pipe", "--dont-suggest", "--lang", config["lang"], "--personal", str(personal)],
+            input=text,
+            capture_output=True,
+            text=True,
+            check=True,
+        )
+    for line in proc.stdout.split("\n"):
         if line and line[0] not in {"*", "@"}:
             errors.append(line.strip())
     if errors:
@@ -53,14 +60,15 @@ def replace_symbols(text: str) -> str:
 def fix_text(
         context: Mapping[str, Any],
         elem: ET._Element,
-        paragraph: bool = False
+        paragraph: bool = False,
 ) -> List[Union[str, ET._Element]]:
-    lang = elem.attrib["lang"].replace("-", "_")
-    # hyphen_dict = pyphen.Pyphen(lang=lang)
-    # TODO[2]: Decide what to do about hyphenation
+    lang = elem.attrib["lang"]
+    shortlang = lang.partition("-")[0]
     spelling_conf = {
-        "args": [],
         "fatal": False,
+        "lang": lang,
+        "shortlang": shortlang,
+        "allow_words": list(filter(bool, elem.attrib.get("allow_words", "").split(" "))),
     }
     grammar_conf = {
         "fatal": False,
@@ -72,7 +80,6 @@ def fix_text(
         if this_elem.text is not None:
             this_elem.text = replace_symbols(this_elem.text)
             if paragraph:
-                # this_elem.text = hyphen_dict.inserted(this_elem.text, hyphen="­")
                 check_grammar(grammar_conf, this_elem.text)
             check_spelling(spelling_conf, this_elem.text)
         queue.extend(this_elem)

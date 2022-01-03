@@ -7,7 +7,7 @@ import warnings
 
 from .xml_lib import apply_to_tags, inner_to_string, ignore_tag_func, make_element
 from .vocabulary import apply_vocabulary
-from .fixtext import fix_phrase, fix_para
+from .fix_text import fix_phrase, fix_para
 
 from minify_html import minify as minify_str
 import lxml.etree as ET

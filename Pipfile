@@ -6,7 +6,6 @@ name = "pypi"
 [packages]
 proselint = "*"
 mypy = "*"
-pyphen = "*"
 jinja2 = "*"
 python-slugify = "*"
 termcolor = "*"
