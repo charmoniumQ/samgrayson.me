@@ -40,11 +40,19 @@
 	</style>
   </head>
   <body vocab="http://schema.org/">
-	<xi:include href="nav.html" parse="xml" />
+	<!-- TODO[3]: Factor out nav -->
+	<nav
+	  xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+	  <xsl:for-each select="./nav/*">
+		<a href="{@href}" class="{@class}">
+		  <xsl:value-of select="." />
+		</a>
+	  </xsl:for-each>
+	</nav>
 	<main id="column">
 	  <xsl:for-each select="./blog/blogPost">
 		<xsl:variable name="post-url">
-		  <xsl:value-of select="py:join('blog', concat(py:slugify(./name/text()), '.html'))" />
+		  <xsl:value-of select="py:join('blog', py:slugify(./name/text()))" />
 		</xsl:variable>
 		<article typeof="BlogPosting" class="blog-teaser">
 		  <h1 property="name">

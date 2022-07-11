@@ -10,7 +10,7 @@
 
 	<!-- Tags for search engines -->
 	<title>
-	  <xsl:value-of select="./name"/> - <xsl:value-of select="../../sitename"/>
+	  <xsl:value-of select="./name" /> - <xsl:value-of select="../../sitename" />
 	</title>
 	<meta name="description" content="{normalize-space(./teaser)}" />
 	<link rel="canonical" href="{$self-url}" />
@@ -45,7 +45,14 @@
 	</style>
   </head>
   <body vocab="http://schema.org/">
-	<xi:include href="nav.html" parse="xml" />
+	<nav
+	  xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+	  <xsl:for-each select="../../nav/*">
+		<a href="{@href}" class="{@class}">
+		  <xsl:value-of select="." />
+		</a>
+	  </xsl:for-each>
+	</nav>
 	<main id="column">
 	  <article typeof="BlogPosting">
 		<header>

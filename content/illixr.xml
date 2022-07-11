@@ -29,8 +29,8 @@
   </teaser>
   <articleBody>
 	<p>
-	  Extended reality (augmented reality, virtual reality, and <a href="https://en.wikipedia.org/wiki/Mixed_reality">mixed reality</a>) has stringent performance constraints that even the latest technology struggles to meet. Extended reality or XR devices need a higher resolution and framerate than a gaming PC but use less power than a laptop. We need novel solutions in electrical engineering, computer architecture, systems, networking, and other domains to make XR work. However doing XR research is hampered by the fact that there is no realistic, open-source XR platform. There is <a href="https://monado.dev/">Monado</a>, but Monado does not implement asynchronous reprojection, which is a core part of proprietary systems. That's why we, Sarita Adve, Muhammad Huzaifa, and her other students, set out to build one.
+	  Extended reality (augmented reality, virtual reality, and <a href="https://en.wikipedia.org/wiki/Mixed_reality">mixed reality</a>) has stringent performance constraints that even the latest technology struggles to meet. Extended reality or XR devices need a higher resolution and frame rate than a gaming PC but use less power than a laptop. We need novel solutions in electrical engineering, computer architecture, systems, networking, and other domains to make XR work. However doing XR research is hampered by the fact that there is no realistic, open-source XR platform. There is <a href="https://monado.dev/">Monado</a>, but Monado does not implement asynchronous reprojection, which is a core part of proprietary systems. That's why we, Sarita Adve, Muhammad Huzaifa, and her other students, set out to build one.
 	</p>
   </articleBody>
-  <fix_text allow_words="ILLIXR VR testbed Monado" />
+  <fix_text allow_words="ILLIXR XR VR testbed Monado Huzaifa Sarita Adve reprojection" />
 </blogPost>

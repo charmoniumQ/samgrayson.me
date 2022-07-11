@@ -12,7 +12,14 @@
 	</style>
   </head>
   <body>
-	<xi:include href="nav.html" parse="xml" />
+	<nav
+	  xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+	  <xsl:for-each select="./nav/*">
+		<a href="{@href}" class="{@class}">
+		  <xsl:value-of select="." />
+		</a>
+	  </xsl:for-each>
+	</nav>
 	<main id="column">
 	  <h1>Page Not Found</h1>
 	  <p>Click <a href="/">here</a> to return home.</p>

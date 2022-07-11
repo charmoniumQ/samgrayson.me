@@ -75,15 +75,21 @@ def fix_text(
         "proselint_conf": copy.deepcopy(proselint.config.default),
     }
     queue = [elem]
+    split_text = []
     while queue:
         this_elem = queue.pop()
         if this_elem.text is not None:
             this_elem.text = replace_symbols(this_elem.text)
-            if paragraph:
-                check_grammar(grammar_conf, this_elem.text)
-            check_spelling(spelling_conf, this_elem.text)
+            split_text.append(this_elem.text)
+        if this_elem.tail is not None:
+            this_elem.tail = replace_symbols(this_elem.tail)
+            split_text.append(this_elem.tail)
         queue.extend(this_elem)
-    return list(elem)
+    text = " ".join(split_text)
+    check_spelling(spelling_conf, text)
+    if paragraph:
+        check_grammar(grammar_conf, text)
+    return ([elem.text] if elem.text else []) + list(elem)
 
 def fix_phrase(
         context: Mapping[str, Any],

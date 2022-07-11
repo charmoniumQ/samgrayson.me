@@ -105,6 +105,7 @@
   </xsl:template>
 
   <!-- TODO[2]: at a "last updated" watermark -->
-  <!-- TODO[2]: sitemap -->
+
+  <!-- TODO[2]: contact page -->
 
 </xsl:stylesheet>
