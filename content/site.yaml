@@ -1,18 +1,26 @@
-site:
-  name: Samuel Grayson’s site
+name: Samuel Grayson
+twitter: charmoniumQ
+css: ""
+url: https://samgrayson.me
 author: !include sam.yaml
-blog:
+template: style/page.html.jinja
+sections:
+- name: blog
+  slug: blog
   tagline: Thoughts on software, law, and history. I hope you find this blog as interesting as I do.
+  template: style/blog_post.html.jinja
   content:
   - license: http://creativecommons.org/licenses/by/4.0/
     author: !include sam.yaml
     title: "ILLIXR: Illinois Extended Reality (AR/VR/MR) Testbed"
+    language: en_US
     slug: illixr
     date_published: 2022-06-16
     date_modified: 2022-06-16
     image:
-      caption: A cool painting
+      alt: A painting of The Nighthawks by Edward Hopper
       url: https://upload.wikimedia.org/wikipedia/commons/a/a8/Nighthawks_by_Edward_Hopper_1942.jpg
+      caption: This is a cool picture.
       attribution:
         creator:
           name: Edward Hopper

@@ -1,0 +1,54 @@
+<!--
+TODO[1]: use microdata or JSON-LD
+https://www.techulator.com/resources/19112-json-ld-or-microdata-which-schema-format-is-better-for-ranking
+https://blog.foolip.org/2009/08/23/microformats-vs-rdfa-vs-microdata/
+
+TODO[1]: test with https://developers.google.com/search/docs/advanced/structured-data
+TODO[1]: test with https://www.google.com/webmasters/markup-helper/u/0/
+
+https://schema.org/docs/schemas.html
+-->
+<!-- TODO[1]: Image with attribution -->
+<article typeof="BlogPosting">
+    <header>
+        <h1 property="name">
+            <a href="{{post.url}}">
+                {{post.title}}
+            </a>
+        </h1>
+        <p class="byline">
+            by
+            <address>
+                <a property="author" href="{{post.author.url}}">
+                    {{post.author.name}}
+                </a>
+            </address>
+            on
+            <time datetime="post.date_published | iso_date">
+                {{post.date_published | human_readable_date}}
+            </time>
+        </p>
+        <figure>
+            <img src="{{post.image.url}}" alt="{{post.image.alt}}" />
+            <figcaption>{{post.image.caption}}</figcaption>
+        </figure>
+    </header>
+    {{post.content | safe}}
+    <footer>
+        {{post.license | safe}}
+        <p class="cite-as">
+            Cite as:
+            <span property="creditText">
+                “<a href="{{post.url}}">
+                    {{post.title}}
+                </a>
+                by
+                <address>
+                    <a href="{{post.author.url}}">
+                        {{post.author.name}}
+                    </a>
+                </address>”
+            </span>.
+        </p>
+    </footer>
+</article>

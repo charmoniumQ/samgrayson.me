@@ -15,6 +15,7 @@ pyyaml = "*"
 pyyaml-include = "*"
 
 [dev-packages]
+icecream = "*"
 
 [requires]
 python_version = "3.9"
