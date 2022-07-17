@@ -11,6 +11,8 @@ python-slugify = "*"
 termcolor = "*"
 lxml = "*"
 minify-html = "*"
+pyyaml = "*"
+pyyaml-include = "*"
 
 [dev-packages]
 

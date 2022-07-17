@@ -1,21 +1,3 @@
-language: en-US
-license: http://creativecommons.org/licenses/by/4.0/
-author: !include sam.yaml
-title: "ILLIXR: Illinois Extended Reality (AR/VR/MR) Testbed"
-date_published: 2022-06-16
-date_modified: 2022-06-16
-image:
-  caption: A cool painting
-  url: https://upload.wikimedia.org/wikipedia/commons/a/a8/Nighthawks_by_Edward_Hopper_1942.jpg
-  attribution:
-    creator:
-      name: Edward Hopper
-    date_published: 1942
-    license_use: public domain
-    attrib_url: https://en.wikipedia.org/wiki/File:Nighthawks_by_Edward_Hopper_1942.jpg
-teaser: I worked on ILLIXR.
----
-
 <div class="fixtext" lang="en-US" allow_word="ILLIXR XR VR testbed Monado Huzaifa Sarita Adve reprojection">
 
 Extended reality (augmented reality, virtual reality, and [mixed reality] has stringent performance constraints that even the latest technology struggles to meet.

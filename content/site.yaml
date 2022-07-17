@@ -4,7 +4,25 @@ author: !include sam.yaml
 blog:
   tagline: Thoughts on software, law, and history. I hope you find this blog as interesting as I do.
   content:
-  - !include_body: illixr.md
+  - license: http://creativecommons.org/licenses/by/4.0/
+    author: !include sam.yaml
+    title: "ILLIXR: Illinois Extended Reality (AR/VR/MR) Testbed"
+    slug: illixr
+    date_published: 2022-06-16
+    date_modified: 2022-06-16
+    image:
+      caption: A cool painting
+      url: https://upload.wikimedia.org/wikipedia/commons/a/a8/Nighthawks_by_Edward_Hopper_1942.jpg
+      attribution:
+        creator:
+          name: Edward Hopper
+        date_published: 1942
+        license_use: public domain
+        attrib_url: https://en.wikipedia.org/wiki/File:Nighthawks_by_Edward_Hopper_1942.jpg
+    teaser: I worked on ILLIXR.
+    content:
+      pandoc_file: illixr.md
+
 # TODO[1]: blog page
 # TODO[2]: front page: blog highlights, publications, projects, contact me, linktree
 

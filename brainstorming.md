@@ -59,6 +59,7 @@ An SSG needs:
 
 # Frontend language
 
+- Top-down vs bottom-up
 - Options:
   - Text + template invoke
     - This is what Pollen chooses.
@@ -86,6 +87,7 @@ An SSG needs:
 
 # Backend language
 
+- Top-down vs bottom-up
 - Considerations:
   - Support frontend language input? This requires changing the language's reader. Probably not.
   - Support frontend language objects. 
