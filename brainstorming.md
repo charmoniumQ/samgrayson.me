@@ -1,4 +1,3 @@
-
 # Motivation
 
 I'm making a static site generator (SSG) for myself for fun.
@@ -114,24 +113,92 @@ An SSG needs:
 - SSG have no easy in-language way of creating output elements.
 - Template languages are not complex enough.
 
-# Considerations
+## Favicons
 
-- Incremental builds
+TODO[2]: Decide on a logo.
+Books: https://publicdomainvectors.org/en/free-clipart/Home-library/84338.html
+Letter: Capital lambda, lowercase gamma
+Open source icon (Bootstrap icons, Google Fonts icons, Font Awesome, Flaticon?) (book, paper, glasses)
+Mathematical figure: Trefoil, mandelbrot
+
+https://fontawesome.com/v5.15/icons/comments?style=solid
+https://fonts.google.com/icons?selected=Material%20Icons%20Outlined%3Asubject%3A
+https://fonts.google.com/icons?selected=Material%20Icons%20Outlined%3Ahive%3A
+https://fonts.google.com/icons?selected=Material%20Icons%20Outlined%3Awaves%3A
+https://fonts.google.com/icons?selected=Material%20Icons%20Outlined%3Aclear_all%3A
+https://fonts.google.com/icons?selected=Material%20Icons%20Outlined%3Anotes%3A
+https://fonts.google.com/icons?selected=Material%20Icons%20Outlined%3Alibrary_books%3A
+
+Implementation:
+https://medium.com/swlh/are-you-using-svg-favicons-yet-a-guide-for-modern-browsers-836a6aace3df
+https://lookout.dev/rules/use-svg-favicon
+
+
+## Semantic tags
+
+TODO[1]: use microdata or JSON-LD
+https://www.techulator.com/resources/19112-json-ld-or-microdata-which-schema-format-is-better-for-ranking
+https://blog.foolip.org/2009/08/23/microformats-vs-rdfa-vs-microdata/
+
+TODO[1]: test with https://developers.google.com/search/docs/advanced/structured-data
+TODO[1]: test with https://www.google.com/webmasters/markup-helper/u/0/
+
+https://schema.org/docs/schemas.html
+
+## Images in blog
+
+Blog post and blog index
+
+TODO[1]: Image with attribution
 
 ## Helper functions
 
 - Typography (smarten quotes, dashes, soft hyphens)
-- Spell check
+  - Subsumed by pandoc
+- TODO[3]: Spell check
 
-## Theme considerations
+## Pages
 
+- TODO[1]: blog index
+- TODO[1]: Navigation
+- TODO[1]: 404 page
+- TODO[2]: front page: blog highlights, publications, projects, contact me, linktree
+- TODO[2]: Redirections to old blog links
+- TODO[2]: Sitemap
+- TODO[2]: RSS and Atom feeds
+
+## SEO
+
+- Google Webmaster
+- Yahoo tools
 - Yahoo YSlow, Google Web Admin
-- Semantic tags
-- Asset bundling
-- GZIP compression
-- RSS and Atom feeds
-- Comments
-- Sitemap
-- Strip EXIF data
-- Server-side rendered code
-- Navigation
+- https://sindice.com/developers/inspector.html
+- https://developers.google.com/web/tools/lighthouse/
+- https://developers.facebook.com/tools/debug/
+- https://developers.google.com/search/docs/advanced/structured-data/search-gallery
+- https://search.google.com/test/rich-results?utm_source=support.google.com/webmasters/
+- https://support.google.com/webmasters/answer/7552505
+- https://developers.google.com/search/docs/advanced/guidelines/get-started
+- https://rdfa.info/tools
+- https://cards-dev.twitter.com/validator
+- https://www.opengraphcheck.com/
+- https://validator.w3.org/
+- https://www.greengeeks.com/blog/13-awesome-backlink-tools-that-will-benefit-your-seo/
+
+## Themes for inspiration
+
+- https://practicaltypography.com/why-you-should-pay.html
+- https://beautifulracket.com/bf/intro.html
+- http://proselint.com/
+- https://beautifuljekyll.com/2020-02-26-flake-it-till-you-make-it/
+- https://www.w3schools.com/w3css/default.asp
+- https://blog.ysndr.de/
+
+## Other considerations
+
+- TODO[3]: Asset bundling
+- TODO[3]: GZIP compression
+- TODO[3]: Minify HTML, CSS, and JS
+- TODO[3]: Strip EXIF data from images
+- TODO[3]: Server-side rendered code
+- TODO[3]: Incremental builds
