@@ -156,6 +156,7 @@ TODO[1]: Image with attribution
 - Typography (smarten quotes, dashes, soft hyphens)
   - Subsumed by pandoc
 - TODO[3]: Spell check
+- TODO[1]: Test that title is less than 70 and teaser is less than 200 characters
 
 ## Pages
 
@@ -201,4 +202,7 @@ TODO[1]: Image with attribution
 - TODO[3]: Minify HTML, CSS, and JS
 - TODO[3]: Strip EXIF data from images
 - TODO[3]: Server-side rendered code
-- TODO[3]: Incremental builds
+- TODO[3]: Watchman + Simple HTTP server + trigger refresh
+- TODO[3]: https://www.sitemaps.org/protocol.html#informing
+- TODO[2]: push to github pages
+- TODO[1]: make local images work
