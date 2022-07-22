@@ -1,32 +1,32 @@
 <!doctype html>
-<html lang="{{page.language}}">
+<html lang="{{page.language | attribute_sanitize}}">
     <head>
         <meta charset="UTF-8" />
 
 	    <!-- Tags for search engines -->
         <title>{{page.title}}</title>
-        <meta name="description" content="{{page.teaser | html2text}}" />
-        <link rel="canonical" href="{{page.url}}" />
+        <meta name="description" content="{{page.teaser | html2text | attribute_sanitize}}" />
+        <link rel="canonical" href="{{url}}" />
         <meta name="robots" content="index, follow" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
         <!-- Opengraph tags for Facebook and others: https://ogp.me/ -->
-        <meta property="og:title" content="{{page.title}}" />
+        <meta property="og:title" content="{{page.title | attribute_sanitize}}" />
         <meta property="og:type" content="website" />
         <meta property="og:url" content="{{page.url}}" />
         <meta property="og:image" content="{{page.image.url}}" />
-        <meta property="og:image:alt" content="{{page.image.alt}}" />
-        <meta property="og:description" content="{{page.teaser | html2text}}" />
-        <meta property="og:locale" content="{{page.language | replace('-', '_')}}" />
-        <meta property="og:sitename" content="{{site.name}}" />
+        <meta property="og:image:alt" content="{{page.image.alt | attribute_sanitize}}" />
+        <meta property="og:description" content="{{page.teaser | html2text | attribute_sanitize}}" />
+        <meta property="og:locale" content="{{page.language | replace('-', '_') | attribute_sanitize}}" />
+        <meta property="og:sitename" content="{{site.name}} | attribute_sanitize" />
 
         <!-- Twitter card: https://developer.twitter.com/en/docs/twitter-for-websites/cards/overview/summary -->
         <meta property="twitter:card" content="summary" />
-        <meta property="twitter:site" content="{{site.twitter}}" />
-        <meta property="twitter:title" content="{{page.title}}" />
+        <meta property="twitter:site" content="{{site.twitter | attribute_sanitize}}" />
+        <meta property="twitter:title" content="{{page.title | attribute_sanitize}}" />
         <meta property="twitter:description" content="{{page.teaser | html2text}}" />
         <meta property="twitter:image" content="{{page.image.url}}" />
-        <meta property="twitter:image:alt" content="{{page.image.alt}}" />
+        <meta property="twitter:image:alt" content="{{page.image.alt | attribute_sanitize}}" />
 
         <!-- TOOD[1]: favicons -->
 
@@ -40,7 +40,7 @@
             <!-- TOOD[1]: navbar -->
         </nav>
         <main id="main">
-            {{ page.content | safe}}
+            {{ conten }}
         </main>
     </body>
 </html>

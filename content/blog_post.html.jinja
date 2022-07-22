@@ -1,0 +1,43 @@
+<article typeof="BlogPosting">
+  <header>
+    <h1 property="name">
+      <a href="{{post.url}}">
+        {{post.title | html_sanitize}}
+      </a>
+    </h1>
+    <p class="byline">
+      by
+      <address>
+        <a property="author" href="{{post.author.url}}">
+          {{post.author.name | html_sanitize}}
+        </a>
+      </address>
+      on
+      <time datetime="post.date_published | iso_date">
+        {{post.date_published | human_readable_date}}
+      </time>
+    </p>
+    <figure>
+      <img src="{{post.image.url}}" alt="{{post.image.alt}}" />
+      <figcaption>{{post.image.caption | html_sanitize}}</figcaption>
+    </figure>
+  </header>
+  {{post.content}}
+  <footer>
+    {{post.license | html_sanitize}}
+    <p class="cite-as">
+      Cite as:
+      <span property="creditText">
+        “<a href="{{post.url}}">
+          {{post.title | html_sanitiez}}
+        </a>
+        by
+        <address>
+          <a href="{{post.author.url}}">
+            {{post.author.name | html_sanitize}}
+          </a>
+        </address>”
+      </span>.
+    </p>
+  </footer>
+</article>
