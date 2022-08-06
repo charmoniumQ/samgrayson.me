@@ -105,6 +105,11 @@ An SSG needs:
   - HTML
     - Use Pandoc. Not necessarily complete.
 
+# Others
+
+- https://cjohansen.no/building-static-sites-in-clojure-with-stasis/
+- https://nickgeorge.net/programming/custom-static-clojure-websites-an-update/
+
 # Problems
 
 - Pollen assumes one-to-one mapping between source files and output files.
@@ -115,6 +120,7 @@ An SSG needs:
 
 ## Favicons
 
+https://developers.google.com/search/docs/advanced/appearance/favicon-in-search
 TODO[2]: Decide on a logo.
 Books: https://publicdomainvectors.org/en/free-clipart/Home-library/84338.html
 Letter: Capital lambda, lowercase gamma
@@ -130,20 +136,10 @@ https://fonts.google.com/icons?selected=Material%20Icons%20Outlined%3Anotes%3A
 https://fonts.google.com/icons?selected=Material%20Icons%20Outlined%3Alibrary_books%3A
 
 Implementation:
-https://medium.com/swlh/are-you-using-svg-favicons-yet-a-guide-for-modern-browsers-836a6aace3df
-https://lookout.dev/rules/use-svg-favicon
-
-
-## Semantic tags
-
-TODO[1]: use microdata or JSON-LD
-https://www.techulator.com/resources/19112-json-ld-or-microdata-which-schema-format-is-better-for-ranking
-https://blog.foolip.org/2009/08/23/microformats-vs-rdfa-vs-microdata/
-
-TODO[1]: test with https://developers.google.com/search/docs/advanced/structured-data
-TODO[1]: test with https://www.google.com/webmasters/markup-helper/u/0/
-
-https://schema.org/docs/schemas.html
+- https://medium.com/swlh/are-you-using-svg-favicons-yet-a-guide-for-modern-browsers-836a6aace3df
+- https://lookout.dev/rules/use-svg-favicon
+- https://indieweb.org/icon
+- https://developers.google.com/search/docs/advanced/structured-data/logo
 
 ## Images in blog
 
@@ -163,13 +159,20 @@ TODO[1]: Image with attribution
 - TODO[1]: blog index
 - TODO[1]: Navigation
 - TODO[1]: 404 page
-- TODO[2]: front page: blog highlights, publications, projects, contact me, linktree
+- TODO[2]: home page
+  - Content: blog highlights, publications, projects, contact me, linktree
+  - https://indieweb.org/rel-me
+  - https://indieweb.org/homepage
 - TODO[2]: Redirections to old blog links
-- TODO[2]: Sitemap
-- TODO[2]: RSS and Atom feeds
+- TODO[2]: Sitemap: https://developers.google.com/search/docs/advanced/sitemaps/build-sitemap
+- TODO[2]: RSS and Atom feeds: https://developers.google.com/search/docs/advanced/sitemaps/build-sitemap
+- TODO[3]: Page moved
 
 ## SEO
 
+- https://indieweb.org/IndieMark
+- https://indiewebify.me/
+- https://developers.google.com/search/docs/beginner/search-console
 - Google Webmaster
 - Yahoo tools
 - Yahoo YSlow, Google Web Admin
@@ -186,6 +189,20 @@ TODO[1]: Image with attribution
 - https://validator.w3.org/
 - https://www.greengeeks.com/blog/13-awesome-backlink-tools-that-will-benefit-your-seo/
 
+## Structured data
+
+- Title tag: https://developers.google.com/search/docs/advanced/appearance/title-link
+- Meta description: https://developers.google.com/search/docs/advanced/appearance/snippet
+- Google RDFa vs JSON-LD: https://developers.google.com/search/docs/advanced/structured-data/intro-structured-data
+- Article: https://developers.google.com/search/docs/advanced/structured-data/article#non-amp
+- TODO[1]: Use microdata, RDFa or JSON-LD.
+  - https://www.techulator.com/resources/19112-json-ld-or-microdata-which-schema-format-is-better-for-ranking
+  - What about microformats2?
+- TODO[1]: tests
+  - https://developers.google.com/search/docs/advanced/structured-data
+  - https://www.google.com/webmasters/markup-helper/u/0/
+  - https://microformats.org/wiki/validators
+
 ## Themes for inspiration
 
 - https://practicaltypography.com/why-you-should-pay.html
@@ -197,6 +214,8 @@ TODO[1]: Image with attribution
 
 ## Other considerations
 
+- TODO[2]: skip to main content
+- TODO[1]: navbar
 - TODO[3]: Asset bundling
 - TODO[3]: GZIP compression
 - TODO[3]: Minify HTML, CSS, and JS
@@ -206,3 +225,5 @@ TODO[1]: Image with attribution
 - TODO[3]: https://www.sitemaps.org/protocol.html#informing
 - TODO[2]: push to github pages
 - TODO[1]: make local images work
+- TODO[2]: Popout notes
+- TODO[2]: Link anchor for headers

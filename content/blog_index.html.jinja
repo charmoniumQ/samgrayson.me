@@ -1,27 +1,24 @@
 {% for post in posts %}
   <article typeof="BlogPosting" class="blog-teaser">
     <h1 property="name">
-      <a href="{{post.url}}">
+      <a href="{{post.slug}}.html">
         {{post.title}}
       </a>
     </h1>
-    <img property="contentUrl" src="{./image/url}" alt="{normalize-space(./image/caption)}" />
-    <p class="byline">
-      by
-      <address>
-        <a property="author" href="{{post.author.url}}">
-          {{post.author.name}}
-        </a>
-      </address>
-      on
-      <time datetime="post.date_published | iso_date">
-        {{post.date_published | human_readable_date}}
-      </time>
-    </p>
     <figure>
-      <img src="{{post.image.url}}" alt="{{post.image.alt}}" />
+      <img property="contentUrl" src="{{post.image.url}}" alt="{{post.image.alt}}" />
       <figcaption>{{post.image.caption}}</figcaption>
     </figure>
+    <p class="byline">
+      by
+      <a property="author" href="{{post.author.url}}">
+        {{post.author.name}}
+      </a>
+      on
+      <time datetime="{{post.date-published | iso-date}}">
+        {{post.date-published | human-readable-date}}
+      </time>
+    </p>
     <p>
       {{post.teaser}}
     </p>
