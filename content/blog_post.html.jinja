@@ -1,39 +1,48 @@
-<article typeof="BlogPosting">
+<article vocab="http://schema.org/" typeof="BlogPosting" lang="{{language}}">
   <header>
-    <h1 property="name">
-      <a href="{{post.path}}">
-        {{post.title}}
+    <h1 property="headline name">
+      <a property="url" href="">
+        {{title}}
       </a>
     </h1>
     <p class="byline">
       by
-	  <a property="author" href="{{post.author.url}}">
-        {{post.author.name}}
-	  </a>
+      <span property="copyrightHolder author" resource="{{author.url}}">
+        <a href="{{author.url}}">
+          {{author.name}}
+        </a>
+      </span>
       on
-      <time datetime="{{post.date-published | iso-date}}">
-        {{post.date-published | human-readable-date}}
-      </time>
+      <time property="dateCreated" datetime="{{date-published | iso-date}}">{{date-published | human-readable-date}}</time>{% if date-modified %} (modified <time property="dateModified" datetime="{{date-modified | iso-date}}">{{date-modified | human-readable-date}}</time>){% endif %}.
     </p>
     <figure>
-      <img src="{{post.image.url}}" alt="{{post.image.alt}}" />
-      <figcaption>{{post.image.caption}}</figcaption>
+      <img property="thumbnailUrl" src="{{image.url}}" alt="{{image.alt}}" />
+      <figcaption>
+        {{image.caption}}
+        <br />
+        <span class="attribution">
+          Credit: {{image.attribution.text}}
+          <a href="{{image.attribution.attrib_url}}">[source]</a>
+        </span>
+      </figcaption>
     </figure>
   </header>
-  {{post.content | safe}}
+  <div property="description" style="display: none;">
+    {{teaser}}
+    <span property="inLanguage">{{language}}</span>
+  </div>
+  <div property="text articleBody">
+    {{content | safe}}
+  </div>
   <footer>
-    <p class="cite-as">
-	  This work is licensed under <a rel="license" href="{{post.license.url}}">{{post.license.name}}</a>.
+    <p class="license">
+      This work is licensed under <a property="license" href="{{license.url}}">{{license.name}}</a>.
       Cite as:
       <span property="creditText">
-        “<a href="{{post.url}}">
-          {{post.title}}
-        </a>
+        “<a href="">{{title}}</a>
         by
-        <a href="{{post.author.url}}">
-          {{post.author.name}}
-        </a>”
-      </span>.
-    </p>
+        <a href="{{author.url}}">{{author.name}}</a>”
+      </span>
+	</p>
   </footer>
 </article>

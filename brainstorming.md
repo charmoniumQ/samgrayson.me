@@ -49,12 +49,14 @@ An SSG needs:
     - Adding tags
       - Tags that interpret HTML
       - Tags that don't interpret HTML
+	  - Image attributions
 - A language for describing metadata
   - YAML, could be others
 - A language for describing file operations
   - Python(?), could be others
 - A language for templating
   - Jinja, could be others
+  - Test if string too long
 
 # Frontend language
 
@@ -141,26 +143,16 @@ Implementation:
 - https://indieweb.org/icon
 - https://developers.google.com/search/docs/advanced/structured-data/logo
 
-## Images in blog
-
-Blog post and blog index
-
-TODO[1]: Image with attribution
-
 ## Helper functions
 
 - Typography (smarten quotes, dashes, soft hyphens)
   - Subsumed by pandoc
 - TODO[3]: Spell check
-- TODO[1]: Test that title is less than 70 and teaser is less than 200 characters
 
 ## Pages
 
-- TODO[1]: blog index
-- TODO[1]: Navigation
-- TODO[1]: 404 page
 - TODO[2]: home page
-  - Content: blog highlights, publications, projects, contact me, linktree
+  - Content Bio, CV, research interest, adviser, hire me, publications, blog highlights, projects, contact me, linktree
   - https://indieweb.org/rel-me
   - https://indieweb.org/homepage
 - TODO[2]: Redirections to old blog links
@@ -199,6 +191,7 @@ TODO[1]: Image with attribution
   - https://www.techulator.com/resources/19112-json-ld-or-microdata-which-schema-format-is-better-for-ranking
   - What about microformats2?
 - TODO[1]: tests
+  - http://rdfa.info/tools
   - https://developers.google.com/search/docs/advanced/structured-data
   - https://www.google.com/webmasters/markup-helper/u/0/
   - https://microformats.org/wiki/validators
@@ -215,7 +208,6 @@ TODO[1]: Image with attribution
 ## Other considerations
 
 - TODO[2]: skip to main content
-- TODO[1]: navbar
 - TODO[3]: Asset bundling
 - TODO[3]: GZIP compression
 - TODO[3]: Minify HTML, CSS, and JS
@@ -224,6 +216,5 @@ TODO[1]: Image with attribution
 - TODO[3]: Watchman + Simple HTTP server + trigger refresh
 - TODO[3]: https://www.sitemaps.org/protocol.html#informing
 - TODO[2]: push to github pages
-- TODO[1]: make local images work
 - TODO[2]: Popout notes
 - TODO[2]: Link anchor for headers

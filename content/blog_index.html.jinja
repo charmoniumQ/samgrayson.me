@@ -1,29 +1,45 @@
-{% for post in posts %}
-  <article typeof="BlogPosting" class="blog-teaser">
-    <h1 property="name">
-      <a href="{{post.slug}}.html">
-        {{post.title}}
-      </a>
-    </h1>
-    <figure>
-      <img property="contentUrl" src="{{post.image.url}}" alt="{{post.image.alt}}" />
-      <figcaption>{{post.image.caption}}</figcaption>
-    </figure>
-    <p class="byline">
-      by
-      <a property="author" href="{{post.author.url}}">
-        {{post.author.name}}
-      </a>
-      on
-      <time datetime="{{post.date-published | iso-date}}">
-        {{post.date-published | human-readable-date}}
-      </time>
-    </p>
+<div vocab="http://schema.org/" typeof="Blog">
+  <h1 property="name">
+    <a property="url" href="">
+      {{title}}
+    </a>
+  </h1>
+  <div style="display: none;">
+    <span property="creator" reference="{{author.url}}"></span>
+  </div>
+  <div>
     <p>
-      {{post.teaser}}
+      These are some of my favorite posts:
     </p>
-  </article>
-  {% if not forloop.last %}
-    <hr />
-  {% endif %}
-{% endfor %}
+    {% for post in posts %}
+      <article property="blogPost" typeof="BlogPosting" class="blog-teaser" lang="{{post.language}}">
+        <h2 property="headline name">
+          <a property="url" href="{{post.slug}}.html">
+            {{post.title}}
+          </a>
+        </h2>
+        <figure>
+          <img property="thumbnailUrl" src="{{post.image.url}}" alt="{{post.image.alt}}" />
+        </figure>
+        <p class="byline">
+          by
+        <span property="copyrightHolder author" resource="{{post.author.url}}">
+          <a href="{{post.author.url}}">
+              {{post.author.name}}
+          </a>
+        </span>
+          on
+          <time property="dateCreated" datetime="{{post.date-published | iso-date}}">
+            {{post.date-published | human-readable-date}}
+          </time>.
+        </p>
+        <p property="description">
+          {{post.teaser}}
+        </p>
+      </article>
+      {% if not forloop.last %}
+        <hr />
+      {% endif %}
+    {% endfor %}
+  </div>
+</div>

@@ -71,13 +71,10 @@ p {
 p.byline {
 	font-family: 'Fira Sans', sans-serif;
 }
-p.caption {
-	margin: 0;
-}
-p.attribution, p.license, p.cite-as {
+.attribution, footer > * {
 	margin: 0;
 	color: #444;
-	font-size: min(12pt, 3.4vw);
+	font-size: min(10pt, 1.2vw);
 }
 figure {
 	margin-left: 3vw;
