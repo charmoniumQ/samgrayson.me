@@ -1,3 +1,0 @@
-I’m a PhD student at the University of Illinois at Urbana-Champaign, where I am on a crusade to improve software quality in research software.
-I am interested in computer science, mathematics, law, history, and philosophy.
-In many facets of life including this website, my overall goal is just to build and grow something worthwhile, so here goes.

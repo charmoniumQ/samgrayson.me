@@ -8,7 +8,6 @@
   (:out (clojure.java.shell/sh "pandoc" :in template :out-enc "UTF-8")))
 
 (def sam {:name "Samuel Grayson"
-          :bio (slurp (clojure.java.io/file "content" "bio.txt"))
           :url "https://samgrayson.me"
           :twitter "charmonium"})
 
@@ -26,29 +25,43 @@
            :author sam
            :url "https://samgrayson.me"
            :root ""
-           :nav [{:url "/blog" :text "Blog"}]})
+           :favicon (clojure.java.io/file "content" "favicon.svg")
+           :nav [{:url "/blog" :text "Blog"}
+                 {:url "/cv.html" :text "CV"}]})
+
+; TODO[2]: Host a real headshot
+(def headshot "https://s3.amazonaws.com/keybase_processed_uploads/235e525d2259adb6ca1c1cffc7174d05_360_360.jpg")
 
 {:output-dir (clojure.java.io/file "docs")
-           :blog-posts [{:slug "illixr"
-                         :title "ILLIXR: Illinois Extended Reality (AR/VR/MR) Testbed"
-                         :image nighthawks
-                         :teaser "I worked on ILLIXR."
-                         :content (pandoc (slurp (clojure.java.io/file "content" "posts" "illixr.md")))}]
-           :post-defaults {:license cc-by
-                           :date-published (today)
-                           :date-modified nil
-                           :author sam
-                           :language "en-US"
-                           :content? true}
-           :blog-meta {:title "Sam’s Blog"
-                       :teaser "Sam’s Blog on computer science, math, history, and law."
-                       :author sam
-                       :image nighthawks
-                       :language "en-US"
-                       :content? true}
-           :site site
-           :not-found-page {:content (slurp "content/404.html")
-                            :page {:title "Page not found"
-                                   :content? false
-                                   :language "en-US"}
-                            :site site}}
+ :blog-posts [{:slug "illixr"
+               :title "ILLIXR: Illinois Extended Reality (AR/VR/MR) Testbed"
+               :image nighthawks
+               :teaser "I worked on ILLIXR."
+               :content (pandoc (slurp (clojure.java.io/file "content" "posts" "illixr.md")))}]
+ :post-defaults {:license cc-by
+                 :date-published (today)
+                 :date-modified nil
+                 :author sam
+                 :language "en-US"
+                 :content? true}
+ :blog-meta {:title "Sam’s Blog"
+             :teaser "Sam’s Blog on computer science, math, history, and law."
+             :author sam
+             :image nighthawks
+             :language "en-US"
+             :content? true}
+ :site site
+ :not-found-page {:content (slurp "content/404.html")
+                  :page {:title "Page not found"
+                         :content? false
+                         :language "en-US"}
+                  :site site}
+ :front-page {:content (slurp "content/front_page.html")
+              :path "/"
+              :page {:title "Samuel Grayson"
+                     :teaser "Samuel Grayson’s site"
+                     :content? true
+                     :language "en-US"
+                     :image {:url headshot
+                             :alt "Headshot of Samuel Grayson"}}
+              :site site}}

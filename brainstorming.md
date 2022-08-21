@@ -111,6 +111,7 @@ An SSG needs:
 
 - https://cjohansen.no/building-static-sites-in-clojure-with-stasis/
 - https://nickgeorge.net/programming/custom-static-clojure-websites-an-update/
+- https://metalsmith.io/
 
 # Problems
 
@@ -128,14 +129,6 @@ Books: https://publicdomainvectors.org/en/free-clipart/Home-library/84338.html
 Letter: Capital lambda, lowercase gamma
 Open source icon (Bootstrap icons, Google Fonts icons, Font Awesome, Flaticon?) (book, paper, glasses)
 Mathematical figure: Trefoil, mandelbrot
-
-https://fontawesome.com/v5.15/icons/comments?style=solid
-https://fonts.google.com/icons?selected=Material%20Icons%20Outlined%3Asubject%3A
-https://fonts.google.com/icons?selected=Material%20Icons%20Outlined%3Ahive%3A
-https://fonts.google.com/icons?selected=Material%20Icons%20Outlined%3Awaves%3A
-https://fonts.google.com/icons?selected=Material%20Icons%20Outlined%3Aclear_all%3A
-https://fonts.google.com/icons?selected=Material%20Icons%20Outlined%3Anotes%3A
-https://fonts.google.com/icons?selected=Material%20Icons%20Outlined%3Alibrary_books%3A
 
 Implementation:
 - https://medium.com/swlh/are-you-using-svg-favicons-yet-a-guide-for-modern-browsers-836a6aace3df
@@ -190,11 +183,14 @@ Implementation:
 - TODO[1]: Use microdata, RDFa or JSON-LD.
   - https://www.techulator.com/resources/19112-json-ld-or-microdata-which-schema-format-is-better-for-ranking
   - What about microformats2?
-- TODO[1]: tests
-  - http://rdfa.info/tools
-  - https://developers.google.com/search/docs/advanced/structured-data
-  - https://www.google.com/webmasters/markup-helper/u/0/
-  - https://microformats.org/wiki/validators
+  
+## Tests
+
+- https://developer.chrome.com/docs/lighthouse/overview/
+- http://rdfa.info/tools
+- https://developers.google.com/search/docs/advanced/structured-data
+- https://www.google.com/webmasters/markup-helper/u/0/
+- https://microformats.org/wiki/validators
 
 ## Themes for inspiration
 
@@ -204,6 +200,12 @@ Implementation:
 - https://beautifuljekyll.com/2020-02-26-flake-it-till-you-make-it/
 - https://www.w3schools.com/w3css/default.asp
 - https://blog.ysndr.de/
+
+## Other academic websites
+
+- https://tianyin.github.io/
+- http://www.cs.cmu.edu/~dskarlat/#
+- http://danielskatz.org
 
 ## Other considerations
 
@@ -218,3 +220,9 @@ Implementation:
 - TODO[2]: push to github pages
 - TODO[2]: Popout notes
 - TODO[2]: Link anchor for headers
+
+## Email
+
+- TODO[2]: Get Thunderbird
+- TODO[2]: Move emails to GMail
+- TODO[2]: Get IONOS and point to GMail

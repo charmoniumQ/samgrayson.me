@@ -1,5 +1,6 @@
 (ns ssgen.core
-  (:require [selmer.filters]
+  (:require [clojure.java.shell]
+            [selmer.filters]
             [selmer.parser]
             [selmer.util]
             [clojure.java.io]
@@ -75,17 +76,40 @@
   x
   )
 
+;; (defn convert [file1 file2 & options]
+;;   (let [tmpdir (java.nio.file.Files/createTempDirectory nil)
+;;         file2 (.toFile (.resolve tmpdir file2))]
+;;     (apply clojure.java.shell/sh `("convert" ~@options (str (.resolve tmpdir file2))))
+;;     (slurp file2)))
+
+(defn favicon-set [favicon-svg-path]
+  {(clojure.java.io/file "/" "favicon.svg") (slurp favicon-svg-path)
+   ;(clojure.java.io/file "/" "favicon-32x32.png") (convert favicon-svg-path "favicon.ico" "-resize" "32x32")
+   ;(clojure.java.io/file "/" "favicon-192x192.png") (convert favicon-svg-path "favicon.ico" "-resize" "192x192")
+   ; TODO: fix this
+})
+
+; TODO
+(defn compress-img [img-path] (slurp img-path))
+
 (merge
 
- {(clojure.java.io/file "/" "main.css")
-  (compress-css
-   (slurp "content/main.css"))}
+ {(clojure.java.io/file "/" "main.css") (compress-css
+                                         (slurp "content/main.css"))
 
- {(clojure.java.io/file "/" "404.html")
-  (compress-html
-   (selmer.parser/render
-    (slurp "content/page.html.jinja")
-    (:not-found-page data)))}
+  (clojure.java.io/file "/" "404.html") (compress-html
+                                         (selmer.parser/render
+                                          (slurp "content/page.html.jinja")
+                                          (:not-found-page data)))
+
+  (clojure.java.io/file "/" "self.jpg") (compress-img "content/self.jpg")
+
+  (clojure.java.io/file "/" "index.html") (compress-html
+                                           (selmer.parser/render
+                                            (slurp "content/page.html.jinja")
+                                            (:front-page data)))}
+
+ (favicon-set "content/favicon.svg")
 
                                         ; blog index
  (let [path (clojure.java.io/file "/" "blog" "index.html")]
@@ -97,13 +121,13 @@
             :path path
             :site (:site data)
             :content (selmer.parser/render
-                       (slurp "content/blog_index.html.jinja")
-                       (assoc
-                        (:blog-meta data)
-                        :posts (map
-                                (fn [post] (merge (:post-defaults data) post))
-                                (:blog-posts data))
-                        :path path))}))})
+                      (slurp "content/blog_index.html.jinja")
+                      (assoc
+                       (:blog-meta data)
+                       :posts (map
+                               (fn [post] (merge (:post-defaults data) post))
+                               (:blog-posts data))
+                       :path path))}))})
 
                                         ; blog posts
  (apply
@@ -122,7 +146,8 @@
                            :path path
                            :site (:site data)
                            :content (selmer.parser/render
-                                      (slurp "content/blog_post.html.jinja")
-                                      (assoc post :path path))}))]
+                                     (slurp "content/blog_post.html.jinja")
+                                     (assoc post :path path))}))]
        {path page-content}))
-   (:blog-posts data))))
+   (:blog-posts data)))
+)

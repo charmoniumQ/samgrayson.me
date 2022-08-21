@@ -110,3 +110,21 @@ h1 a, h2 a {}
 	float: right;
 	max-width: 50%;
 }
+.glossary-table td {
+	padding-right: 10px;
+	padding-bottom: 5px;
+	padding-top: 5px;
+}
+.glossary-table td:nth-child(1) {
+	text-align: end;
+	width: 20%;
+}
+.glossary-table td:nth-child(2) {
+	width: 80%;
+}
+.glossary-table td:nth-child(2) ul {
+	padding-left: 20px;
+}
+li {
+	padding-bottom: 1ex;
+}
