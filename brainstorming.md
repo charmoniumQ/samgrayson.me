@@ -123,17 +123,12 @@ An SSG needs:
 
 ## Favicons
 
-https://developers.google.com/search/docs/advanced/appearance/favicon-in-search
-TODO[2]: Decide on a logo.
-Books: https://publicdomainvectors.org/en/free-clipart/Home-library/84338.html
-Letter: Capital lambda, lowercase gamma
-Open source icon (Bootstrap icons, Google Fonts icons, Font Awesome, Flaticon?) (book, paper, glasses)
-Mathematical figure: Trefoil, mandelbrot
+TODO[2]: Implement full favicon
 
 Implementation:
+- https://caniuse.com/?search=svg%20favicon
 - https://medium.com/swlh/are-you-using-svg-favicons-yet-a-guide-for-modern-browsers-836a6aace3df
 - https://lookout.dev/rules/use-svg-favicon
-- https://indieweb.org/icon
 - https://developers.google.com/search/docs/advanced/structured-data/logo
 
 ## Helper functions
@@ -148,10 +143,9 @@ Implementation:
   - Content Bio, CV, research interest, adviser, hire me, publications, blog highlights, projects, contact me, linktree
   - https://indieweb.org/rel-me
   - https://indieweb.org/homepage
-- TODO[2]: Redirections to old blog links
+- TODO[1]: Redirections to old blog links
 - TODO[2]: Sitemap: https://developers.google.com/search/docs/advanced/sitemaps/build-sitemap
 - TODO[2]: RSS and Atom feeds: https://developers.google.com/search/docs/advanced/sitemaps/build-sitemap
-- TODO[3]: Page moved
 
 ## SEO
 
@@ -180,9 +174,10 @@ Implementation:
 - Meta description: https://developers.google.com/search/docs/advanced/appearance/snippet
 - Google RDFa vs JSON-LD: https://developers.google.com/search/docs/advanced/structured-data/intro-structured-data
 - Article: https://developers.google.com/search/docs/advanced/structured-data/article#non-amp
-- TODO[1]: Use microdata, RDFa or JSON-LD.
+- TODO[1]: Use microdata, RDFa, JSON-LD, or microformats2.
   - https://www.techulator.com/resources/19112-json-ld-or-microdata-which-schema-format-is-better-for-ranking
   - What about microformats2?
+  - https://mincong.io/2018/08/22/create-json-ld-structured-data-in-jekyll/
   
 ## Tests
 
@@ -220,9 +215,3 @@ Implementation:
 - TODO[2]: push to github pages
 - TODO[2]: Popout notes
 - TODO[2]: Link anchor for headers
-
-## Email
-
-- TODO[2]: Get Thunderbird
-- TODO[2]: Move emails to GMail
-- TODO[2]: Get IONOS and point to GMail

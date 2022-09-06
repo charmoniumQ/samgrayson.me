@@ -18,6 +18,7 @@
                                :attrib_url "https://en.wikipedia.org/wiki/File:Nighthawks_by_Edward_Hopper_1942.jpg"}})
 
 (def cc-by {:name "Creative Commons Attribution 4.0 International License"
+
             :url "http://creativecommons.org/licenses/by/4.0/"})
 
 (def site {:name "Akademio"
@@ -28,9 +29,6 @@
            :favicon (clojure.java.io/file "content" "favicon.svg")
            :nav [{:url "/blog" :text "Blog"}
                  {:url "/cv.html" :text "CV"}]})
-
-; TODO[2]: Host a real headshot
-(def headshot "https://s3.amazonaws.com/keybase_processed_uploads/235e525d2259adb6ca1c1cffc7174d05_360_360.jpg")
 
 {:output-dir (clojure.java.io/file "docs")
  :blog-posts [{:slug "illixr"
@@ -62,6 +60,6 @@
                      :teaser "Samuel Grayson’s site"
                      :content? true
                      :language "en-US"
-                     :image {:url headshot
-                             :alt "Headshot of Samuel Grayson"}}
+                     :image {:url "/binary/self.jpg"
+                             :alt "Samuel Grayson"}}
               :site site}}
