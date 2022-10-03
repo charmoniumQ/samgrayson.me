@@ -13,6 +13,7 @@
                  [clj-commons/clj-yaml "0.7.109"]]
   :ring {:handler ssgen.core/server}
   :target-path "target/%s"
+  :aliases {"build" ["run" "-m" "ssgen.core/export"]}
   :profiles {:dev {:plugins [[lein-ring "0.12.5"]
                              [lein-ancient "1.0.0-RC3"]]}})
 

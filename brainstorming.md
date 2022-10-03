@@ -216,4 +216,3 @@ Implementation:
 - TODO[2]: Popout notes
 - TODO[2]: Link anchor for headers
 - TODO[2]: Check links for liveness, esp internal links
-- TODO[1]: Sort essays somehow

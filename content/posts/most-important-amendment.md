@@ -3,13 +3,14 @@ layout: post
 title: The Most Important Constitutional Amendment You've Never Heard Of
 tags: [politics]
 image:
-  url: /assets/img/fourteenth/brown-v-board.jpg
+  url: /raw-binary/most-important-amendment/brown-v-board.jpg
   alt: George E. C. Hayes, Thurgood Marshall, and James M. Nabrit (right to left) pose outside the U. S. Supreme Court in Washington, D.C., May 17, 1954 after their victory in a landmark, Brown v. Topeka Board of Education.
   attribution:
     url: https://commons.wikimedia.org/wiki/File:George_Edward_Chalmer_Hayes,_Thurgood_Marshall,_and_James_Nabrit_in_1954_winning_Brown_case.jpg
     text: No known copyright restriction
 other_routes:
-  - 2020-12-27-fourteenth/index.html
+  - /2020-12-27-fourteenth/index.html
+date-published: 2020-12-27
 teaser: >
   This amendment lies at the heart of issues on the left <i>and</i> right: abortion rights, gay marriage, contraceptive rights, gerrymandering, gun rights, affirmative action, resolving the Presidential Election of 2000, and the status of women in the draft. Can you guess what it is?
 ---
@@ -57,7 +58,7 @@ However, there are some signs that almost a hundred-and-fifty years later, the c
 
 > nor shall any State deprive any person of life, liberty, or property, without due process of law;
 
-<img src="/assets/img/fourteenth/arthur-dent.jpg" title="This is what happens when govenrments fail to give procedural due process. https://twitter.com/neilsorensen/status/882970032334098436" style="width: 300px; float: right;"/>
+<img src="/raw-binary/most-important-amendment/arthur-dent.jpg" title="This is what happens when govenrments fail to give procedural due process. https://twitter.com/neilsorensen/status/882970032334098436" style="width: 300px; float: right;"/>
 The most obvious application is to criminal proceedings, where alleged criminals are guaranteed a _legal procedure_ to defend themselves. But it also extends to things like eminent domain: if the [Vogons want to knock down Arthur Dent's property to build an intergalactic hyperspace bypass](https://en.wikipedia.org/wiki/The_Hitchhiker%27s_Guide_to_the_Galaxy), the Amendment would require that they notify Arthur Dent (and the other residents of earth) and provide a _legal procedure_ to fight the demolition. Leaving a note at Alpha Centauri doesn't count.
 
 Hence, this category of rights is called _procedural due process._ The exact legal procedure to which we are entitled depends on the circumstance. For example, those accused of violating criminal laws are entitled to a procedure in which they can argue their innocence.
@@ -123,7 +124,7 @@ Susan B. Anthony wanted to argue that she was a citizen by birth and that the ri
 
 Even contemporary observers realized the _Anthony_ trial was little more than political theatre. Suffragists tried again in [_Minor v. Happersett (1875)_](https://en.wikipedia.org/wiki/Minor_v._Happersett). The judge ruled that voting was not a privilege of citizenship. After all, some children and felons are certainly citizens but none of them cannot vote. This case had a ripple effect in limit suffrage in [_Breedlove_](https://en.wikipedia.org/wiki/Breedlove_v._Suttles) and [_Lassiter_](https://en.wikipedia.org/wiki/Lassiter_v._Northampton_County_Board_of_Elections). Women would need a constitutional amendment  to claim the right to vote instead, which they got in the [Nineteenth Amendment (1920)](https://en.wikipedia.org/wiki/Nineteenth_Amendment_to_the_United_States_Constitution).
 
-<img src="/assets/img/fourteenth/ginsburg.jpg" title="Ginsburg in 1977, before her tenurship on the Supreme Court." style="width: 300px; float: right;"/>
+<img src="/raw-binary/most-important-amendment/ginsburg.jpg" title="Ginsburg in 1977, before her tenurship on the Supreme Court." style="width: 300px; float: right;"/>
 In 1971, almost a hundred years after the first failed attempt to apply the Fourteenth Amendment to sexual equality by _Anthony_ and _Minor_, the Supreme Court heard [_Reed v. Reed (1971)_](https://en.wikipedia.org/wiki/Reed_v._Reed). Idaho had a law that privileged men over women in deciding inheritance. The plaintiffs argued this violated their Equal Protection Clause, and the Court agreed. Coincidentally, Ruth Bader Ginsberg submitted an amicus brief to the Supreme Court she would later be appointed to.
 
 Since then, sex is protected by the Equal Protection Clause with "intermediate scrutiny," which is some progress, but many want to pass the Equal Rights Amendment which would would protect sex at the highest level, "strict scrutiny," making it easier to win cases based on sexual discrimination (see [ERA Education Project](https://eraeducationproject.com/doesnt-the-14th-amendment-already-guarantee-women-equal-rights-under-the-law/#learnmore)). However, requiring only males to register for the draft would not pass strict scrutiny, even according tolegal scholars who favor the ERA ([Hastings Law Journal](https://repository.uchastings.edu/cgi/viewcontent.cgi?article=2205&context=hastings_law_journal)). This was the source of much opposition at the time the ERA was debated, since the feminist movement was linked with the anti-Vietnam War movement. Today, 76% of women support the ERA according to a [2020 AP poll](https://apnews.com/article/42b93fd7386089110543f4e1827ded67), but only 38% of women agree with extending draft registration to women according to a [2020 Rasmussen Report](https://www.rasmussenreports.com/public_content/politics/general_politics/february_2016/most_women_oppose_having_to_register_for_the_draft). As such, many feminists want to pass the ERA _and_ abolish the draft.
@@ -142,7 +143,7 @@ The Amendment has implications for a host of policy issues today.
 
 **Marriage rights:** [_Loving v. Virginia (1967)_](https://en.wikipedia.org/wiki/Loving_v._Virginia) extended marriage rights to inter-racial couples, while [_Obergefell v. Hodges (2015)_](https://en.wikipedia.org/wiki/Obergefell_v._Hodges) did so for same-sex couples, both on the basis of the Equal Protection Clause.
 
-<img src="/assets/img/fourteenth/whitehouse.jpg" title="The Whitehouse after <i>Obergefell</i>. https://en.wikipedia.org/wiki/Obergefell_v._Hodges#/media/File:Celebrating_a_new_America_-lovewins_58242_(18588276403).jpg"/>
+<img src="/raw-binary/most-important-amendment/whitehouse.jpg" title="The Whitehouse after <i>Obergefell</i>. https://en.wikipedia.org/wiki/Obergefell_v._Hodges#/media/File:Celebrating_a_new_America_-lovewins_58242_(18588276403).jpg"/>
 
 **Reproductive rights:** [_Griswold v. Connecticut (1965)_](https://en.wikipedia.org/wiki/Griswold_v._Connecticut) provided contraceptive rights while [_Roe v. Wade (1973)_](https://en.wikipedia.org/wiki/Roe_v._Wade) and [_Planned Parenthood v. Casey (1992)_](https://en.wikipedia.org/wiki/Planned_Parenthood_v._Casey) provided abortion rights, under certain conditions. The Court found an _implied right_ to privacy, protected by the Due Process Clause, that makes blanket bans on contraception and abortion unconstitutional. The Court permitted some restrictions on abortion so long as they do not create an ["undue burden"](https://en.wikipedia.org/wiki/Undue_burden_standard) on the woman seeking an abortion.
 
@@ -152,9 +153,9 @@ The Amendment has implications for a host of policy issues today.
 
 **The Presidential Election of 2000:** The Court held that Florida's statewide recount did not enforce equal standards on each county, so it was a violation of the Equal Protection Clause in [_Bush v. Gore (2000)_](https://en.wikipedia.org/wiki/Bush_v._Gore). Bush won the original count by hundreds of votes (about 10<sup>-6</sup> of the total), and with the recount invalid, George Bush became the 43rd President of the United States.
 
-<img src="/assets/img/fourteenth/recount.jpg" title="An employee of the Miami-Dade County elections department, left, shows a ballot to representatives of both Republican and Democratic parties during a manual recount of three Miami-Dade precincts, before the recount was stopped by the Supreme Court in <i>Bush</i>. https://jacobinmag.com/2020/10/trump-coup-florida-2000-recount" style="width: 500px;"/>
+<img src="/raw-binary/most-important-amendment/recount.jpg" title="An employee of the Miami-Dade County elections department, left, shows a ballot to representatives of both Republican and Democratic parties during a manual recount of three Miami-Dade precincts, before the recount was stopped by the Supreme Court in <i>Bush</i>. https://jacobinmag.com/2020/10/trump-coup-florida-2000-recount" style="width: 500px;"/>
 
-<img src="/assets/img/fourteenth/texas-redistricting.png" title="Comparison of U.S. House election results for Texas in 2002 and 2004 after the creation of new boundaries for congressional districts following mid-term redistricting in 2003. Blue denotes a Democratic hold, dark red denotes a Republican hold, and light red denotes a Republican pickup. https://en.wikipedia.org/wiki/2004_United_States_House_of_Representatives_elections_in_Texas#/media/File:Texas_redistricting_-_2002_and_2004.png" style="width: 300px; float: right;"/>
+<img src="/raw-binary/most-important-amendment/texas-redistricting.png" title="Comparison of U.S. House election results for Texas in 2002 and 2004 after the creation of new boundaries for congressional districts following mid-term redistricting in 2003. Blue denotes a Democratic hold, dark red denotes a Republican hold, and light red denotes a Republican pickup. https://en.wikipedia.org/wiki/2004_United_States_House_of_Representatives_elections_in_Texas#/media/File:Texas_redistricting_-_2002_and_2004.png" style="width: 300px; float: right;"/>
 **Gerrymandering:** The Court _almost_ outlawed gerrymandering in [_Davis v. Bandemer (1986)_](https://en.wikipedia.org/wiki/Davis_v._Bandemer) under the Equal Protection Clause but later found that no metric for deciding if a district map was gerrymandered was suitable in [_Vieth v. Jubelirer (2004)_](https://en.wikipedia.org/wiki/Vieth_v._Jubelirer). Even so, gerrymandering along racial lines was prohibited [_League of United Latin-American Citizens v. Perry (2006)_](https://en.wikipedia.org/wiki/League_of_United_Latin_American_Citizens_v._Perry), if a map did not include enough majority-minority districts.
 
 **Money bail:** There is an as-yet undecided case called [_O'Donnel v. Harris County_](https://www.theusconstitution.org/litigation/odonnell-v-harris-county-texas-et-al/) which alleges that the bail system used in most of Houston, TX unfairly discriminates on the basis of wealth when more reasonable alternatives are available.

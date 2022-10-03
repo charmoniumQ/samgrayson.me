@@ -3,12 +3,15 @@ layout: post
 title: Stop writing shell scripts
 tags: [programming]
 image:
-  url: /assets/img/shell/moneyball.png
+  url: /raw-binary/stop-writing-shell-scripts/moneyball.png
   alt: "Billy Bean classifies programming languages: “There're strongly typed languages, weakly typed languages, fifty feet of crap, and then there's shell.”"
   attribution:
     text: own work
+date-published: 2021-01-01
+other_routes:
+  - /2021-01-01-shell/index.html
 teaser: >
-  Billy Bean classifies programming languages: “There're strongly typed languages, weakly typed languages, fifty feet of crap, and then there's shell.”
+  UNIX shell isn't a real programming language, so stop using like one!
 ---
 
 UNIX shell isn't a real programming language, so stop using like one!
@@ -17,7 +20,7 @@ Don't get me wrong, shell is extremely useful and powerful. However, it is less 
 
 The distinguishing factor between these "real" programming languages and shell, for the purposes of this article, is the ability to define datatypes. As Billy Beane famously remarked, "There are strongly typed languages and weakly typed ones [both permit user-defined datatypes]; Then there's 50 feet of crap, and _then_ there's shell."
 
-<img src="/assets/img/shell/moneyball.png" />
+<img src="/raw-binary/stop-writing-shell-scripts//moneyball.png" />
 
 A cornerstone of UNIX wisdom is that "plaintext is the universal interface." Hence, it is not strongly typed; it's _stringly_ typed.
 - After all, floats, ints, strings can all be encoded as strings.
@@ -245,4 +248,4 @@ I am genuinely interested in opposing opinions, so drop a comment explaining why
 - [HackerNews](https://news.ycombinator.com/item?id=25604501)
 - [Twitter](https://twitter.com/charmoniumQ/status/1345049520602828801)
 
-<img src="/assets/img/shell/winter-is-coming.jpg" />
+<img src="/raw-binary/stop-writing-shell-scripts//winter-is-coming.jpg" />

@@ -3,10 +3,11 @@ layout: post
 title:  Creative Thinking in Math Class
 tags: [math, pedagogy]
 image:
-  url: /assets/img/creative-thinking-in-math-class/rick_on_school.png
+  url: /raw-binary/creative-thinking-in-math-class/rick_on_school.png
   alt: Rick Sanchez says, "School is not a place for smart people."
   attribution:
     text: Fair use
+date-published: 2017-05-20
 other_routes:
   - 2017-05-20-creative-thinking-in-math-class/index.html
 teaser: >
@@ -17,7 +18,7 @@ _I gave a [TEDx talk](https://youtu.be/IQqb8HfN5hw) on this topic earlier. I hav
 
 Most students will say math class is stupid and boring. As a math person myself, I have to say: they're right! Math taught in school is twelve years of Pavlovian training to associate math with arbitrariness and fear. Not only does this rob the student of a potentially enjoyable experience, it robs the student of the transferable skills that are exercised in math. I will give two examples.
 
-![Rick Sanchez on scohol](/assets/img/creative-thinking-in-math-class/rick_on_school.png)
+![Rick Sanchez on scohol](/raw-binary/creative-thinking-in-math-class/rick_on_school.png)
 
 
 ## Transferable Skill: Problem-Solving
@@ -28,15 +29,15 @@ Here is a problem that requires original thinking to solve the first time.
 
 This is a checkerboard with dominoes where each domino takes up two squares.
 
-![checkerboard setup with dominoes](/assets/img/creative-thinking-in-math-class/checkerboard_seutp_with_dominoes.png)
+![checkerboard setup with dominoes](/raw-binary/creative-thinking-in-math-class/checkerboard_seutp_with_dominoes.png)
 
 It can be tiled with dominoes without any overlap or dominoes hanging off of the edge.
 
-![checkboard tiled with dominoes](/assets/img/creative-thinking-in-math-class/checkerboard_tiled_with_dominoes.png)
+![checkboard tiled with dominoes](/raw-binary/creative-thinking-in-math-class/checkerboard_tiled_with_dominoes.png)
 
 If I cut off the two opposite red corners, can I still tile the board?
 
-![checkerboard with corners cut off](/assets/img/creative-thinking-in-math-class/checkerboard_with_corners_cut_off.png)
+![checkerboard with corners cut off](/raw-binary/creative-thinking-in-math-class/checkerboard_with_corners_cut_off.png)
 
 You may identify one tiling pattern that does not work, but can you convince me that *no* tiling pattern will work?
 
@@ -49,7 +50,7 @@ This is a tough question, but in cases like this, a teacher can ask leading ques
 3. Can I place a domino such that it covers only two black squares?<br /><details><summary>Think before clicking</summary>No. Each domino must cover one red and one black, no matter how it is placed.</details>
 
 4. Back to the original question, can all of the red tiles and all of the black tiles be covered by dominoes?<br /><details><summary>Think before clicking</summary>No, because the are 32 black tiles, 30 red tiles, and each domino must cover one of both. No matter how you do it, you will end up with 2 uncovered black tiles. <br />
-<img alt="checkboard not tiled with dominoes" src="/assets/img/creative-thinking-in-math-class/checkerboard_not_tiled_with_dominoes.png" /></details>
+<img alt="checkboard not tiled with dominoes" src="/raw-binary/creative-thinking-in-math-class/checkerboard_not_tiled_with_dominoes.png" /></details>
 
 Paradoxically, the teacher helped the student by asking more questions. Students do not even need a grasp of math before they can begin answering novel questions like this one.
 
@@ -61,14 +62,13 @@ The method of teaching used above is called the "Socratic method." Socrates famo
 
 Currently math curriculum does not even attempt to challenge students' ability to explain and persuade. Students go on to their future studies and jobs lacking the ability to explain something technical to people who don't already understand it and to convince people of something they don't already believe. These are both skills that could be exercised in the context of math.
 
-{% katexmm %}
 Here is an example. When I was in middle school, I was arguing with my friends about whether 0.999… (repeating forever) was equal to 1. I thought it was not the same as 1, but a hair less than 1. My friend Ben was just as adamant that 0.999… exactly equal to 1. His explanation was short, but persuasive.
 
 1. He asked us if we believed 1/3 = 0.333… exactly, no approximation (if you could expand the ellipsis infinitely). We of course agreed.
 2. Then he asked us if 1 = 3 × 1/3 exactly. Nothing special here either.
 3. Then he said that 1 = 3 × 1/3 = 3 × 0.333… exactly. "Ok?" we nodded.
 4. When multiplying decimal digits, you multiply each digit by the multiplier, so 3 × 0.333… = 0.999… exactly. We learned that years ago and used it recently.
-5. Hence 1 = 3 × \frac 1 3 = 3 × 0.333… = 0.999… exactly. It's just another way of writing the same thing.
+5. Hence 1 = 3 × (1/3) = 3 × 0.333… = 0.999… exactly. It's just another way of writing the same thing.
 
 [Here](https://www.youtube.com/watch?v=TINfzxSnnIE) is an entertaining presentation of this and similar arguments.
 

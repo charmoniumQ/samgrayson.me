@@ -40,15 +40,18 @@
            :favicon (clojure.java.io/file "content" "raw-text" "favicon.svg")
            :nav [{:url "/essays" :text "Essays"}
                  ;; {:url "/cv.html" :text "CV"}
-                 {:url "https://scholar.google.com/citations?user=EEOIkYEAAAAJ&hl=en", :text "Publications"}
-                 ]})
+                 {:url "https://scholar.google.com/citations?user=EEOIkYEAAAAJ&hl=en", :text "Publications"}]})
+                 
 
 {:output-dir (clojure.java.io/file "docs")
- :blog-posts (map
-              parse-yaml-markdown
-              (filter
-               (fn [file] (.isFile file))
-               (file-seq (clojure.java.io/file "content/posts"))))
+ :blog-posts (reverse
+              (sort-by
+               (fn [post] (:date-published post))
+               (map
+                parse-yaml-markdown
+                (filter
+                 (fn [file] (.isFile file))
+                 (file-seq (clojure.java.io/file "content/posts"))))))
  :post-defaults {:license cc-by
                  :date-published (today)
                  :date-modified nil

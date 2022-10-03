@@ -4,6 +4,7 @@
             [selmer.parser]
             [selmer.util]
             [clojure.java.io]
+            [clojure.tools.trace]
             [clj-html-compressor.core]))
             ;; [com.yahoo.platform.yui.compressor]
             
@@ -11,9 +12,11 @@
 (selmer.filters/add-filter!
  :human-readable-date
  (fn [date]
-   (.format
-    (new java.text.SimpleDateFormat "yyyy LLLL d")
-    date)))
+   (let [sdf (new java.text.SimpleDateFormat "yyyy LLLL d")]
+    (.setTimeZone sdf (java.util.TimeZone/getTimeZone "GMT"))
+    (.format
+     sdf
+     date))))
 
 (selmer.filters/add-filter!
  :get-year
@@ -115,12 +118,20 @@
                 (slurp "content/templates/page.html.jinja")
                 (:not-found-page data)))
 
-  "/raw-binary/self.jpg" (fn [_] (clojure.java.io/file "content" "raw-binary" "self.jpg"))
-
   "/index.html" (compress-html
                  (selmer.parser/render
                   (slurp "content/templates/page.html.jinja")
                   (:front-page data)))}
+
+ (apply
+  hash-map
+  (flatten
+   (map
+    (fn [file] [(clojure.string/join "/" (concat [""] (drop 1 (.toPath file))))
+                (fn [_] file)])
+    (filter
+     (fn [file] (.isFile file))
+     (file-seq (clojure.java.io/file "content" "raw-binary"))))))
 
  (favicon-set "content/raw-text/favicon.svg")
 

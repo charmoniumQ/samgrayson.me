@@ -3,21 +3,20 @@ layout: post
 title:  The Chaos of History (part 2)
 tags: [math, history]
 image:
-  url: /assets/img/chaos-of-history-2/jackson_pollock.jpg
+  url: /raw-binary/chaos-of-history-part-2/jackson_pollock.jpg
   alt: Number 1A, 1948 by Jackson Pollock
   attribution:
     url: https://www.flickr.com/photos/piljun/6301137213
     text: CC BY-ND 2.0
+date-published: 2017-01-09
 other_routes:
   - 2017-01-09-chaos-of-history-2/index.html
 teaser: >
-  In a previous post, I talked about how a few random events can greatly change
-  history. In this post, I will describe that in terms of mathematics and use
-  that to show you why things like stock markets are so difficult to predict.
+  Can history be described by mathematical formulae?
 ---
 
 In a
-[previous post](/blog/chaos-of-history-1),
+[previous post](/essays/chaos-of-history-part-1),
 I talked about how a few random events can greatly change history. In this
 post, I will describe that idea more mathematically.
 
@@ -34,7 +33,7 @@ distribution. Towards the far right, the probability is very small. It should be
 rare that I would toss a rock straight up in the air and see it land 20 meters
 away. The far left and far right are called the 'tails' of the distribution.
 
-<img alt="Gaussian distribution" src="/assets/img/chaos-of-history-2/gaussian_distribution.png" style="margins: auto;"/>
+<img alt="Gaussian distribution" src="/raw-binary/chaos-of-history-part-2/gaussian_distribution.png" style="margins: auto;"/>
 
 ## Haphazard Stroll
 
@@ -45,7 +44,7 @@ looks like when the rock falls based on a Gaussian distribution. For good
 measure, I will run 5 random walks starting from different spots in different
 colors.
 
-<img alt="Gaussian random walk" src="/assets/img/chaos-of-history-2/gaussian_random_walk.png" style="margins: auto;"/>
+<img alt="Gaussian random walk" src="/raw-binary/chaos-of-history-part-2/gaussian_random_walk.png" style="margins: auto;"/>
 
 But I want to talk about another distribution: the Cauchy distribution. It is
 very similar to the Gaussian distribution, but it is ever-so-slightly higher at
@@ -56,13 +55,13 @@ often too quick to assume that a bell-curve shaped distributions are Gaussian,
 as
 [some would argue](http://rocketscienceofwallstreet.blogspot.com/2012/04/nassim-nicholas-taleb-against-gaussian.html).
 
-<img alt="Gaussian and Cauchy distribution" src="/assets/img/chaos-of-history-2/gaussian_and_cauchy.png" style="margins: auto;"/>
+<img alt="Gaussian and Cauchy distribution" src="/raw-binary/chaos-of-history-part-2/gaussian_and_cauchy.png" style="margins: auto;"/>
 
 But the difference seems small. Let's see how these distributions differ in a
 real experiment. I'll take a random walk using the Cauchy distribution and look
 at the differences
 
-<img alt="Cauchy random walk" src="/assets/img/chaos-of-history-2/cauchy_random_walk.png" style="margins: auto;"/>
+<img alt="Cauchy random walk" src="/raw-binary/chaos-of-history-part-2/cauchy_random_walk.png" style="margins: auto;"/>
 
 In the Gaussian random walk, no single rock-throw really moved us far from the
 origin. None of the throw were really 'out there'. In each Cauchy random walk,

@@ -2,11 +2,12 @@
 title: The Chaos of History (part 1)
 tags: [history]
 image:
-  url: /assets/img/chaos-of-history-1/Assassination_of_Archduke_Franz_Ferdinand.jpg
+  url: /raw-binary/chaos-of-history-part-1/Assassination_of_Archduke_Franz_Ferdinand.jpg
   alt: Aftermath of the assassination of Archduke Franz Ferdinand in Sarajewo
   attribution:
     url: https://commons.wikimedia.org/wiki/File:Assassination_of_Archduke_Franz_Ferdinand_1914.jpg
     text: CC BY-SA 4.0 via Wikimedia
+date-published: 2016-07-21
 other_routes:
  - /2016-07-21-chaos-of-history-1/index.html
 teaser: >
@@ -91,6 +92,6 @@ spinning her wheel.
 
 ## Further Reading
 
-- [Part 2](chaos-of-history-part-2)
+- [Part 2](/essays/chaos-of-history-part-2)
 - Scientific American: [Gavrilo Princip, conspiracy theories and the fragility of cause and effect](http://blogs.scientificamerican.com/the-curious-wavefunction/gavrilo-princip-conspiracy-theories-and-the-fragility-of-cause-and-effect/)
 - [Chapter 1](http://www.nytimes.com/2007/04/22/books/chapters/0422-1st-tale.html?_r=0) of 'The Black Swan' by Nassim Taleb
