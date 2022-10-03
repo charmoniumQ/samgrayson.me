@@ -13,6 +13,7 @@
         devShell = pkgs.mkShell {
           packages = [
             pkgs.leiningen
+            pkgs.pandoc
           ];
         };
       }

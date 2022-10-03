@@ -18,11 +18,17 @@
     <figure>
       <img property="thumbnailUrl" src="{{image.url}}" alt="{{image.alt}}" />
       <figcaption>
-        {{image.caption}}
+        {% if image.caption %}
+          {{image.caption}}
+        {% else %}
+          {% comment %}{{image.alt}}{% endcomment %}
+        {% endif %}
         <br />
         <span class="attribution">
           Credit: {{image.attribution.text}}
-          <a href="{{image.attribution.attrib_url}}">[source]</a>
+          {% if image.attribution.attrib_url %}
+            <a href="{{image.attribution.attrib_url}}">[source]</a>
+          {% endif %}
         </span>
       </figcaption>
     </figure>

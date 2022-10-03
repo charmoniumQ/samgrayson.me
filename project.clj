@@ -8,7 +8,9 @@
                  [stasis "2.5.1"]
                  [ring "1.9.5"]
                  [clj-html-compressor "0.1.1"]
-                 [com.yahoo.platform.yui/yuicompressor "2.4.8"]]
+                 [org.clojure/tools.trace "0.7.11"]
+                 [com.yahoo.platform.yui/yuicompressor "2.4.8"]
+                 [clj-commons/clj-yaml "0.7.109"]]
   :ring {:handler ssgen.core/server}
   :target-path "target/%s"
   :profiles {:dev {:plugins [[lein-ring "0.12.5"]

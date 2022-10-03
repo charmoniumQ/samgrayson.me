@@ -1,11 +1,23 @@
 (ns ssgen.core
   (:require [clojure.java.shell]
+            [clj-yaml.core]
+            [clojure.string]
             [clojure.java.io]))
 
 (defn today [] (new java.util.Date))
 
-(defn pandoc [template]
-  (:out (clojure.java.shell/sh "pandoc" :in template :out-enc "UTF-8")))
+(defn pandoc [document]
+  (:out (clojure.java.shell/sh "pandoc" :in document :out-enc "UTF-8")))
+
+(defn parse-yaml-markdown [path]
+  (let [contents (clojure.string/split (slurp path) #"---" 3)]
+    (merge
+     (clj-yaml.core/parse-string (second contents))
+     {:content (pandoc (get contents 2))
+      :slug (first
+             (clojure.string/split
+              (.getName path)
+              #"\."))})))
 
 (def sam {:name "Samuel Grayson"
           :url "https://samgrayson.me"
@@ -18,7 +30,6 @@
                                :attrib_url "https://en.wikipedia.org/wiki/File:Nighthawks_by_Edward_Hopper_1942.jpg"}})
 
 (def cc-by {:name "Creative Commons Attribution 4.0 International License"
-
             :url "http://creativecommons.org/licenses/by/4.0/"})
 
 (def site {:name "Akademio"
@@ -26,24 +37,26 @@
            :author sam
            :url "https://samgrayson.me"
            :root ""
-           :favicon (clojure.java.io/file "content" "favicon.svg")
-           :nav [{:url "/blog" :text "Blog"}
-                 {:url "/cv.html" :text "CV"}]})
+           :favicon (clojure.java.io/file "content" "raw-text" "favicon.svg")
+           :nav [{:url "/essays" :text "Essays"}
+                 ;; {:url "/cv.html" :text "CV"}
+                 {:url "https://scholar.google.com/citations?user=EEOIkYEAAAAJ&hl=en", :text "Publications"}
+                 ]})
 
 {:output-dir (clojure.java.io/file "docs")
- :blog-posts [{:slug "illixr"
-               :title "ILLIXR: Illinois Extended Reality (AR/VR/MR) Testbed"
-               :image nighthawks
-               :teaser "I worked on ILLIXR."
-               :content (pandoc (slurp (clojure.java.io/file "content" "posts" "illixr.md")))}]
+ :blog-posts (map
+              parse-yaml-markdown
+              (filter
+               (fn [file] (.isFile file))
+               (file-seq (clojure.java.io/file "content/posts"))))
  :post-defaults {:license cc-by
                  :date-published (today)
                  :date-modified nil
                  :author sam
                  :language "en-US"
                  :content? true}
- :blog-meta {:title "Sam’s Blog"
-             :teaser "Sam’s Blog on computer science, math, history, and law."
+ :blog-meta {:title "Sam’s Essays"
+             :teaser "Sam’s Essays on computer science, math, history, and law."
              :author sam
              :image nighthawks
              :language "en-US"
@@ -60,6 +73,6 @@
                      :teaser "Samuel Grayson’s site"
                      :content? true
                      :language "en-US"
-                     :image {:url "/binary/self.jpg"
+                     :image {:url "/raw-binary/self.jpg"
                              :alt "Samuel Grayson"}}
               :site site}}

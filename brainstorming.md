@@ -135,7 +135,7 @@ Implementation:
 
 - Typography (smarten quotes, dashes, soft hyphens)
   - Subsumed by pandoc
-- TODO[3]: Spell check
+- TODO[2]: Spell check
 
 ## Pages
 
@@ -215,3 +215,4 @@ Implementation:
 - TODO[2]: push to github pages
 - TODO[2]: Popout notes
 - TODO[2]: Link anchor for headers
+- TODO[2]: Check links for liveness, esp internal links
