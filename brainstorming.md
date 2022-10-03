@@ -216,3 +216,6 @@ Implementation:
 - TODO[2]: Popout notes
 - TODO[2]: Link anchor for headers
 - TODO[2]: Check links for liveness, esp internal links
+
+- page/ vs page.html
+  - https://webmasters.stackexchange.com/questions/89998/best-seo-practice-for-static-pages-having-index-html-or-not

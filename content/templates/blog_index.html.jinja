@@ -14,7 +14,7 @@
     {% for post in posts %}
       <article property="blogPost" typeof="BlogPosting" class="blog-teaser" lang="{{post.language}}">
         <h2 property="headline name">
-          <a property="url" href="{{post.slug}}.html">
+          <a property="url" href="/essays/{{post.slug}}/">
             {{post.title}}
           </a>
         </h2>

@@ -106,7 +106,12 @@
   "/index.html" (compress-html
                  (selmer.parser/render
                   (slurp "content/templates/page.html.jinja")
-                  (:front-page data)))}
+                  (merge
+                   (:front-page data)
+                   {:content (selmer.parser/render (:content (:front-page data)) {})})))
+
+  ;; "/CNAME" (:cname (:site data))
+  }
 
  (apply
   hash-map
@@ -153,7 +158,7 @@
   (map
    (fn [post]
      (let [post (check-post (merge (:post-defaults data) post))
-           path (str "/essays/" (:slug post) ".html")
+           path (str "/essays/" (:slug post) "/index.html")
            page-content (compress-html
                          (selmer.parser/render
                           (slurp "content/templates/page.html.jinja")

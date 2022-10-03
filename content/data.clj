@@ -36,11 +36,12 @@
            :twitter "charmoniumQ"
            :author sam
            :url "https://samgrayson.me"
+           :cname "samgrayson.me"
            :root ""
            :favicon (clojure.java.io/file "content" "raw-text" "favicon.svg")
-           :nav [{:url "/essays" :text "Essays"}
+           :nav [{:url "https://scholar.google.com/citations?user=EEOIkYEAAAAJ&hl=en", :text "Publications"}
                  ;; {:url "/cv.html" :text "CV"}
-                 {:url "https://scholar.google.com/citations?user=EEOIkYEAAAAJ&hl=en", :text "Publications"}]})
+                 {:url "/essays" :text "Essays"}]})
                  
 
 {:output-dir (clojure.java.io/file "docs")

@@ -10,4 +10,9 @@
     (doseq [[uri pageish] pages] (println uri))
     (stasis.core/empty-directory! target-dir)
     (stasis.core/export-pages pages target-dir)
+
+                                        ; Ugly hack to work around https://github.com/magnars/stasis/issues/23
+    (println "/CNAME")
+    (spit (clojure.java.io/file target-dir "CNAME") "samgrayson.me")
+
     (println "Donezo")))
