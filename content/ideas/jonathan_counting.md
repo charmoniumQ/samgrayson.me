@@ -1,0 +1,6 @@
+- 21st century = years whose digits start with 20
+- numbers between a and b should be b - a: so counting has to be inclusive-exclusive. so between 0 and 1 should be 1 number.
+- ranges over the alphabet
+- ordinals vs cardinals
+- Arithmetic on usical intervals
+- Random randrange

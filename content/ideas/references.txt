@@ -1,0 +1,77 @@
+
+You would expect
+
+int main() {
+    int a = 4;
+	cout << "in main, a = " << a << endl;
+
+	int b = a;
+	b = 10;
+
+	cout << "in main, a = " << a << endl;
+}
+
+in main, a = 4
+in main, a = 4
+
+A reference (denoted with an ampersand & at the end of the type) doesn't actually hold a copy the data. It holds the address of the data in memory (where youneed to go to get the memory).
+
+int main() {
+    int a = 4;
+	cout << "in main, a = " << a << endl;
+
+    int& b = a;
+	b = 10
+
+	cout << "in main, a = " << a << endl;
+}
+
+in main, a = 4
+in main, a = 10
+
+function f doesn't get a copy of a. It gets the address in memory where the a from the main function lives. It looks at that address and gets 2. If it modifies the data in that address, it has also modified main's version. There are two reasons you might want to do this.
+
+First, you can use it for output. Normally you output a result through the return value, but you could output through a reference. This can be useful if you have multiple outputs. You can't have multiple return values, but multiple references could work
+
+void add_and_mult(int a, int b, int& sum, int& product) {
+    sum = a + b;
+	product = a * b;
+}
+
+int main() {
+    int g, h;
+	add(2, 4, g, h);
+	cout << "2 + 4 = " << g << endl;
+	cout << "2 * 4 = " << h << endl;
+}
+
+2 + 4 = 6
+2 * 4 = 8
+
+Second, you can use references when copying an object is expensive or impossible. If you have a really big data type, you don't want to copy it. You want to have it stored once in memory and pass a reference to that data. When we were working with fstreams in your project, your professor recommended to use references because fstreams are not copyable. I don't mean that files are not copyable (they most certainly are), but the object which represents a file in C++ cannot be copied. (This makes sense, because if I passed a copy of the fstream to a function and that function moves the cursor, I would want the cursor to be moved for me too, but if we are manipulating copies that don't talk to each other, my copy doesn't know that your copy wrote some data and moved the cursor).
+
+Pointers are similar to references, but there are two aspects in which they are different. First the syntax.
+- When you are talking about the address the pointer is pointing to, you say its name with no prefix. When you are talking the data living in that address, you prefix the name with a splat *.
+- If you want to get the address of a variable, you prefix it with an ampersand & (I think this use of ampersand is separate from use above when using references).
+- An integer is type int. A pointer to an integer is type int*
+
+int main() {
+    int* j;
+	int mydata = 4;
+	// left-hand side, j, is changing the address to which j is pointing
+	// right-hand side, &data, gets the address of mydata
+	j = &mydata;
+	// the result is that j points to mydata
+
+    // right-hand side, *j, is changint the data living in the address to which j is pointing
+    *j = 10
+	// the result is that mydata has been changed to 10
+
+    cout << "mydata = " << mydata << endl;
+}
+
+mydata = 10
+
+If you have a pointer called "ptr" of type K* (where K can stand for any type) then the right-hand side of "ptr = " should generally be prefaced by an ampersand. Since you are changing the address to which ptr is pointing, you need to supply an address. Similarly, the right-hand side of "*ptr = " should always be the actual data of type K. The compiler can help you with this by type checking. Lets say "data" is type K. Then &data is type K* and ptr is type K* so "ptr = &data" is valid. Similarly "*ptr" is type K and data is type K, so "*ptr = data" is valid. That should help you parse through some compiler errors
+
+The semantic difference between pointers and references: references have to refer to exactly one data and which object they refer to cannot be changed

@@ -1,0 +1,1 @@
+Don't disable ASLR just because it makes your benchmarks more consistent.

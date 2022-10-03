@@ -12,7 +12,7 @@ other_routes:
   - /2020-12-27-fourteenth/index.html
 date-published: 2020-12-27
 teaser: >
-  This amendment lies at the heart of issues on the left <i>and</i> right: abortion rights, gay marriage, contraceptive rights, gerrymandering, gun rights, affirmative action, resolving the Presidential Election of 2000, and the status of women in the draft. Can you guess what it is?
+  This amendment lies at the heart of issues on the left <i>and</i> right: gay marriage, contraceptive rights, gerrymandering, gun rights, affirmative action. Can you guess what it is?
 ---
 
 This amendment lies at the heart of issues on the left _and_ right: abortion rights, gay marriage, contraceptive rights, gerrymandering, gun rights, affirmative action, resolving the Presidential Election of 2000, and the status of women in the draft. If you care about any of these subjects, no matter you opinion, you **have** to understand the constitutional amendment at the center all of those debates in order to have an informed opinion. It is the most influential part of the constitution on daily life. It's not any of the Bill of Rights; They actually had a legal loophole that this amendment would close.

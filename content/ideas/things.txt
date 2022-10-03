@@ -1,0 +1,53 @@
+x 404.html
+x Theme options
+x 	"Ocurred to me on..."
+x 	Navbar shows "About Me"
+x Favicon https://realfavicongenerator.net/
+x Feed config
+x Tag config
+x 	Hyperlink tags under post
+x Typography
+x 	Smartypants
+x 	Syntax highlighting
+x 	Deep links
+x 	Images
+x Copyright footer
+x SEO config
+x Sitemap/robots config
+Fancy landing page?
+	Footer
+LSI config
+GitHub pages
+	https://stackoverflow.com/questions/28249255/how-do-i-configure-github-to-use-non-supported-jekyll-site-plugins/28252200#28252200
+DNS
+Audit SEO
+Audit RSS
+Make https://samgrayson.me/2016-08-12-fundamentalist-technology/ link to zealots of tech
+
+Plugins:
+https://github.com/JCB-K/singlepage-jekyll
+https://github.com/codeinpink/jekyll-portfolio-generator
+https://github.com/codeinpink/codeinpink.github.io
+https://gist.github.com/zachleat/5792681
+https://github.com/bdesham/reading_time
+https://github.com/pathawks/jekyll-smartify
+https://github.com/myles/jekyll-typogrify
+https://github.com/vwochnik/jekyll-email-protect
+https://github.com/hendrikschneider/jekyll-analytics
+https://github.com/kinnetica/jekyll-plugins
+https://github.com/PascalW/jekyll_indextank
+
+Themes:
+https://github.com/daattali/beautiful-jekyll
+https://github.com/thelehhman/texture
+https://mmistakes.github.io/so-simple-theme/
+http://pixyll.com/
+
+Theme galleries:
+http://themes.jekyllrc.org/
+https://jekyllthemes.io/
+https://demo.ghost.io/
+https://jekyll-themes.com/free/
+http://lanyon.getpoole.com/
+
+Jack, Brendan, Matthew, Neil

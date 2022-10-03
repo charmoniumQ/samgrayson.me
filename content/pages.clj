@@ -50,12 +50,11 @@
 
 (def data (load-file "content/data.clj"))
 
-(def compress-html
-  ;; clj-html-compressor.core/compress
-  (fn [x] x))
+(defn compress-html [x] x)
+; TODO[2]: use  clj-html-compressor.core/compress
 
 
-(defn compress-css [x]
+;; (defn compress-css [x]
   ;; (let [src-file (java.io.File/createTempFile "str" ".css")
   ;;       dst-file (java.io.File/createTempFile "str" ".css")]
   ;; (do
@@ -67,7 +66,7 @@
   ;;     "-o"
   ;;     (str dst-file)])
   ;;   (slurp dst-file)))
-  x)
+  ;; )
 
 
 ;; (defn convert [file1 file2 & options]
@@ -76,10 +75,9 @@
 ;;     (apply clojure.java.shell/sh `("convert" ~@options (str (.resolve tmpdir file2))))
 ;;     (slurp file2)))
 
-(defn favicon-set [favicon-svg-path]
-  {"/favicon.svg" (slurp favicon-svg-path)})
-                                        ;(clojure.java.io/file "/" "favicon-32x32.png") (convert favicon-svg-path "favicon.ico" "-resize" "32x32")
-                                        ;(clojure.java.io/file "/" "favicon-192x192.png") (convert favicon-svg-path "favicon.ico" "-resize" "192x192")
+;; (defn favicon-set [favicon-svg-path]
+;;   {"/favicon-32x32.png" (convert favicon-svg-path "favicon.ico" "-resize" "32x32"),
+;;    "/favicon-192x192.png" (convert favicon-svg-path "favicon.ico" "-resize" "192x192")})
                                         ; TODO[3]: fix this
 
 
@@ -100,10 +98,7 @@
 
 (merge
 
- {"/raw-text/main.css" (compress-css
-                        (slurp "content/raw-text/main.css"))
-
-  "/404.html" (compress-html
+ {"/404.html" (compress-html
                (selmer.parser/render
                 (slurp "content/templates/page.html.jinja")
                 (:not-found-page data)))
@@ -121,9 +116,18 @@
                 (fn [_] file)])
     (filter
      #(.isFile %)
+     (file-seq (clojure.java.io/file "content" "raw-text"))))))
+
+ (apply
+  hash-map
+  (flatten
+   (map
+    (fn [file] [(clojure.string/join "/" (concat [""] (drop 1 (.toPath file))))
+                (fn [_] file)])
+    (filter
+     #(.isFile %)
      (file-seq (clojure.java.io/file "content" "raw-binary"))))))
 
- (favicon-set "content/raw-text/favicon.svg")
 
                                         ; blog index
  (let [path "/essays/index.html"]
