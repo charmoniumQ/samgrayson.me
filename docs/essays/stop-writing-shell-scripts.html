@@ -1,0 +1,559 @@
+<!doctype html>
+<html lang="en-US">
+  <head>
+    <!-- Tags for search engines -->
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Stop writing shell scripts</title>
+
+    <link rel="shortcut icon" href="/raw-text/favicon.svg">
+
+    
+      <meta name="description" content="UNIX shell isn&#39;t a real programming language, so stop using like one!
+" />
+      <meta name="robots" content="index, follow" />
+
+      <!-- Opengraph tags for Facebook and others: https://ogp.me/ -->
+      <meta property="og:title" content="Stop writing shell scripts" />
+      <meta property="og:type" content="website" />
+      <meta property="og:url" content="https://samgrayson.me/essays/stop-writing-shell-scripts.html" />
+      <meta property="og:image" content="/raw-binary/stop-writing-shell-scripts/moneyball.png" />
+      <meta property="og:image:alt" content="Billy Bean classifies programming languages: “There&#39;re strongly typed languages, weakly typed languages, fifty feet of crap, and then there&#39;s shell.”" />
+      <meta property="og:description" content="UNIX shell isn&#39;t a real programming language, so stop using like one!
+" />
+      <meta property="og:locale" content="en_US" />
+      <meta property="og:site_name" content="Samuel Grayson" />
+
+      <!-- Twitter card: https://developer.twitter.com/en/docs/twitter-for-websites/cards/overview/summary -->
+      <meta property="twitter:card" content="summary" />
+      <meta property="twitter:site" content="charmoniumQ" />
+      <meta property="twitter:title" content="Stop writing shell scripts" />
+      <meta property="twitter:description" content="UNIX shell isn&#39;t a real programming language, so stop using like one!
+" />
+      <meta property="twitter:image" content="/raw-binary/stop-writing-shell-scripts/moneyball.png" />
+      <meta property="twitter:image:alt" content="Billy Bean classifies programming languages: “There&#39;re strongly typed languages, weakly typed languages, fifty feet of crap, and then there&#39;s shell.”" />
+    
+
+    <link rel="stylesheet" href="/raw-text/main.css" />
+  </head>
+  <body>
+    <nav>
+      <a class="stretch" href="/">Home</a>
+      
+        <a class="fixed" href="/essays">Essays</a>
+      
+        <a class="fixed" href="https://scholar.google.com/citations?user=EEOIkYEAAAAJ&amp;hl=en">Publications</a>
+      
+    </nav>
+    <main id="main">
+      <article vocab="http://schema.org/" typeof="BlogPosting" lang="en-US">
+  <header>
+    <h1 property="headline name">
+      <a property="url" href="">
+        Stop writing shell scripts
+      </a>
+    </h1>
+    <p class="byline">
+      by
+      <span property="copyrightHolder author" resource="https://samgrayson.me">
+        <a href="https://samgrayson.me">
+          Samuel Grayson
+        </a>
+      </span>
+      on
+      <time property="dateCreated" datetime="2020-12-31">2021 January 1</time>.
+    </p>
+    <figure>
+      <img property="thumbnailUrl" src="/raw-binary/stop-writing-shell-scripts/moneyball.png" alt="Billy Bean classifies programming languages: “There&#39;re strongly typed languages, weakly typed languages, fifty feet of crap, and then there&#39;s shell.”" />
+      <figcaption>
+        
+          
+        
+        <br />
+        <span class="attribution">
+          Credit: own work
+          
+        </span>
+      </figcaption>
+    </figure>
+  </header>
+  <div property="description" style="display: none;">
+    UNIX shell isn&#39;t a real programming language, so stop using like one!
+
+    <span property="inLanguage">en-US</span>
+  </div>
+  <div property="text articleBody">
+    <p>UNIX shell isn’t a real programming language, so stop using like
+one!</p>
+<p>Don’t get me wrong, shell is extremely useful and powerful. However,
+it is less <em>maintainable</em> than scripts written in real
+programming languages. If you can afford to baby-sit the task and don’t
+need it to be maintainable, then shell scripts are a fine choice.</p>
+<p>The distinguishing factor between these “real” programming languages
+and shell, for the purposes of this article, is the ability to define
+datatypes. As Billy Beane famously remarked, “There are strongly typed
+languages and weakly typed ones [both permit user-defined datatypes];
+Then there’s 50 feet of crap, and <em>then</em> there’s shell.”</p>
+<p><img src="/raw-binary/stop-writing-shell-scripts//moneyball.png" /></p>
+<p>A cornerstone of UNIX wisdom is that “plaintext is the universal
+interface.” Hence, it is not strongly typed; it’s <em>stringly</em>
+typed. - After all, floats, ints, strings can all be encoded as strings.
+- Lists of such can be colon-separated (like <code>$PATH</code>),
+space-separated (like shell arguments), tab-separated (like
+<code>ls -l $file</code>), or line-separated (like <code>find</code>). -
+Lists of lists of such can be represented as a line-separated list of
+tab-separated lists (like <code>ls -l</code>). I call these <em>simple
+datatypes</em>. Representing <em>complex datatypes</em> is done on an
+even more ad hoc basis.</p>
+<h3 id="simple-datatypes">Simple datatypes</h3>
+<p>Even within simple datatypes, life is hard: if
+<code>var="name with space"</code>, then <code>command $var</code>
+expands to <code>command name with space</code> (<code>$var</code> is a
+makeshift list) rather than <code>command "name with space"</code> by
+default, when the programmer usually intends the latter. While this
+behavior can be avoided with quotes around <code>"$var"</code>, this
+default makes it easier to write shell scripts incorrectly in a way you
+won’t notice until you try a specially-crafted string.</p>
+<p>Quoting does not even solve the problem completely. Suppose
+<code>var='a "b c"'</code>. Then <code>"$var"</code> expands to one
+argument (<code>a "b c"</code>), while <code>$var</code> expands to
+three (<code>a</code>, <code>"b</code>, and <code>c"</code>). According
+to the all-knowing <a
+href="https://superuser.com/questions/1066455/how-to-split-a-string-with-quotes-like-command-arguments-in-bash">Stack
+Overflow</a>, there is no variant which expands to two arguments
+(<code>a</code> and <code>b c</code>) short of writing your own lexer in
+shell or calling <code>eval</code>.</p>
+<p>A <a href="https://news.ycombinator.com/item?id=8442467">defender of
+shell</a> says “We should strive to build our software… so that
+exceptions like a filename with an odd character in it just don’t exist.
+Until we reach that point, computers will continue to frustrate their
+users for no good reason.” But there <strong>is</strong> a better way!
+It’s using a real programming language.</p>
+<p>The thorns of shell programming infect the rest of the system. For
+example, <code>$PATH</code> contains a colon-separated list-of-strings.
+What if one of those strings needs to have a colon in it?
+<code>scp</code> also uses a colon to separate two elements of a pair
+(the hostname and the path), but what if the filename contains a colon?
+Colon is technically <a
+href="https://en.wikipedia.org/wiki/Filename#Comparison_of_filename_limitations">a
+reserved character</a>, but this reservation is (usually) not checked
+when creating a file–apparently the system prefers to silently fail
+later on instead.</p>
+<p>Good luck using a string in shell to hold non-trivial encodings or
+binary data.</p>
+<h3 id="complex-datatypes">Complex datatypes</h3>
+<p>Complex datatypes are even more ad hoc. While Zsh and Bash
+<em>do</em> have arrays and associative arrays, there is no way to pass
+them between functions or compose them (no array of arrays). Perhaps,
+the designers of shell did not envision so many tools requiring complex
+datatypes. But today, a plethora tools I use regularly do. Instead of
+plaintext, many newer tools (<code>kubectl</code>, <code>gcloud</code>)
+often have an option to output structured data as JSON to losslessly
+emit data for a real programming language.</p>
+<p>The shell’s inability to natively represent datatypes affects how
+people think about the rest of the system. For example, how should the
+kernel communicate complex datastructures to userspace? Influenced by
+shell, which can’t define data structures, many Unices use the filesytem
+(<a href="https://en.wikipedia.org/wiki/Sysfs">sysfs</a> and <a
+href="https://en.wikipedia.org/wiki/Procfs">procfs</a>) to communicate
+structured data. Unfortunately, over the years this has accumulated <a
+href="https://lwn.net/Articles/378884/">a plethora of different ad hoc
+representations</a> in Linux, and it is nearly impossible to <a
+href="https://lwn.net/Articles/356152/">take a consistent snapshot</a>
+of the data.</p>
+<p>I have a friend who says any system operation I can do in Python, he
+can do in an <code>awk</code>/<code>sed</code> one-liner. As a one-off
+command, I understand that’s a useful skill. But if you need to do this
+task in a stored procedure, this is the <em>least</em> maintainable
+option. If anyone needs to tweak the task (including the original author
+after one month), they usually have to figure out what it does and
+<em>rewrite another one</em>, hopefully in a real language this
+time.</p>
+<p>Even <a href="https://en.wikipedia.org/wiki/Eric_S._Raymond">Eric S.
+Raymond</a>, classic UNIX hacker, weighed in against shell:</p>
+<blockquote>
+<p>As a general scripting language shell sucks <em>really badly</em>
+compared to anything new-school. Performance, portability, you name it,
+it’s a mess. It’s not so much the shell interpreters itself that are the
+portabilty [sic] problem, but (as Magnus implicitly points out) all
+those userland dependencies on sed and tr and awk and even variants of
+expr(!) that get dragged in the second you try to get any actual work
+done.</p>
+<p>Some old-school Unix habits have persisted long past the point that
+they’re even remotely sane. Shell programming at any volume above a few
+lines of throwaway code is one of them - it’s <em>nuts</em> and we
+should <em>stop doing it</em>.</p>
+<p>Eric S. Raymond in <a
+href="https://lwn.net/Articles/527308/">LWN</a></p>
+</blockquote>
+<h3 id="knuth-vs-mcilroy-is-orthogonal-to-ditching-shell">Knuth vs
+McIlroy is orthogonal to ditching shell</h3>
+<p>Someone is bound to mention the famous spar between Doug McIlroy and
+Donald Knuth (much has been written regarding this: <a
+href="http://www.leancrew.com/all-this/2011/12/more-shell-less-egg/">summary</a>,
+<a
+href="https://buttondown.email/hillelwayne/archive/donald-knuth-was-framed/">Knuth
+was framed</a>, <a href="https://www.spinellis.gr/blog/20200225/">Knuth
+wasn’t framed</a>, <a
+href="https://news.ycombinator.com/item?id=18699718">HN debate</a>).
+Donald Knuth was asked to compute word frequencies from its input (“a”
+=&gt; 10, “the” =&gt; 7, “them” =&gt; 3, …). He wrote a 6-page Pascal
+program from scratch and invented a novel datastructure. Doug McIlroy
+wrote a 6-line shell program which did the same thing.</p>
+<pre class="shell"><code>tr -cs A-Za-z &#39;\n&#39; |
+tr A-Z a-z |
+sort |
+uniq -c |
+sort -rn |
+sed ${1}q</code></pre>
+<p>The transferrable point of McIlroy’s comment was that Knuth built
+everything from scratch to maximize asymtotic performance, while McIlroy
+wrote an equivalent although less performant solution by cobbling
+together existing tools. Nothing about it is inherent to shell or pipes.
+I would offer this Python program:</p>
+<div class="sourceCode" id="cb2"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> sys, collections, re</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>N <span class="op">=</span> <span class="bu">int</span>(sys.argv[<span class="dv">1</span>])</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>text <span class="op">=</span> sys.stdin.read()</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>words <span class="op">=</span> re.findall(<span class="st">&quot;[a-z]+&quot;</span>, text.lower())</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>counter <span class="op">=</span> collections.Counter(words)</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(counter.most_common(N))</span></code></pre></div>
+<p>I believe it carries the same lesson from McIlroy’s solution (since
+it reuses tools: <a
+href="https://docs.python.org/3/library/re.html">regular expressions</a>
+and <a
+href="https://docs.python.org/3/library/collections.html#collections.Counter">collections.Counter</a>),
+but unlike McIlroy’s solution, it’s easier to read, easier to modify
+(try making it split words containing apostrophes more intelligently),
+gives better error messages (try passing in a non-integer argument), and
+it’s about <a href="https://stackoverflow.com/a/56958255/1078199">4
+times faster</a>.</p>
+<h3
+id="poor-datatypes-implies-poor-programming-language-constructs">Poor
+datatypes implies poor programming-language constructs</h3>
+<p>Not everyone likes exceptions, but you have to agree a
+<em>stacktrace</em> is useful (for example, pass a non-integer argument
+to the previous program). Shell by default doesn’t even stop for errors,
+and if you unset that default (<code>set -e</code>), it doesn’t tell you
+what line errored out. You have to enable printing all lines
+(potentially many!) with <code>set -x</code> to get remotely useful
+diagnostics.</p>
+<p>It is difficult to do parallelism in shell. Because shell is based on
+fork-and-exec, there is no such thing as lightweight thread-level
+parallelism. As for process-level parallelism, you’ve got the option to
+manually pass around pids (<code>command &amp; ; pid="${!}"</code>), use
+<code>xargs</code>, or use <a
+href="https://www.gnu.org/software/parallel/">GNU Parallel</a>. It’s
+only fun for the very simplest kinds of problems.</p>
+<p>In many shell expressions, undefined variables behave the same as the
+empty-string (no datatype to represent <code>null</code>). This has led
+to horrible bugs that delete <a
+href="https://github.com/valvesoftware/steam-for-linux/issues/3671">the
+whole home directory</a>.</p>
+<p>Lack of datatypes implies the inability to statically
+<strong>or</strong> dynamically check types. Even Python can emit
+type-errors dynamically.</p>
+<p>And all variables are a global by default??</p>
+<h1 id="actionable-advice">Actionable Advice</h1>
+<ol type="1">
+<li><p>Stop writing shell scripts! Instead reach for a <em>real</em>
+language like Python. You can still benefit from reusing software, but
+at a language-level.</p></li>
+<li><p>Write functions instead of scripts, function parameters instead
+of script arguments, <code>return</code> instead of <code>echo</code>,
+and objects instead of stringified data. This makes your software easier
+to reuse than a shell script.</p></li>
+<li><p>If you have to call out to shell, bubble-wrap the shell command
+in a regular function. This is good software engineering, it permits you
+to switch to a native API call later on, and
+<code>clang(..., debugging_symbols=True)</code> is far more readable
+than <code>clang ... -g</code> if you don’t remember what
+<code>-g</code> stands for.</p>
+<div class="sourceCode" id="cb3"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> clang(</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>        sources: List[Path],</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>        executable: Path <span class="op">=</span> Path(<span class="st">&quot;a.out&quot;</span>),</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>        includes: List[Path] <span class="op">=</span> [],</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>        libs: List[<span class="bu">str</span>] <span class="op">=</span> [],</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>        optimizations: Mapping[<span class="bu">str</span>, <span class="bu">bool</span>] <span class="op">=</span> {},</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>        opt_level: Union[<span class="bu">int</span>, <span class="bu">str</span>] <span class="op">=</span> <span class="dv">0</span>,</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>        debugging_symbols: <span class="bu">bool</span> <span class="op">=</span> <span class="va">False</span>,</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>) <span class="op">-&gt;</span> <span class="va">None</span>:</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>    subprocess.run([</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>        <span class="st">&quot;clang&quot;</span>,</span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>        <span class="op">*</span>sources,</span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>        <span class="op">*</span>[<span class="ss">f&quot;-I</span><span class="sc">{</span>include<span class="sc">}</span><span class="ss">&quot;</span> <span class="cf">for</span> include <span class="kw">in</span> includes],</span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>        <span class="op">*</span>[<span class="ss">f&quot;-l</span><span class="sc">{</span>lib<span class="sc">}</span><span class="ss">&quot;</span> <span class="cf">for</span> lib <span class="kw">in</span> libs],</span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>        <span class="op">*</span>[</span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>            <span class="st">&quot;-f&quot;</span> <span class="op">+</span> (<span class="st">&quot;&quot;</span> <span class="cf">if</span> enabled <span class="cf">else</span> <span class="st">&quot;no-&quot;</span>) <span class="op">+</span> optimization.replace(<span class="st">&#39;_&#39;</span>, <span class="st">&#39;-&#39;</span>)</span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>            <span class="cf">for</span> optimization, enabled <span class="kw">in</span> optimizations.items()</span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>        ],</span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a>        <span class="ss">f&quot;-O</span><span class="sc">{</span>opt_level<span class="sc">}</span><span class="ss">&quot;</span>,</span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a>        <span class="op">*</span>([<span class="st">&quot;-g&quot;</span>] <span class="cf">if</span> debugging_symbols <span class="cf">else</span> []),</span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a>        <span class="st">&quot;-o&quot;</span>, executable,</span>
+<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a>    ])</span></code></pre></div></li>
+<li><p>If you <em>have</em> to talk to some other program by a
+command-line interface,</p>
+<ul>
+<li><p>Implement a language-level interface first, and then a
+command-line interface that sanatizes the inputs and calls into the
+language-level interface. It’s good software engineering practice, and
+it also gives other programs the option of composing at the
+language-level. I like to use <a
+href="https://click.palletsprojects.com/en/7.x/"><code>click</code></a>
+for the CLI.</p></li>
+<li><p>Add a <code>--output={json,text,auto}</code>. <code>json</code>
+is good if the other program is written in a real programming language
+(they can just <code>json.load(sys.stdin)</code>). It also permits using
+<a href="https://stedolan.github.io/jq/"><code>jq</code></a> to
+slice-and-dice the JSON instead of <code>sed</code>/<code>awk</code> to
+slice-and-dice the text. <code>auto</code> can decided between them by
+checking if stdin is a TTY. Many UNIX tools already do something
+analogous to decide if they should colorize the output.</p></li>
+<li><p>stderr can be plaintext—that is probably going to be read by a
+human.</p></li>
+<li><p>Don’t use raw <code>print</code>s. You can use <a
+href="https://tqdm.github.io/docs/tqdm/">tqdm</a>, <a
+href="https://docs.python.org/3/howto/logging.html#logging-basic-tutorial">logging</a>,
+<a href="https://docs.python.org/3/library/warnings.html">warnings</a>,
+and exceptions instead. This makes it easier to gracefully reuse your
+code in another project.</p></li>
+</ul>
+<div class="sourceCode" id="cb4"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Language-level interface</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> do_cool_thing(args):</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    ...</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> print_cool_thing(thing):</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>    ...</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Command-line interface</span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="va">__name__</span> <span class="op">==</span> <span class="st">&#39;__main__&#39;</span>:</span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>    <span class="co"># importing typer here permits clients to use the</span></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>    <span class="co"># language-level interface without installing typer.</span></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>    <span class="im">import</span> typer</span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>    <span class="co"># typer parses a CLI options and generates `--help` text</span></span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>    <span class="co"># and parses args for us</span></span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> main(n: <span class="bu">int</span>, <span class="bu">input</span>: Path, fmt: <span class="bu">str</span> <span class="op">=</span> <span class="st">&quot;auto&quot;</span>):</span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="bu">format</span> <span class="op">==</span> <span class="st">&quot;auto&quot;</span>:</span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a>            <span class="bu">format</span> <span class="op">=</span> <span class="st">&quot;text&quot;</span> <span class="cf">if</span> sys.stdout.isatty() <span class="cf">else</span> <span class="st">&quot;json&quot;</span></span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a>        result <span class="op">=</span> do_cool_thing(...)</span>
+<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="bu">format</span> <span class="op">==</span> <span class="st">&quot;json&quot;</span>:</span>
+<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a>            json.dump(sys.stdout, result)</span>
+<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a>        <span class="cf">elif</span> <span class="bu">format</span> <span class="op">==</span> <span class="st">&quot;text&quot;</span>:</span>
+<span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a>            print_cool_thing(result)</span>
+<span id="cb4-27"><a href="#cb4-27" aria-hidden="true" tabindex="-1"></a>        <span class="cf">else</span>:</span>
+<span id="cb4-28"><a href="#cb4-28" aria-hidden="true" tabindex="-1"></a>            <span class="cf">raise</span> <span class="pp">ValueError</span>(<span class="ss">f&quot;Unrecognized format: </span><span class="sc">{</span><span class="bu">format</span><span class="sc">}</span><span class="ss">&quot;</span>)</span></code></pre></div></li>
+<li><p>Packages are the only piece I don’t have a good strategy for yet.
+Here are the strategies I have tried:</p>
+<ul>
+<li>Using a shebang that activates your environment, e.g. <a
+href="http://iam.travishartwell.net/2015/06/17/nix-shell-shebang/">Nix
+Shebang</a>, <a href="https://pypi.org/project/pipenv-shebang/">Pipenv
+shebang</a>. This is probably the best option.</li>
+</ul>
+<pre class="shell"><code>#! /usr/bin/env nix-shell
+#! nix-shell -i python3 -p python3 python34Packages.pygobject3 libnotify gobjectIntrospection gdk_pixbuf
+import gi</code></pre>
+<ul>
+<li><p><code>try</code> importing a package, and if that fails tell the
+user what to install. This option is only feasible for a few
+dependencies.</p></li>
+<li><p>Using a runner like <a
+href="https://pypa.github.io/pipx/">pipx</a>. This is clumsy for
+frequently used scripts because you have to write <code>pipx</code>
+before them.</p></li>
+<li><p>Using <code>virtualenv</code> (perhaps managed by Pipenv or
+Poetry). You can activate the env from within the script by writing
+<code>sys.path.insert(0, ...)</code> (if you can assume the user has the
+right version of Python). It’s kind of ugly.</p></li>
+<li><p>Using <code>cx_freeze</code> to compile your script into an
+executable.</p></li>
+</ul></li>
+<li><p>More advice regarding the CLI can be found at <a
+href="https://clig.dev/">clig.dev</a>.</p></li>
+</ol>
+<p>I’ve implemented these ideas in many projects, including my most
+recent: <a href="https://illixr.github.io/">ILLIXR</a>. We used to have
+a shell script to build-and-run the system, then a
+<code>Makefile</code>, and then I upgraded it following the guidelines
+in this section to a <a
+href="https://github.com/ILLIXR/ILLIXR/tree/master/runner/runner/main.py">launcher
+script</a>. The script makes it far easier to launch ILLIXR different
+configurations programatically.</p>
+<h3 id="cons-of-a-real-language">Cons of a Real Language</h3>
+<ul>
+<li><p>I must concede that the UNIX REPL, despite its warts, is
+efficient for those who invest time in it. It is useful to build a
+script out of commands one can test at a REPL.</p>
+<ul>
+<li>Perhaps real-language REPLs will become more ergonomic (like <a
+href="https://xon.sh/">Xonsh</a>), and satisfy the need for rapid
+prototyping while using real datatypes.</li>
+</ul></li>
+<li><p>Python is far more complex and difficult to implement from
+scratch than a shell.</p></li>
+<li><p>Python scripts are somewhat less portable since they depend on
+Python, but they are also somewhat more portable since Python is a
+compatibility layer over the underlying OS (most Python scripts are
+trivially Windows and UNIX compatibile!).</p></li>
+<li><p>It may be less debuggable, because the intermediates are not
+human-readable plaintext.</p>
+<ul>
+<li>This can be partly mitigated in two ways: In a language context, one
+can give objects a printable representation
+with<code>__str__/to_string</code> (often defined automatically);
+between processes, one can change<code>--format=json</code> to
+<code>--format=text</code>.</li>
+</ul></li>
+<li><p>Writing small shell utilities makes it easier to interact with
+other languages. Perhaps, <em>this</em> is Doug McIlroy’s vision. Not
+just reusing software but doing so at the CLI-level rather than
+language-level.</p>
+<ul>
+<li>This can be partly mitigated by writing a language-interface first
+and a shell-interface on top. This is common practice, as demonstrated
+by <a href="https://tqdm.github.io/">tqdm</a>, <a
+href="https://pyserial.readthedocs.io/en/latest/tools.html#module-serial.tools.miniterm">Pyserial’s
+miniterm</a>, <a
+href="https://pypi.org/project/jinja-cli/">jinja-cli</a>, and <a
+href="https://docs.python.org/3/library/http.server.html"><code>http.server</code></a>.</li>
+</ul></li>
+</ul>
+<h3 id="a-new-vision-for-shell">A new vision for shell?</h3>
+<p>The case against using the UNIX shell as a REPL is less clear cut.
+Most of my arguments regarding maintainability and edge-cases carry less
+weight at the REPL since they only have to work once, under an
+engineer’s supervision. Any change to the shell threatens the existing
+repertoire of “muscle memory,” honed over decades. But even only as a
+hypothetical consideration, it is worth imagining what shell
+<em>could</em> be if it supported datatypes natively.</p>
+<p>Inventing a language is hard work, so why not reuse an existing one?
+Most existing languages are a bit too verbose, butone can write a
+front-end with syntactic sugar. This is exactly what <a
+href="https://xon.sh/">Xonsh</a> does for Python and <a
+href="http://ammonite.io/#Ammonite-Shell">Ammonite</a> does for Scala.
+Although the resulting syntax may resemble UNIX shell, real datatypes
+are flowing through the pipes. See <a
+href="https://docs.google.com/presentation/d/11vZzXCfAA0aOFAuHA0nAvAzALGFGCH-dqHxx6XMgbk8">Beyond
+Bash</a> for an exposition of this philosophy by Ammonite’s creator.</p>
+<p>A more revolutionary approach is to fulfill the vision of shell, but
+in a modern context with datatypes. This is what PowerShell tries to
+be.</p>
+<blockquote>
+<p>I originally took the UNIX tools and made them available on Windows,
+and then it just didn’t work. Right? Because there’s a core
+architectural difference between Windows and Linux. On Linux,
+everything’s an ASCII text file… In Windows, everything’s an API that
+returns structured data… I came up with this idea of PowerShell… It’s a
+pipeline of objects and with the objects, you know, there’s none of the
+prayer-based parsing.</p>
+<p>–Jeffrey Snover in an interview with <a
+href="https://www.heavybit.com/library/podcasts/to-be-continuous/ep-37-the-man-behind-windows-powershell/">To
+Be Continuous</a></p>
+</blockquote>
+<h1 id="discussions">Discussions</h1>
+<p>This is not an original idea, but I think my presentation of it is
+unique.</p>
+<ul>
+<li><p><a href="https://news.ycombinator.com/item?id=3329668">This HN
+thread</a> is particularly prescient.</p>
+<ul>
+<li><code>jhpriestley</code> reads McIlroy’s point about composition
+specifically to shell, while I would say that reusing language libraries
+is “composition” as well.</li>
+<li><code>nwmcsween</code> says exactly what I was thinking,
+“Composition should be of libraries or algorithms not arbitrary black
+box programs with n different options”. But I would amend this to say
+that black-box composition is a <em>fallback</em> if you have to go
+between languages and don’t have enough time to write a native API.</li>
+</ul></li>
+<li><p>Ted Kaminski applies a similar critique <a
+href="https://www.tedinski.com/2018/05/08/case-study-unix-philosophy.html">to
+UNIX philosophy</a> more broadly; he says what I am trying to far more
+generally and eloquently. I have chosen to focus my ire on just shell
+scripts because I hope to make more progress arguing the most narrow,
+concrete, and practical point first.</p></li>
+<li><p><a href="https://news.ycombinator.com/item?id=8437687">This HN
+Thread</a> also features a lively debate.</p>
+<ul>
+<li><code>felixgallo</code> points out that teaching shell is easier
+than teaching a map, reduce, and filter. I won’t argue the subjective
+point of which is easier, but it is incontroversial that most CS
+students are more interested in learning a real language than shell for
+employability reasons.</li>
+<li><code>rsync</code> says there is no better alternative, while
+<code>felixgallo</code> claims one is 20 years away, since existing
+tools would have to be ported. Here’s the better alternative: Python for
+scripts, Xonsh for REPL. It already has an equivalent of most tools
+(<code>ls -&gt; os.listdir</code>, <code>tr -&gt; re.sub</code>, etc.),
+the tools can be trivially ported (like
+<code>wc -l -&gt; open(...).read().count("\n")</code>), or existing
+tools can just be wrapped in a function that calls out to shell.</li>
+</ul></li>
+<li><p><a
+href="https://docs.google.com/presentation/d/11vZzXCfAA0aOFAuHA0nAvAzALGFGCH-dqHxx6XMgbk8">Beyond
+Bash by Li Haoyi</a> is a more persuasive argument on why Bash is
+insufficient and why Scala is a better replacement than Python. With a
+special library, Scala scripts are less than twice as verbose as the
+equivalent Bash script. The author raises an important question: For a
+webservice striving to have availability, how can one be confident that
+a deployment workflow <em>works</em>? With Bash-based Puppet scripts,
+there are a ton of subtle pitfalls and input-dependent “gotchas”
+(e.g. spaces in strings), and the whole thing is untestable. Not only is
+Scala a real progrmaming language that has sane datatypes, Scala has an
+advanced yet ergonomic type-checker which can be leveraged to eliminate
+many classes of runtime errors.</p></li>
+<li><p>In an entertaining talk called <a
+href="https://www.youtube.com/watch?v=sCZJblyT_XM">The Unix
+Chainsaw</a>, Gary Bernhardt espouses a seemingly opposite viewpoint,
+but I think it is mostly consistent with my view.</p>
+<ol type="1">
+<li>Gary Bernhardt shows examples where shell is extremely useful and
+powerful.</li>
+<li>However, I would caveat that shell is often less maintainable than a
+real programming language (thesis of this post).</li>
+<li>Gary Berhardt points out that not all things need to be maintainable
+(they can be “half-assed”). I have to agree. Many people use shell
+one-liners for things they only have to do once.</li>
+<li>My problem is when shell scripts start taking the place of a real
+program. This goes back to Li Haoyi’s point, “how can you be sure that a
+tool is going to still work with new inputs if it is written in
+shell?”</li>
+<li>So it boils down to learn both so you can <em>use the right tool for
+the job</em>.</li>
+</ol></li>
+</ul>
+<p>I am genuinely interested in opposing opinions, so drop a comment
+explaining why shell scripts are useful. Disqus’s free tier now has
+disgusting ads, so I switched away from it. You can comment in one of
+these places instead:</p>
+<ul>
+<li><a
+href="https://news.ycombinator.com/item?id=25604501">HackerNews</a></li>
+<li><a
+href="https://twitter.com/charmoniumQ/status/1345049520602828801">Twitter</a></li>
+</ul>
+<p><img src="/raw-binary/stop-writing-shell-scripts//winter-is-coming.jpg" /></p>
+
+  </div>
+  <footer>
+    <p class="license">
+      This work is licensed under <a property="license" href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.
+      Cite as:
+      <span property="creditText">
+        “<a href="">Stop writing shell scripts</a>
+        by
+        <a href="https://samgrayson.me">Samuel Grayson</a>”
+      </span>
+	</p>
+  </footer>
+</article>
+
+    </main>
+  </body>
+</html>
