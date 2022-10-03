@@ -46,11 +46,11 @@
 {:output-dir (clojure.java.io/file "docs")
  :blog-posts (reverse
               (sort-by
-               (fn [post] (:date-published post))
+               :date-published
                (map
                 parse-yaml-markdown
                 (filter
-                 (fn [file] (.isFile file))
+                 #(.isFile %)
                  (file-seq (clojure.java.io/file "content/posts"))))))
  :post-defaults {:license cc-by
                  :date-published (today)
