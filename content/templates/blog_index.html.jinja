@@ -29,12 +29,10 @@
           </a>
         </span>
           on
-          <time property="dateCreated" datetime="{{post.date-published | iso-date}}">
-            {{post.date-published | human-readable-date}}
-          </time>.
+          <time property="dateCreated" datetime="{{post.date-published | iso-date}}">{{post.date-published | human-readable-date}}</time>.
         </p>
         <p property="description">
-          {{post.teaser}}
+          {{post.teaser | safe}}
         </p>
       </article>
       {% if not forloop.last %}

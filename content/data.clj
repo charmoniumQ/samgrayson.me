@@ -32,7 +32,7 @@
 (def cc-by {:name "Creative Commons Attribution 4.0 International License"
             :url "http://creativecommons.org/licenses/by/4.0/"})
 
-(def site {:name "Akademio"
+(def site {:name "Samuel Grayson"
            :twitter "charmoniumQ"
            :author sam
            :url "https://samgrayson.me"
@@ -55,8 +55,8 @@
                  :author sam
                  :language "en-US"
                  :content? true}
- :blog-meta {:title "Sam’s Essays"
-             :teaser "Sam’s Essays on computer science, math, history, and law."
+ :blog-meta {:title "Essays"
+             :teaser "Sam’s essays on computer science, math, history, language, and law."
              :author sam
              :image nighthawks
              :language "en-US"

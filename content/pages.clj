@@ -89,6 +89,19 @@
                                         ; TODO[3]: fix this
    
 
+
+(defn check-post [post]
+  (map
+   (fn [tag]
+     (if (not (contains? post tag))
+       (throw
+        (ex-info
+         "Post does not contain tag"
+         {:post (:slug post) :tag (str tag)}))
+       nil))
+   [:slug :title :teaser :contents :image])
+  post)
+
                                         ; TODO[2]: compress img to standardized ratios
 (defn compress-img [img-path] (slurp img-path))
 
@@ -124,8 +137,11 @@
                       (slurp "content/templates/blog_index.html.jinja")
                       (assoc
                        (:blog-meta data)
-                       :posts (map
-                               (fn [post] (merge (:post-defaults data) post))
+                       :posts
+                       (map
+                               (fn [post]
+                                 (let [post (check-post (merge (:post-defaults data) post))]
+                                   post))
                                (:blog-posts data))
                        :path path))}))})
 
@@ -134,7 +150,7 @@
   merge
   (map
    (fn [post]
-     (let [post (merge (:post-defaults data) post)
+     (let [post (check-post (merge (:post-defaults data) post))
            path (clojure.java.io/file
                  "/"
                  "essays"
