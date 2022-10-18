@@ -10,7 +10,7 @@ image:
     text: CC BY-ND 2.0
 date-published: 2017-01-09
 other_routes:
-  - 2017-01-09-chaos-of-history-2/index.html
+  - /2017-01-09-chaos-of-history-2/index.html
 teaser: >
   Can history be described by mathematical formulae?
 ---

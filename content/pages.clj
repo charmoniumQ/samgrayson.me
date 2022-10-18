@@ -40,13 +40,15 @@
                  ;; {:url "/cv.html" :text "CV"}
                  {:url "/essays" :text "Essays"}]})
 
+(defn post-url [post] (str "/essays/" (:slug post)))
+
+(selmer.filters/add-filter! :post-url post-url)
+
 (selmer.filters/add-filter!
  :human-readable-date
  #(let [sdf (new java.text.SimpleDateFormat "yyyy LLLL d")]
     (.setTimeZone sdf (java.util.TimeZone/getTimeZone "GMT"))
-    (.format
-     sdf
-     %)))
+    (.format sdf %)))
 
 (selmer.filters/add-filter!
  :get-year
@@ -77,7 +79,14 @@
 
 (selmer.util/set-missing-value-formatter!
  (fn [tag context-map]
-   (throw (Exception. (str tag " does not exist in " (subs (str context-map) 0 200))))))
+   (throw
+    (Exception.
+     (str tag " does not exist in "
+          (let [context-str (str context-map)
+                limit 200]
+            (if (> (count context-str) limit)
+              (subs context-str 0 200)
+              context-str)))))))
 
 (defn compress-html [x] x)
                                         ; TODO[2]: use  clj-html-compressor.core/compress
@@ -181,10 +190,10 @@
                   (slurp "content/templates/page.html.jinja")
                   (merge
                    front-page
-                   {:content (selmer.parser/render (:content front-page) {})})))
+                   {:content (selmer.parser/render (:content front-page) {})})))}
 
   ;; "/CNAME" (:cname site)
-  }
+  
 
  (apply
   hash-map
@@ -225,13 +234,28 @@
                                blog-posts)
                        :path path))}))})
 
+ (apply
+  merge
+  (map
+   (fn [post]
+     (apply
+      merge
+      (map
+       (fn [other-route]
+         {other-route
+          (selmer.parser/render
+           (slurp "content/templates/redirect.html.jinja")
+           {:url (post-url post)})})
+       (:other_routes post))))
+   blog-posts))
+
                                         ; blog posts
  (apply
   merge
   (map
    (fn [post]
      (let [post (check-post (merge post-defaults post))
-           path (str "/essays/" (:slug post) "/index.html")
+           path (str (post-url post) "/index.html")
            page-content (compress-html
                          (selmer.parser/render
                           (slurp "content/templates/page.html.jinja")

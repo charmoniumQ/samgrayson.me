@@ -12,7 +12,7 @@ teaser: >
   This article is written from a programmer's perspective, where a monad is a <i>software engineering pattern</i>. It's just another tool for your box.
 date-published: 2019-08-06
 other_routes:
-  - 2019-08-06-monads-as-a-programming-pattern/index.html
+  - /2019-08-06-monads-as-a-programming-pattern/index.html
 ---
 
 ## Overview

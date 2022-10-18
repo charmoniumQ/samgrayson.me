@@ -9,7 +9,7 @@ image:
     text: Fair use
 date-published: 2017-05-20
 other_routes:
-  - 2017-05-20-creative-thinking-in-math-class/index.html
+  - /2017-05-20-creative-thinking-in-math-class/index.html
 teaser: >
   Most students will say math class is stupid and boring. As a math person myself, I have to say: they're right!
 ---
