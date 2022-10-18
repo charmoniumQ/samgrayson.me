@@ -219,3 +219,10 @@ Implementation:
 
 - page/ vs page.html
   - https://webmasters.stackexchange.com/questions/89998/best-seo-practice-for-static-pages-having-index-html-or-not
+
+# Multilingual
+- https://translatepress.com/hreflang-wordpress/
+- https://translatepress.com/multilingual-sitemap-wordpress-site/
+- Translated URL structure and slugs en/essays/thing -> eo/skribaro/objekto
+- Selector
+- 
