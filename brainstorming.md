@@ -143,7 +143,7 @@ Implementation:
   - Content Bio, CV, research interest, adviser, hire me, publications, blog highlights, projects, contact me, linktree
   - https://indieweb.org/rel-me
   - https://indieweb.org/homepage
-- TODO[1]: Redirections to old blog links
+- Done: Redirections to old blog links
 - TODO[2]: Sitemap: https://developers.google.com/search/docs/advanced/sitemaps/build-sitemap
 - TODO[2]: RSS and Atom feeds: https://developers.google.com/search/docs/advanced/sitemaps/build-sitemap
 
@@ -178,6 +178,8 @@ Implementation:
   - https://www.techulator.com/resources/19112-json-ld-or-microdata-which-schema-format-is-better-for-ranking
   - What about microformats2?
   - https://mincong.io/2018/08/22/create-json-ld-structured-data-in-jekyll/
+  - https://schema.org/docs/faq.html
+  - https://schema.org/docs/gs.html
   
 ## Tests
 
@@ -208,6 +210,7 @@ Implementation:
 - TODO[3]: Asset bundling
 - TODO[3]: GZIP compression
 - TODO[3]: Minify HTML, CSS, and JS
+  - http://perfectionkills.com/html-minifier-revisited/
 - TODO[3]: Strip EXIF data from images
 - TODO[3]: Server-side rendered code
 - TODO[3]: Watchman + Simple HTTP server + trigger refresh
