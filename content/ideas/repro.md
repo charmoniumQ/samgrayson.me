@@ -6,3 +6,6 @@ The ACM has chosen to do *neither*: making some revisions to the semantic core o
 [2]: https://web.archive.org/web/20171026222105/https://www.acm.org/publications/policies/artifact-review-badging
 [3]: https://web.archive.org/web/20220901055138/https://www.acm.org/publications/policies/artifact-review-badging
 [4]: https://www.acm.org/publications/policies/artifact-review-and-badging-current
+[4]: https://www.acm.org/publications/policies/artifact-review-and-badging-current
+
+https://languagelog.ldc.upenn.edu/nll/?p=21956
