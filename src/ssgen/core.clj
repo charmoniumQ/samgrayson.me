@@ -14,5 +14,9 @@
                                         ; Ugly hack to work around https://github.com/magnars/stasis/issues/23
     (println "/CNAME")
     (spit (clojure.java.io/file target-dir "CNAME") "samgrayson.me")
+    (println "/.well-known/matrix/server")
+    (.mkdir (clojure.java.io/file target-dir ".well-known"))
+    (.mkdir (clojure.java.io/file target-dir ".well-known/matrix"))
+    (spit (clojure.java.io/file target-dir ".well-known/matrix/server") "{\"m.server\": \"matrix.samgrayson.me:443\"}")
 
     (println "Donezo")))
