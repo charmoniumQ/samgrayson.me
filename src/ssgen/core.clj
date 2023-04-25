@@ -19,4 +19,8 @@
     (.mkdir (clojure.java.io/file target-dir ".well-known/matrix"))
     (spit (clojure.java.io/file target-dir ".well-known/matrix/server") "{\"m.server\": \"matrix.samgrayson.me:443\"}")
 
+                                        ; Bump index.html to trigger update
+                                        ; https://stackoverflow.com/questions/20422279/github-pages-are-not-updating
+    (spit (clojure.java.io/file target-dir "index.html") (apply str ["<!--" (rand-int 1000) "-->"]) :append true)
+
     (println "Donezo")))
