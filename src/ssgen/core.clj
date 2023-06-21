@@ -31,7 +31,7 @@
     (spit (clojure.java.io/file target-dir ".well-known/matrix/server") "{\"m.server\":\"matrix.samgrayson.me:443\"}")
 
     (println "/.well-known/matrix/client")
-    (spit (clojure.java.io/file target-dir ".well-known/matrix/client") "{\"m.homeserver\":{\"base_url\":\"https://samgrayson.me\"},\"m.identity_server\":{\"base_url\": \"https://vector.im\"}}")
+    (spit (clojure.java.io/file target-dir ".well-known/matrix/client") "{\"m.homeserver\":{\"base_url\":\"https://matrix.samgrayson.me\"},\"m.identity_server\":{\"base_url\": \"https://vector.im\"}}")
 
                                         ; Bump index.html to trigger update
                                         ; https://stackoverflow.com/questions/20422279/github-pages-are-not-updating
