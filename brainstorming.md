@@ -188,6 +188,9 @@ Implementation:
 - https://developers.google.com/search/docs/advanced/structured-data
 - https://www.google.com/webmasters/markup-helper/u/0/
 - https://microformats.org/wiki/validators
+- https://github.com/gjtorikian/html-proofer
+- https://github.com/svenkreiss/html5validator
+- https://github.com/validator/validator
 
 ## Themes for inspiration
 
