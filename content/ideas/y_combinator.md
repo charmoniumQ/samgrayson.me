@@ -66,7 +66,7 @@ Notice that `f-of-2-3` takes a function as its argument and applies it to (2, 3)
 (f-of-2-3 norm) ;> 13
 ```
 
-In situations like this, it may be useful to define a function without having to explicitly name it. This is what `lambda`s are used for. First you say the names of the arguments, and then you write an expression in terms of those. This is consistent with the rules of lambda-calculus.
+Note that `norm` is kind of verbose; it may be useful to define a function without having to explicitly name it. This is what `lambda`s are used for. First you say the names of the arguments, and then you write an expression in terms of those. This is consistent with the rules of lambda-calculus.
 
 ```scheme
 (f-of-2-3
@@ -128,6 +128,8 @@ It turns out a lot of things have the form:
 
 > Let f(x) = blah. Then f(f(f(...f(x)...))) approaches some thing.
 
+That "thing" is called "the [fixed-point](https://en.wikipedia.org/wiki/Fixed_point_(mathematics)) of f"
+
 So I am going to write a function that will repeatedly apply a function a base-case, n-times `(repeat n base f)`. See if you can write this function, following the pattern of `φ-approx`.
 
 ```scheme
@@ -155,7 +157,7 @@ Now I'm going to test it with the Golden-Ratio approximation
 
 Can you compute the Fibonacci series using repeat?
 
-Hint: You can say `(list 4 5)` and `(first (list 4 5)) => 4` but `(second (list 4 5)) => 5`. The fixed point should be a pair.
+Hint: You can say `(list 4 5)` and `(first (list 4 5)) => 4` but `(second (list 4 5)) => 5`. The return value of `f` should be a pair, and we will repeat `f` `n` times.
 
 Answer:
 
@@ -178,7 +180,7 @@ Answer:
 
 How about factorial? Use a pair as the fixed point again.
 
-Hint: the fixed-point should be $(m, n!/m!)$ and $m$ should decrease by one every function-call. When $m$ gets to 1, you would have $(1, n!)$
+Hint: the return value should be $(m, n!/m!)$ and $m$ should decrease by one every function-call. When $m$ gets to 1, you would have $(1, n!)$
 
 Answer:
 
@@ -281,26 +283,27 @@ It works, except:
 
 That is because I repeated recur-f 10 times. So eventually base-f was used as f in the expression `(f (sub1 n))`.
 
-What if there was a version of repeat that repeated `f` as many times as were necessary for the computation? It would keep doing `(f (f (f ...)))` until the function's expression does not call f.
+What if there was a version of repeat that repeated `f` as many times as were necessary to evaluate the computation? It would keep doing `(f (f (f ...)))` until the function's expression does not call `f` (i.e., recurses until the computation halts). That is, it would compute the "fixed-point" of `f`.
 
-Note that when `n` = 3, it depends on `(f 2)` and that depends on `(f 1)` and that depends on `(f 0)`, but *that* does not call `f`.
-
-I was not the first person to think of this. Haskell Curry was. He called it the [Y-combinator](https://en.wikipedia.org/wiki/Fixed-point_combinator).
+This is called it the [Y-combinator](https://en.wikipedia.org/wiki/Fixed-point_combinator) by the mathematician [Haskell Curry](https://en.wikipedia.org/wiki/Haskell_Curry), often named `fix`.
 
 ```scheme
-(define Y
-  ((λ (f)
-     (f f))
-   (λ (z)
-     (λ (f)
-       (f (λ (x) (((z z) f) x)))))))
+(define fix
+  (lambda (f)
+    (f (lambda (x) ((fix f) x)))))
 ```
 
-I must admit, don't fully understand the definition of it (which I got from Wikipedia); but I understand how to use it.
+`(fix f)` evaluates to `(f (lambda (x) ((fix f) x)))`. From there, we have two cases: `f` uses its argument or it doesn't.
+
+- If `f` uses its argument, its argument expands to `(lambda (x) ((fix f) x))`. This is how `(fix f)` calls itself.
+
+- If `f` does not depend on its argument, (e.g., `(define f (lambda (unused-variable) constant))`), `(f foo)` need not evaluate `foo`. `f` simply returns `constant`. This breaks the otherwise infinite recursion.
+
+Let's use this in our example:
 
 ```scheme
 (define factorial5
-  (Y
+  (fix
    ; This part is exactly the same as recur-f
    (λ (f)
      (λ (n)
@@ -308,10 +311,10 @@ I must admit, don't fully understand the definition of it (which I got from Wiki
            1
            (* n (f (sub1 n))))))))
 
-(factorial5 6)
+(factorial5 6) ;> 120
 ```
 
-`factorial5` is exactly like `factorial4`, but it is only bounded by the limitations of your hardware. It needs no base-f because Y keeps doing `recur-f` until the computation does not recurse. So it would ever reach the `base-f` (like an unbounded version of `factorial4`).
+`factorial5` is exactly like `factorial4`, but it is only bounded by the limitations of your hardware. It needs no base-f because `fix` keeps doing `recur-f` until the computation does not recurse. So it would ever reach the `base-f` (like an unbounded version of `factorial4`).
 
 # Implications
 
@@ -335,6 +338,158 @@ different—too complicated to be represented in lambda-calculus. If you think a
 But the Y-combinator allows us to do recursion, functions that call themselves, without having to refer to the name of the function in its definition. **It gives us recursion without names**; Other theorems show that lambda-calculus is Turing-complete, as a result of the Y-combinator.
 
 If you are writing a new programming language like lisp, the interpreter just needs to know how to evaluate lambda-expressions and the rest of it (if's and define's and for's) can be library-functions.
+
+## Nash Equilibria
+
+Suppose we are playing a 2-player game, where each player decides a strategy and always adheres to it.
+
+Let `(f a b)` be a function that returns the pair containing player 1's optimal strategy assuming player 2 is using strategy `b`, and player 2's optimal strategy assuming player 1 is using strategy `a`.
+
+Note: "`a` is a strategy" may be too abstract to understand. In some games, there is only 1 valid strategy, but it takes some real-valued parameter or parameters. To make it less abstract, think of `a` as player 1's chosen parameter. If player 2 knows player 1 chooses `a`, what should their paramter be?
+
+The fixed-point of `f`, starting from some _a priori_ values is `((fix f) a-initial b-initial)`, and it is called a [Nash Equilibrium](https://en.wikipedia.org/wiki/Nash_equilibria). [John Nash](https://en.wikipedia.org/wiki/John_Forbes_Nash_Jr.) was awarded the 1994 Nobel Prize in Economics for his work showing that all games that meet some bare-bones criteria have a Nash Equilibrium. That is certainly not what I would have expected (details on [Wikipedia](https://en.wikipedia.org/wiki/Nash_equilibrium?oldformat=true#Existence)).
+
+> The concept [of Nash Equilbria] has been used to analyze hostile situations such as wars and arms races (see prisoner's dilemma), and also how conflict may be mitigated by repeated interaction (see tit-for-tat). It has also been used to study to what extent people with different preferences can cooperate (see battle of the sexes), and whether they will take risks to achieve a cooperative outcome (see stag hunt). It has been used to study the adoption of technical standards, and also the occurrence of bank runs and currency crises (see coordination game). Other applications include traffic flow (see Wardrop's principle), how to organize auctions (see auction theory), the outcome of efforts exerted by multiple parties in the education process, regulatory legislation such as environmental regulations (see tragedy of the commons), natural resource management, analysing strategies in marketing, even penalty kicks in football (see matching pennies), energy systems, transportation systems, evacuation problems and wireless communications.
+
+-- [Wikipedia on Nash Equilbirium](https://en.wikipedia.org/wiki/Nash_equilibrium)
+
+## In Nix
+
+Nix is a lazy functional programming language that is specialized for configuration management (that's the really short version). Nix uses fixed-point to enable action-at-a-distance, which is essential to its usefulness as a configuration management tool.
+
+Before proceeding, I must briefly explain the parts of Nix syntax I will use (a guided tutorial on the rest of the syntax can be found [here](https://learnxinyminutes.com/docs/nix/)):
+
+Nix uses `#` for line-comments and `/* ... */` for block comments, like an unholy mashup of Python and C. I will use `#>` for "evaluates to".
+Lambda functions are denoted with a colon. Function calls are denoted a space, with parentheses for grouping.
+```nix
+double = x: x*2
+double (double 3) #> 3*2*2 = 12
+```
+
+There isn't really a way to write a lambda function that takes multiple arguments; instead we just write a function that returns a function:
+
+```nix
+add3 = a: b: c: a + b + c
+(add3 4) #> <<function looking for input>>
+((add3 4) 5) #> <<function looking for input>>
+(((add3 4) 5) 6) #> 10
+add3 4 5 6 #> 10
+```
+
+Nix has syntax for associative arrays whose keys are strings:
+
+```nix
+my-array = {a = 2; b = 4;}
+my-array.a #> 2
+
+your-array = my-array // {c = 5; a = 4;}
+/* double-slash "merges" the arrays */
+your-array.c #> 5
+
+/* note that the right-hand side of // "wins" in name conflicts */
+your-array.a #> 4
+```
+
+Finally, we have let-statements.
+
+```nix
+(let
+  a = 4;
+  b = 5;
+in a + b) #> 9
+```
+
+[Nix's standard library defines the Y-combinator](https://github.com/NixOS/nixpkgs/blob/f3a93440fbfff8a74350f4791332a19282cc6dc8/lib/fixed-points.nix#L75), calling it `fix`
+
+```nix
+fix = f: let x = f x; in x;
+```
+
+Suppose we have
+
+```nix
+f = self: { a = 7; b = self.a + 2; }
+/* `self` is a good variable name for the thing we are doing */
+
+(fix f).b #> 9
+```
+
+Then, `fix f` evaluates to `(f (f (f (f ...))))`, but in this case 3 levels are enough, since `(f (f f))` evaluates to `{ a = 7; b = 9; }` and this does not depend on `f`.
+
+This example stolen from [Nix discourse](https://discourse.nixos.org/t/how-is-fixed-point-used-for-overriding-nixpkgs-packages/35476/4), where it is discussed more thoroughly.
+
+One usecase is customizing the Nixpkgs. Nixpkgs is a huge associative array, where each element maps a package name to the recipe one would use to build it, called a *derivation*. Users may want to customize Nixpkgs by replacing or modifying some package.
+
+You could naïvely replace individual packages: if you wanted to replace Firefox: `nixpkgs // { gcc = my-customized-gcc; }`. This strategy is not composable. Suppose one sysadmin modifies gcc (perhaps tuning it to your CPU family), one would have to replace *every* package that uses gcc in its compile stage. In systems software, we often deal with core inftrastructure packages like gcc or Python, where we can't enumerate (open world assumption) or don't want to enumerate (closed world, but too dang many!) every downstream package (e.g., changing glibc → Musl or Python → PyPy).
+
+The solution, is of course, use the Y-combinator!
+
+Let's suppose our default initial package set was a function from `fixed-point` to an associative array of package names to derivations:
+
+```nix
+initial-pkg-set = fixed-point: {
+  gcc = stock-gcc;
+
+  /* many apps use gcc in its compilation. */
+  bash = some-compile-function fixed-point.gcc;
+  htop = some-other-compile-function fixed-point.gcc;
+};
+```
+
+That would be in stock Nixpkgs, which is not possible for our sysadmin to change in this example. Instead, our sysadmin would write an _overlay_. An overlay is a function of two arguments, which expects that its first argument is equal to its fixed-point, and its second argument is the initial value of Nixpkgs. Both arguments should be associative mappings of package names to derivation. For example:
+
+```nix
+gcc-overlay = fixed-point: initial-value: { gcc = my-customized-gcc }
+```
+
+Nixpkgs standard library also defines a helper function called [`extends`](https://github.com/NixOS/nixpkgs/blob/f3a93440fbfff8a74350f4791332a19282cc6dc8/lib/fixed-points.nix#L241C1-L254C7):
+
+```nix
+
+/*
+  Arg `overlay` should be a function of 2 args, like the overlays we discussed above.
+  Arg `f` should a function from the fixed-point to the "initial state".
+  Arg `fixed-point` should be the fixed-point.
+  We should just supply the first two arguments, and then send the result to `fix`, which will set and return the third argument.
+*/
+extends = overlay: f: fixed-point:
+  let
+    prev = f fixed-point;
+  in
+  prev // overlay fixed-point prev
+;
+```
+
+And now, we can compose the package set with our overlay:
+
+```nix
+fix (extends gcc-overlay initial-package-set);
+```
+
+There's also a [compose for overlays in Nix's stdlib](https://github.com/NixOS/nixpkgs/blob/f3a93440fbfff8a74350f4791332a19282cc6dc8/lib/fixed-points.nix#L261C1-L265C36):
+
+```
+/* Just give two arguments (two overlays), and send the result to `extends`.
+  The result is basically a single overlay that has the effect of doing both overlays, in order.
+*/
+composeExtensions =
+  overlay1: overlay2: fixed-point: initial-value:
+    let overlay1-applied = overlay1 fixed-point initial-value;
+        after-overlay1 = initial-value // overlay1-applied;
+    in overlay1-applied // overlay2 fixed-point after-overlay1;
+```
+
+When composing overlays, it is far more common to see the two arguments to the overlay called `final` and `prev`. `prev` is the result of all applying prior overlays, while `final` is the result of all overlays (including the current).
+
+Overlays seem to defy a linear sense of time. There is a cycle in the dataflow graph, where the output to a function is also its input. It is as if we know what the output of the function is while we are computing the output of the function. But we are really just iterating the function over and over again until the we arrive at a fixed-point (if we ever do), at which point, the output equals the input.
+
+![Dataflow graph of overlays](https://nixos.wiki/images/5/5f/Dram-overlay-final-prev.png)
+
+Nix does all the fancy Y-combinator stuff behind the scenes. All a user does is supply a list of overlays in the order they want them applied.
+
+In [the Nixpkgs manual](https://ryantm.github.io/nixpkgs/using/overlays/), the authors give the example of setting the default BLAS/LAPACK provider. The initial package set assigns a default value for `blas`; packages in the initial package set call `fixed-point.blas`; a sysadmin can write an overlay that redefines `blas`; Finally, NixOS will apply the overlay, and the right `blas` is provided.
+
+For more details, see [this blog](https://blog.layus.be/posts/2020-06-12-nix-overlays.html).
 
 ## Gödel
 
