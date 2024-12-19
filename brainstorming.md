@@ -1,3 +1,24 @@
+# The reboot
+
+I just want a convenient language for writing documents in a tree structure with computed elements.
+
+XML, JSON, YAML are great for writing trees, but they don't have a way of expressing computations.
+
+Lisp is great for expressing trees and computations in the same language. It is less convenient for writing the literal stringy part (have to put entire document in strings in lisp?)
+
+Pollen is the best of both. It lets you express literal strings and computations in the same language elegantly. However, I've struggled to program Racket due to the lack of dataclasses, type checking, and annoyance when working with functions that return multiple `values`. OOP isn't used much, and calling subprocesses is kind of annoying as a result.
+
+All of these things are great (dataclasses, multiple return values) or good enough (type-checking) in Python. Maybe I need Pollen in Python.
+
+https://beautifulracket.com/#tutorials
+https://docs.racket-lang.org/peg/
+https://docs.racket-lang.org/parser-tools/
+https://docs.racket-lang.org/guide/hash-reader.html
+
+https://beautifulracket.com/explainer/data-structures.html
+https://docs.racket-lang.org/reference/define-struct.html
+https://docs.racket-lang.org/reference/createclass.html
+
 # Motivation
 
 I'm making a static site generator (SSG) for myself for fun.
@@ -183,6 +204,8 @@ Implementation:
   
 ## Tests
 
+- https://www.webpagetest.org/result/240318_AiDcA8_HZF/
+- https://pagespeed.web.dev/analysis/https-samgrayson-me/qg86tys216?form_factor=desktop
 - https://developer.chrome.com/docs/lighthouse/overview/
 - http://rdfa.info/tools
 - https://developers.google.com/search/docs/advanced/structured-data
@@ -194,6 +217,7 @@ Implementation:
 
 ## Themes for inspiration
 
+- http://bettermotherfuckingwebsite.com/
 - https://practicaltypography.com/why-you-should-pay.html
 - https://beautifulracket.com/bf/intro.html
 - http://proselint.com/
@@ -209,6 +233,7 @@ Implementation:
 
 ## Other considerations
 
+- TODO[2]: Analytics
 - TODO[2]: skip to main content
 - TODO[3]: Asset bundling
 - TODO[3]: GZIP compression

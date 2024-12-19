@@ -147,7 +147,7 @@ Now I'm going to test it with the Golden-Ratio approximation
 ```scheme
 (define (φ-approx2 n)
   (define (f x) (+ 1 (/ 1 x)))
-  (repeat n 1 f)))
+  (repeat n 1 f))
 
 (exact->inexact (φ-approx2 20))
 ;> 1.618033985017358
@@ -214,7 +214,7 @@ But notice it also follows this pattern:
 (define (factorial3 n)
   (if (zero? n)
       1
-      (* n (let ([n (sub1 n)]) ; do n times factorial of n-1
+      (* n (let ([n (sub1 n)])) ; do n times factorial of n-1
         ; copy-paste definition of factorial3 here.
         (if (zero? n)
             1
@@ -222,7 +222,7 @@ But notice it also follows this pattern:
                    ; copy-paste definition of factorial3 here.
                    (if (zero? n)
                        1
-                       (error "ran out of room.")))))))))
+                       (error "ran out of room."))))))))
 
 (factorial3 0) ;> 1
 (factorial3 1) ;> 1
@@ -242,10 +242,10 @@ I could write a function that:
 
 ```scheme
 (λ (f)
-  (λ (n)
+  (λ (n
       (if (zero? n)
           1
-          (* n (f (sub1 n))))
+          (* n (f (sub1 n)))))))
 ```
 
 Let's call that `recur-f`. Notice that `recur-f` *works on `recur-f`*.
@@ -511,6 +511,6 @@ Gödel says that if the deductive-system is complete, it is contradictory.
 
 # Epilogue
 
-I hope that sparks your interest in theoretical computer science and programming in Lisp :)
+I hope that sparks your interest in theoretical computer science and programming in Lisp :
 
 Let me know if you have any questions or suggestions to make it easier to read.

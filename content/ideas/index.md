@@ -1,13 +1,27 @@
 # To write
 
+- Ivy Leaguer
+- Are flat earthers better critical thinkers?
+- The Sand Reckoner
 - Update shell
   - https://julialang.org/blog/2012/03/shelling-out-sucks/
-- My inferiority complex
-- Why Esperanto
+- Why Esperanto (also see Lojban vs Esperanto)
 - Open academia
+- Esperanto gender reforms
+  - Reinterpret unsuffixed nouns as gender-neutral (kin terms, boy, man, titles, animals, and professions)
+  - Masculine suffix: iĉo/uno
+  - Epicine affix: singular ge
+  - Epicine pronoun: tiu, oni, si, ŝli, ri
 - ILLIXR
 - Update 14th with Dobbs v Jackson
 - Scope timers
+- Ideologies vs economics in politics
+  - Minimum wage
+  - Green New Deal
+  - https://en.wikipedia.org/wiki/Unintended_consequences
+  - Ethics of responsibility
+  - https://en.wikipedia.org/wiki/Knightian_uncertainty
+  - https://en.wikipedia.org/wiki/Evidence-based_policy
 - The perfect tax
 - The science of personality tests
 - What Christmas carols mean to me
@@ -45,6 +59,7 @@
 
 # Half-baked
 
+- Units
 - Virtualization
 - Determinism
 - Advice

@@ -9,8 +9,8 @@
         target-dir "docs/"
         date-str (let [sdf (new java.text.SimpleDateFormat "yyyy-MM-dd'T'HH:mm:ss.SSSXXX")]
                     (.setTimeZone sdf (java.util.TimeZone/getTimeZone "GMT"))
-                    (.format sdf (new java.util.Date)))
-        ]
+                    (.format sdf (new java.util.Date)))]
+        
     (doseq [[uri pageish] pages] (println uri))
     (stasis.core/empty-directory! target-dir)
     (stasis.core/export-pages pages target-dir)
@@ -28,10 +28,14 @@
     (println "/.well-known/matrix/server")
     (.mkdir (clojure.java.io/file target-dir ".well-known"))
     (.mkdir (clojure.java.io/file target-dir ".well-known/matrix"))
-    (spit (clojure.java.io/file target-dir ".well-known/matrix/server") "{\"m.server\":\"matrix.samgrayson.me:443\"}")
+    (spit
+     (clojure.java.io/file target-dir ".well-known/matrix/server")
+     "{\"m.server\":\"matrix.samgrayson.me:443\"}")
 
     (println "/.well-known/matrix/client")
-    (spit (clojure.java.io/file target-dir ".well-known/matrix/client") "{\"m.homeserver\":{\"base_url\":\"https://matrix.samgrayson.me\"},\"m.identity_server\":{\"base_url\": \"https://vector.im\"}}")
+    (spit
+     (clojure.java.io/file target-dir ".well-known/matrix/client")
+     "{\"m.homeserver\":{\"base_url\":\"https://matrix.samgrayson.me\"},\"m.identity_server\":{\"base_url\": \"https://vector.im\"}}")
 
                                         ; Bump index.html to trigger update
                                         ; https://stackoverflow.com/questions/20422279/github-pages-are-not-updating
